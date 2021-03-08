@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -13,38 +14,40 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Room room_PB;
 
     private Dictionary<Vector3, RoomPlaceHolder> placeHolderPositionDictionary = new Dictionary<Vector3, RoomPlaceHolder>();
-    private Dictionary<Vector3,Room> roomsPositionDictionary = new Dictionary<Vector3, Room>();
-    
+    private Dictionary<Vector3, Room> roomsPositionDictionary = new Dictionary<Vector3, Room>();
+
     private Queue<RoomPlaceHolder> acceptedPlaceholdersQueue = new Queue<RoomPlaceHolder>();
 
     private float height = 10;
     private float width = 10;
 
     private void Awake() => Instance = this;
-    
-    public void MakeLevel()
+
+    public List<Room> MakeLevel()
     {
         SetFirstRoom();
         GenerateLevel();
+
+        List<Room> rooms = roomsPositionDictionary.Values.ToList();
+        return rooms;
     }
 
     public void SetFirstRoom()
     {
-        Room room = CreateRoomAtPosition(startPoint.position);
-        
-        room.SetStartDoor(RoomType.TopDoor);
-        room.SetStartDoor(RoomType.BottomDoor);
-        room.SetStartDoor(RoomType.LeftDoor);
-        room.SetStartDoor(RoomType.RightDoor);
+        Room room = Instantiate(room_PB);
+        room.transform.position = startPoint.position;
+        room.Activate();
 
-        List<RoomPlaceHolder> roomPlaceHolders = room.GenerateDoors();
+        room.SetStartAcceptedType(RoomType.TopDoor);
+        room.SetStartAcceptedType(RoomType.BottomDoor);
+        room.SetStartAcceptedType(RoomType.LeftDoor);
+        room.SetStartAcceptedType(RoomType.RightDoor);
 
-        foreach (RoomPlaceHolder roomPlaceHolder in roomPlaceHolders)
-        {
-            AcceptPlaceholder(roomPlaceHolder);
-        }
+        room.GenerateDoors();
 
         roomsPositionDictionary.Add(startPoint.position, room);
+
+        AcceptPlaceholders(room.GeneratePlaceholders());
     }
 
     private void GenerateLevel()
@@ -52,27 +55,32 @@ public class LevelGenerator : MonoBehaviour
         if (acceptedPlaceholdersQueue.Count > 0 && roomsPositionDictionary.Count < maxRooms)
         {
             RoomPlaceHolder roomPlaceHolder = acceptedPlaceholdersQueue.Dequeue();
-
-            Room room = CreateRoomAtPosition(roomPlaceHolder.position);
-
-            room.SetStartDoor(ReverseType(roomPlaceHolder.roomType));
-            roomsPositionDictionary.Add(room.transform.position, room);
-            List<RoomPlaceHolder> roomPlaceHolders = room.GenerateDoors();
-            SetRelativeRoomsFor(room);
-
-            foreach (RoomPlaceHolder placeHolder in roomPlaceHolders)
-            {
-                AcceptPlaceholder(placeHolder);
-            }
+            Room room = CreateRoom(roomPlaceHolder.position);
+            AcceptPlaceholders(room.GeneratePlaceholders());
 
             GenerateLevel();
         }
-        else
+    }
+
+    private Room CreateRoom(Vector3 position)
+    {
+        Room room = Instantiate(room_PB);
+        room.transform.position = position;
+        room.Activate();
+
+        SetRelativeRoomsFor(room);
+
+        room.GenerateDoors();
+
+        roomsPositionDictionary.Add(position, room);
+        return room;
+    }
+
+    private void AcceptPlaceholders(List<RoomPlaceHolder> roomPlaceHolders)
+    {
+        foreach (RoomPlaceHolder placeHolder in roomPlaceHolders)
         {
-            foreach(Room room in roomsPositionDictionary.Values)
-            {
-                room.CheckForFullness();
-            }
+            AcceptPlaceholder(placeHolder);
         }
     }
 
@@ -86,6 +94,7 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+
     private void SetRelativeRoomsFor(Room room)
     {
         Vector3 topRelativeRoomPos = room.transform.position + new Vector3(height, 0, 0);
@@ -96,65 +105,30 @@ public class LevelGenerator : MonoBehaviour
         if (roomsPositionDictionary.ContainsKey(topRelativeRoomPos))
         {
             Room topRelativeRoom = roomsPositionDictionary[topRelativeRoomPos];
-            room.SetRelativeRoom(topRelativeRoom, RoomType.TopDoor);
-            topRelativeRoom.SetRelativeRoom(room, RoomType.BottomDoor);
+
+            room.SetRelativeForNewRoom(topRelativeRoom, RoomType.TopDoor);
+            topRelativeRoom.SetRelativeForOldRoom(room, RoomType.BottomDoor);
         }
         if (roomsPositionDictionary.ContainsKey(bottomRelativeRoomPos))
         {
             Room bottomRelativeRoom = roomsPositionDictionary[bottomRelativeRoomPos];
-            room.SetRelativeRoom(bottomRelativeRoom, RoomType.BottomDoor);
-            bottomRelativeRoom.SetRelativeRoom(room, RoomType.TopDoor);
+
+            room.SetRelativeForNewRoom(bottomRelativeRoom, RoomType.BottomDoor);
+            bottomRelativeRoom.SetRelativeForOldRoom(room, RoomType.TopDoor);
         }
         if (roomsPositionDictionary.ContainsKey(leftRelativeRoomPos))
         {
             Room leftRelativeRoom = roomsPositionDictionary[leftRelativeRoomPos];
-            room.SetRelativeRoom(leftRelativeRoom, RoomType.LeftDoor);
-            leftRelativeRoom.SetRelativeRoom(room, RoomType.RightDoor);
+
+            room.SetRelativeForNewRoom(leftRelativeRoom, RoomType.LeftDoor);
+            leftRelativeRoom.SetRelativeForOldRoom(room, RoomType.RightDoor);
         }
         if (roomsPositionDictionary.ContainsKey(rightRelativeRoomPos))
         {
             Room rightRelativeRoom = roomsPositionDictionary[rightRelativeRoomPos];
-            room.SetRelativeRoom(rightRelativeRoom, RoomType.RightDoor);
-            rightRelativeRoom.SetRelativeRoom(room, RoomType.LeftDoor);
+
+            room.SetRelativeForNewRoom(rightRelativeRoom, RoomType.RightDoor);
+            rightRelativeRoom.SetRelativeForOldRoom(room, RoomType.LeftDoor);
         }
-
-        //if (roomsPositionDictionary[bottomRelativeRoom])
-        //    room.SetRelativeRoom(roomsPositionDictionary[bottomRelativeRoom], RoomType.BottomDoor);
-        //if (roomsPositionDictionary[leftRelativeRoom])
-        //    room.SetRelativeRoom(roomsPositionDictionary[leftRelativeRoom], RoomType.LeftDoor);
-        //if (roomsPositionDictionary[rightRelativeRoom])
-        //    room.SetRelativeRoom(roomsPositionDictionary[rightRelativeRoom], RoomType.RightDoor);
-    }
-
-
-    private RoomType ReverseType(RoomType inputRoomType)
-    {
-        RoomType outputRoomType = RoomType.TopDoor;
-
-        switch (inputRoomType)
-        {
-            case RoomType.TopDoor:
-                outputRoomType = RoomType.BottomDoor;
-                break;
-            case RoomType.BottomDoor:
-                outputRoomType = RoomType.TopDoor;
-                break;
-            case RoomType.LeftDoor:
-                outputRoomType = RoomType.RightDoor;
-                break;
-            case RoomType.RightDoor:
-                outputRoomType = RoomType.LeftDoor;
-                break;
-        }
-
-        return outputRoomType;
-    }
-
-    private Room CreateRoomAtPosition(Vector3 position)
-    {
-        Room room = Instantiate(room_PB);
-        room.transform.position = position;
-        room.Activate();
-        return room;
     }
 }

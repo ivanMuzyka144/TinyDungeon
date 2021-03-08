@@ -14,8 +14,3 @@ public class RoomLocator : MonoBehaviour
 
 
 }
-
-//public class RoomForSpawn
-//{
-//    public void 
-//}

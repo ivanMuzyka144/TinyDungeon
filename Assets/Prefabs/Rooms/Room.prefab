@@ -952,6 +952,8 @@ GameObject:
   - component: {fileID: 5808335370811649221}
   - component: {fileID: 4427445496083813343}
   - component: {fileID: 5343559233197117672}
+  - component: {fileID: 6895767951934092842}
+  - component: {fileID: 4768422796394909167}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -999,10 +1001,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f377e8d2008a51d46984d59d5f20dac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topSpawner: {fileID: 5063505915915119522}
-  bottomSpawner: {fileID: 273777847709457045}
-  leftSpawner: {fileID: 4836717954779342391}
-  rightSpawner: {fileID: 2089045551488955320}
   topWallOpen: {fileID: 1316548146984526740}
   topWallClosed: {fileID: 2290740393155894851}
   bottomWallOpen: {fileID: 3024381249222459162}
@@ -1023,6 +1021,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758b4daa185c7064c9783138704b5af4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6895767951934092842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828685987598979301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98b532cdbb2f0fb49b0a9562b5c75462, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4768422796394909167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828685987598979301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 698b5b9a4bbb8a44d93cb17f9296a3da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patternStrings:
+  - Top: 0
+    Bottom: 0
+  - Top: 0
+    Bottom: 0
+  - Top: 0
+    Bottom: 0
+  - Top: 0
+    Bottom: 0
+  - Top: 0
+    Bottom: 0
+  - Top: 0
+    Bottom: 0
 --- !u!1 &4847845493094610127
 GameObject:
   m_ObjectHideFlags: 0

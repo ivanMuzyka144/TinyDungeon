@@ -10,64 +10,123 @@ public enum RoomType
 }
 public class Room : MonoBehaviour
 {
-    private List<RoomType> roomTypes = new List<RoomType>();
-    private List<RoomType> connectedTypes = new List<RoomType>();
-
-    private RoomTypeGenerator roomTypeGenerator;
+    private RoomTypesGenerator roomTypesGenerator;
+    private RoomWallsMaker roomWallMaker;
     private RoomLocator roomLocator;
 
     public void Activate()
     {
-        roomTypeGenerator = GetComponent<RoomTypeGenerator>();
+        roomTypesGenerator = GetComponent<RoomTypesGenerator>();
+        roomWallMaker = GetComponent<RoomWallsMaker>();
         roomLocator = GetComponent<RoomLocator>();
-        roomTypeGenerator.Activate();
+        roomWallMaker.Activate();
     }
 
-    public void SetStartDoor(RoomType roomType)=> roomTypes.Add(roomType);
-    
-
-    public List<RoomPlaceHolder> GenerateDoors()
+    #region DoorsPlaceholdersGeneration
+    public void GenerateDoors()
     {
-        roomTypes = roomTypeGenerator.GenerateDoors(roomTypes);
-
-        List<RoomPlaceHolder> roomPlaceHolders = roomTypeGenerator.GetRoomPlaceHolders(this);
-        
-        return roomPlaceHolders;
+        List<RoomType> generatedTypes = roomTypesGenerator.GenerateTypesForRoom();
+        roomWallMaker.GenerateDoors(generatedTypes);
     }
 
-    public void SetRelativeRoom(Room room, RoomType roomType)
+    public List<RoomPlaceHolder> GeneratePlaceholders()
     {
-        if (roomTypes.Contains(roomType))
+        return roomTypesGenerator.GeneratePlaceHolders(this);
+    }
+    #endregion
+
+    #region GetSetStartTypes
+
+    public void SetStartAcceptedType(RoomType roomType) =>
+                            roomTypesGenerator.AddStartAcceptedType(roomType);
+    public void SetStartRefusedType(RoomType roomType) =>
+                            roomTypesGenerator.AddStartRefusedType(roomType);
+
+    public bool HasStartType(RoomType roomType)
+    {
+        return roomTypesGenerator.HasStartType(roomType);
+    }
+
+    public bool HasGeneratedType(RoomType roomType)
+    {
+        return roomTypesGenerator.HasGeneratedType(roomType);
+    }
+
+    #endregion
+
+    #region SetRelativeRoom
+    public void SetRelativeForNewRoom(Room oldRoom, RoomType roomType)
+    {
+        if (oldRoom.HasGeneratedType(ReverseType(roomType)))
         {
-            roomLocator.SetRelatedRoom(room, roomType);
-            connectedTypes.Add(roomType);
+            SetStartAcceptedType(roomType);
+            roomLocator.SetRelatedRoom(oldRoom, roomType);
+            roomTypesGenerator.AddConnectedType(roomType);
+        }
+        else
+        {
+            SetStartRefusedType(roomType);
         }
     }
 
+    public void SetRelativeForOldRoom(Room newRoom, RoomType roomType)
+    {
+        if (newRoom.HasStartType(ReverseType(roomType)))
+        {
+            roomLocator.SetRelatedRoom(newRoom, roomType);
+            roomTypesGenerator.AddConnectedType(roomType);
+        }
+    }
+    #endregion
+
+    #region MakingRoomFull
     public void CheckForFullness()
     {
-        bool isFull = roomTypes.Count == connectedTypes.Count;
-        if (!isFull)
-        {
-            RepairRoom();
-        }
+        //bool isFull = roomTypes.Count == connectedTypes.Count;
+        //if (!isFull)
+        //{
+        //    RepairRoom();
+        //}
     }
 
     private void RepairRoom()
     {
-        List<RoomType> roomTypesForRemove = new List<RoomType>();
-        foreach(RoomType roomType in roomTypes)
+        //List<RoomType> roomTypesForRemove = new List<RoomType>();
+        //foreach(RoomType roomType in roomTypes)
+        //{
+        //    if (!connectedTypes.Contains(roomType))
+        //    {
+        //        roomWallMaker.AddClosedDoor(roomType);
+        //        roomTypesForRemove.Add(roomType);
+        //    }
+        //}
+        //foreach(RoomType roomTypeForDelete in roomTypesForRemove)
+        //{
+        //    roomTypes.Remove(roomTypeForDelete);
+        //}
+    }
+    #endregion
+    private RoomType ReverseType(RoomType inputRoomType)
+    {
+        RoomType outputRoomType = RoomType.TopDoor;
+
+        switch (inputRoomType)
         {
-            if (!connectedTypes.Contains(roomType))
-            {
-                roomTypeGenerator.DestroyDoor(this, roomType);
-                roomTypesForRemove.Add(roomType);
-            }
+            case RoomType.TopDoor:
+                outputRoomType = RoomType.BottomDoor;
+                break;
+            case RoomType.BottomDoor:
+                outputRoomType = RoomType.TopDoor;
+                break;
+            case RoomType.LeftDoor:
+                outputRoomType = RoomType.RightDoor;
+                break;
+            case RoomType.RightDoor:
+                outputRoomType = RoomType.LeftDoor;
+                break;
         }
-        foreach(RoomType roomTypeForDelete in roomTypesForRemove)
-        {
-            roomTypes.Remove(roomTypeForDelete);
-        }
+
+        return outputRoomType;
     }
 
 }
