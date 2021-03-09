@@ -96,35 +96,28 @@ public class Room : MonoBehaviour
     #region MakingRoomFull
     public void CheckForFullness()
     {
-        //bool isFull = roomTypes.Count == connectedTypes.Count;
-        //if (!isFull)
-        //{
-        //    RepairRoom();
-        //}
+        if (!roomTypesGenerator.isFull())
+        {
+            RepairRoom();
+        }
     }
 
     private void RepairRoom()
     {
-        //List<RoomType> roomTypesForRemove = new List<RoomType>();
-        //foreach(RoomType roomType in roomTypes)
-        //{
-        //    if (!connectedTypes.Contains(roomType))
-        //    {
-        //        roomWallMaker.AddClosedDoor(roomType);
-        //        roomTypesForRemove.Add(roomType);
-        //    }
-        //}
-        //foreach(RoomType roomTypeForDelete in roomTypesForRemove)
-        //{
-        //    roomTypes.Remove(roomTypeForDelete);
-        //}
+        List<RoomType> roomTypesForRemove = new List<RoomType>();
+
+        foreach (RoomType roomType in roomTypesGenerator.GetDisconnectedRooms())
+        {
+            roomWallMaker.AddClosedDoor(roomType);
+            roomTypesForRemove.Add(roomType);
+        }
+        foreach (RoomType roomTypeForDelete in roomTypesForRemove)
+        {
+            roomTypesGenerator.RemoveGeneratedType(roomTypeForDelete);
+        }
     }
     #endregion
 
-    public void SetRoomCategory()
-    {
-
-    }
     private RoomType ReverseType(RoomType inputRoomType)
     {
         RoomType outputRoomType = RoomType.TopDoor;

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RoomTypesGenerator : MonoBehaviour
@@ -22,16 +23,6 @@ public class RoomTypesGenerator : MonoBehaviour
 
     public List<RoomType> GenerateTypesForRoom()
     {
-        //bool shouldAddTopType = (Random.value > 0.5f && !startRefusedTypes.Contains(RoomType.TopDoor))
-        //                        || startAcceptedTypes.Contains(RoomType.TopDoor);
-        //bool shouldAddBottomType = (Random.value > 0.5f && !startRefusedTypes.Contains(RoomType.BottomDoor))
-        //                        || startAcceptedTypes.Contains(RoomType.BottomDoor);
-        //bool shouldAddLeftType = (Random.value > 0.5f && !startRefusedTypes.Contains(RoomType.LeftDoor))
-        //                        || startAcceptedTypes.Contains(RoomType.LeftDoor);
-        //bool shouldAddRightType = (Random.value > 0.5f && !startRefusedTypes.Contains(RoomType.RightDoor))
-        //                        || startAcceptedTypes.Contains(RoomType.RightDoor);
-
-
         bool shouldAddTopType = startAcceptedTypes.Contains(RoomType.TopDoor);
         bool shouldAddBottomType =  startAcceptedTypes.Contains(RoomType.BottomDoor);
         bool shouldAddLeftType = startAcceptedTypes.Contains(RoomType.LeftDoor);
@@ -41,14 +32,6 @@ public class RoomTypesGenerator : MonoBehaviour
                                         shouldAddLeftType, shouldAddRightType);
 
         RoomPattern newRoomPattern = patternHolder.GetRandomPatternFor(roomPattern);
-        //if (shouldAddTopType)
-        //    generatedTypes.Add(RoomType.TopDoor);
-        //if (shouldAddBottomType)
-        //    generatedTypes.Add(RoomType.BottomDoor);
-        //if (shouldAddLeftType)
-        //    generatedTypes.Add(RoomType.LeftDoor);
-        //if (shouldAddRightType)
-        //    generatedTypes.Add(RoomType.RightDoor);
 
         if (newRoomPattern.top)
             generatedTypes.Add(RoomType.TopDoor);
@@ -90,8 +73,16 @@ public class RoomTypesGenerator : MonoBehaviour
         return generatedTypes.Contains(roomType);
     }
 
-    //public List<RoomType> GetGeneratedTypes()
-    //{
-    //    return generatedTypes;
-    //}
+    public bool isFull()
+    {
+        return connectedTypes.Count == generatedTypes.Count;
+    }
+
+    public List<RoomType> GetDisconnectedRooms()
+    {
+        return generatedTypes.Except(connectedTypes).ToList<RoomType>();
+    }
+
+    public void RemoveGeneratedType(RoomType roomType) => generatedTypes.Remove(roomType);
 }
+

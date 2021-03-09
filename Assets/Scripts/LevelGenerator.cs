@@ -64,7 +64,8 @@ public class LevelGenerator : MonoBehaviour
         else
         {
             GenerateFinishRooms();
-            //CheckFullness;
+            
+            CheckFullness();
         }
     }
 
@@ -88,6 +89,14 @@ public class LevelGenerator : MonoBehaviour
 
         Room finishRoom = CreateRoom(roomWithFinishDoor.transform.position + new Vector3(height, 0, 0));
         finishRoom.SetFinishCategory();
+    }
+
+    public void CheckFullness()
+    {
+        foreach (Room room in roomsPositionDictionary.Values)
+        {
+            room.CheckForFullness();
+        }
     }
 
     private Room CreateRoom(Vector3 position)
