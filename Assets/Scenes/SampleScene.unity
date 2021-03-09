@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d3b7af29677f5d41a8459d9405f3475, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRooms: 100
+  maxRooms: 25
   startPoint: {fileID: 1577797822}
   room_PB: {fileID: 5808335370811649221, guid: 01379318314237b4aab4c8a1dd292459, type: 3}
 --- !u!4 &1445408853

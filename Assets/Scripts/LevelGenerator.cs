@@ -44,6 +44,7 @@ public class LevelGenerator : MonoBehaviour
         room.SetStartAcceptedType(RoomType.RightDoor);
 
         room.GenerateDoors();
+        room.SetStartCategory();
 
         roomsPositionDictionary.Add(startPoint.position, room);
 
@@ -60,6 +61,33 @@ public class LevelGenerator : MonoBehaviour
 
             GenerateLevel();
         }
+        else
+        {
+            GenerateFinishRooms();
+            //CheckFullness;
+        }
+    }
+
+    private void GenerateFinishRooms()
+    {
+        List<Room> acceptedRooms = new List<Room>();
+
+        foreach(Room room in roomsPositionDictionary.Values)
+        {
+            Vector3 topRoomPosition = room.transform.position + new Vector3(height, 0, 0);
+            Vector3 toppestRoomPosition = topRoomPosition + new Vector3(height, 0, 0);
+            if(!roomsPositionDictionary.ContainsKey(topRoomPosition) &&
+                !roomsPositionDictionary.ContainsKey(toppestRoomPosition))
+            {
+                acceptedRooms.Add(room);
+            }
+        }
+        Room roomWithFinishDoor = acceptedRooms[Random.Range(0, acceptedRooms.Count)];
+
+        roomWithFinishDoor.SetFinishDoorCategory();
+
+        Room finishRoom = CreateRoom(roomWithFinishDoor.transform.position + new Vector3(height, 0, 0));
+        finishRoom.SetFinishCategory();
     }
 
     private Room CreateRoom(Vector3 position)

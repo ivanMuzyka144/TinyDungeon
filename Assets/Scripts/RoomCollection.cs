@@ -14,4 +14,9 @@ public class RoomCollection : MonoBehaviour
     {
         rooms = roomCollection;
     }
+
+    public void MakeBorders()
+    {
+
+    }
 }

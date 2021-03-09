@@ -9,29 +9,54 @@ public class RoomTypesGenerator : MonoBehaviour
     private List<RoomType> generatedTypes = new List<RoomType>();
     private List<RoomType> connectedTypes = new List<RoomType>();
 
-
     public void AddStartAcceptedType(RoomType startType) => startAcceptedTypes.Add(startType);
     public void AddStartRefusedType(RoomType startType) => startRefusedTypes.Add(startType);
     public void AddConnectedType(RoomType connectedType) => connectedTypes.Add(connectedType);
 
+    private RoomPatternHolder patternHolder;
+
+    public void Activate()
+    {
+        patternHolder = GetComponent<RoomPatternHolder>();
+    }
+
     public List<RoomType> GenerateTypesForRoom()
     {
-        bool shouldAddTopType = (Random.value > 0.5f && !startRefusedTypes.Contains(RoomType.TopDoor))
-                                || startAcceptedTypes.Contains(RoomType.TopDoor);
-        bool shouldAddBottomType = (Random.value > 0.5f && !startRefusedTypes.Contains(RoomType.BottomDoor))
-                                || startAcceptedTypes.Contains(RoomType.BottomDoor);
-        bool shouldAddLeftType = (Random.value > 0.5f && !startRefusedTypes.Contains(RoomType.LeftDoor))
-                                || startAcceptedTypes.Contains(RoomType.LeftDoor);
-        bool shouldAddRightType = (Random.value > 0.5f && !startRefusedTypes.Contains(RoomType.RightDoor))
-                                || startAcceptedTypes.Contains(RoomType.RightDoor);
+        //bool shouldAddTopType = (Random.value > 0.5f && !startRefusedTypes.Contains(RoomType.TopDoor))
+        //                        || startAcceptedTypes.Contains(RoomType.TopDoor);
+        //bool shouldAddBottomType = (Random.value > 0.5f && !startRefusedTypes.Contains(RoomType.BottomDoor))
+        //                        || startAcceptedTypes.Contains(RoomType.BottomDoor);
+        //bool shouldAddLeftType = (Random.value > 0.5f && !startRefusedTypes.Contains(RoomType.LeftDoor))
+        //                        || startAcceptedTypes.Contains(RoomType.LeftDoor);
+        //bool shouldAddRightType = (Random.value > 0.5f && !startRefusedTypes.Contains(RoomType.RightDoor))
+        //                        || startAcceptedTypes.Contains(RoomType.RightDoor);
 
-        if (shouldAddTopType)
+
+        bool shouldAddTopType = startAcceptedTypes.Contains(RoomType.TopDoor);
+        bool shouldAddBottomType =  startAcceptedTypes.Contains(RoomType.BottomDoor);
+        bool shouldAddLeftType = startAcceptedTypes.Contains(RoomType.LeftDoor);
+        bool shouldAddRightType = startAcceptedTypes.Contains(RoomType.RightDoor);
+
+        RoomPattern roomPattern= new RoomPattern(shouldAddTopType, shouldAddBottomType, 
+                                        shouldAddLeftType, shouldAddRightType);
+
+        RoomPattern newRoomPattern = patternHolder.GetRandomPatternFor(roomPattern);
+        //if (shouldAddTopType)
+        //    generatedTypes.Add(RoomType.TopDoor);
+        //if (shouldAddBottomType)
+        //    generatedTypes.Add(RoomType.BottomDoor);
+        //if (shouldAddLeftType)
+        //    generatedTypes.Add(RoomType.LeftDoor);
+        //if (shouldAddRightType)
+        //    generatedTypes.Add(RoomType.RightDoor);
+
+        if (newRoomPattern.top)
             generatedTypes.Add(RoomType.TopDoor);
-        if (shouldAddBottomType)
+        if (newRoomPattern.bottom)
             generatedTypes.Add(RoomType.BottomDoor);
-        if (shouldAddLeftType)
+        if (newRoomPattern.left)
             generatedTypes.Add(RoomType.LeftDoor);
-        if (shouldAddRightType)
+        if (newRoomPattern.right)
             generatedTypes.Add(RoomType.RightDoor);
 
         return generatedTypes;

@@ -18,5 +18,6 @@ public class GameStarter : MonoBehaviour
         
         List<Room> rooms = levelGenerator.MakeLevel();
         roomCollection.SetRoomCollection(rooms);
+
     }
 }

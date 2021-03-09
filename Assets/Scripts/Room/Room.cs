@@ -13,13 +13,17 @@ public class Room : MonoBehaviour
     private RoomTypesGenerator roomTypesGenerator;
     private RoomWallsMaker roomWallMaker;
     private RoomLocator roomLocator;
+    private RoomCategorySetter roomCategorySetter;
 
     public void Activate()
     {
         roomTypesGenerator = GetComponent<RoomTypesGenerator>();
         roomWallMaker = GetComponent<RoomWallsMaker>();
         roomLocator = GetComponent<RoomLocator>();
+        roomCategorySetter = GetComponent<RoomCategorySetter>();
+        roomTypesGenerator.Activate();
         roomWallMaker.Activate();
+        roomCategorySetter.Activate();
     }
 
     #region DoorsPlaceholdersGeneration
@@ -79,6 +83,16 @@ public class Room : MonoBehaviour
     }
     #endregion
 
+    #region Categories
+
+    public void SetStartCategory() => roomCategorySetter.SetStartRoomCategory();
+
+    public void SetFinishDoorCategory() => roomCategorySetter.SetFinishDoorRoomCategory();
+
+    public void SetFinishCategory() => roomCategorySetter.SetFinishRoomCategory();
+
+    #endregion
+
     #region MakingRoomFull
     public void CheckForFullness()
     {
@@ -106,6 +120,11 @@ public class Room : MonoBehaviour
         //}
     }
     #endregion
+
+    public void SetRoomCategory()
+    {
+
+    }
     private RoomType ReverseType(RoomType inputRoomType)
     {
         RoomType outputRoomType = RoomType.TopDoor;
