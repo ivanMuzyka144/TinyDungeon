@@ -10,6 +10,8 @@ public enum RoomType
 }
 public class Room : MonoBehaviour
 {
+    [SerializeField] private CategoryCollection categoryCollection;
+
     private RoomTypesGenerator roomTypesGenerator;
     private RoomWallsMaker roomWallMaker;
     private RoomLocator roomLocator;
@@ -85,11 +87,29 @@ public class Room : MonoBehaviour
 
     #region Categories
 
+    public RoomCategoryType GetCategory()
+    {
+        return roomCategorySetter.GetRoomCategory();
+    }
+
+    public MinigameInfo GetMinigameInfo()
+    {
+        return roomCategorySetter.GetMinigameInfo();
+    }
+
+    public List<MinigameInfo> GetRelativeMinigameInfo()
+    {
+        return roomLocator.GetRelativeMinigameInfo();
+    }
+
     public void SetStartCategory() => roomCategorySetter.SetStartRoomCategory();
 
     public void SetFinishDoorCategory() => roomCategorySetter.SetFinishDoorRoomCategory();
 
     public void SetFinishCategory() => roomCategorySetter.SetFinishRoomCategory();
+
+    public void SetMinigameCategory(MinigameInfo minigameInfo) 
+                            => roomCategorySetter.SetMinigameRoomCategory(minigameInfo);
 
     #endregion
 

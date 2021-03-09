@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class RoomCategorySetter : MonoBehaviour
 {
     [SerializeField] private CategoryCollection categoryCollection;
-
+    
     private RoomCategory currentCategory;
 
     public void Activate()
@@ -31,9 +30,24 @@ public class RoomCategorySetter : MonoBehaviour
         currentCategory.ActivateCategory();
     }
 
-    public RoomCategory GetRoomCategory()
+    public void SetMinigameRoomCategory(MinigameInfo minigameInfo)
     {
-        return currentCategory;
+        currentCategory = categoryCollection.GetMinigameRoomCategory(minigameInfo);
+        currentCategory.ActivateCategory();
     }
-    
+
+    public RoomCategoryType GetRoomCategory()
+    {
+        RoomCategoryType returnType = RoomCategoryType.None;
+        if(currentCategory != null)
+        {
+            returnType = currentCategory.GetType();
+        }
+        return returnType;
+    }
+
+    public MinigameInfo GetMinigameInfo()
+    {
+        return currentCategory.GetMinigameInfo();//<----------currentCategory = null;
+    }
 }

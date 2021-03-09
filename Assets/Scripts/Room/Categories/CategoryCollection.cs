@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CategoryCollection : MonoBehaviour
 {
+    public static CategoryCollection Instance { get; private set; }
+
     [SerializeField] List<RoomCategory> roomCategories = new List<RoomCategory>();
 
     private RoomCategory startRoom;
@@ -13,6 +15,8 @@ public class CategoryCollection : MonoBehaviour
     private List<RoomCategory> minigameRooms = new List<RoomCategory>();
     private List<RoomCategory> bonusRooms = new List<RoomCategory>();
 
+    private Dictionary<MinigameInfo, RoomCategory> minigameRoomDictionary = new Dictionary<MinigameInfo, RoomCategory>();
+    private void Awake() => Instance = this;
     public void Activate()
     {
         foreach(RoomCategory roomCategory in roomCategories)
@@ -36,6 +40,11 @@ public class CategoryCollection : MonoBehaviour
                     break;
             }
         }
+
+        foreach(RoomCategory minigamesCategory in minigameRooms)
+        {
+            minigameRoomDictionary.Add(minigamesCategory.GetMinigameInfo(), minigamesCategory);
+        }
     }
     
     public RoomCategory GetStartRoomCategory()
@@ -53,4 +62,8 @@ public class CategoryCollection : MonoBehaviour
         return finishRoom;
     }
 
+    public RoomCategory GetMinigameRoomCategory(MinigameInfo minigameInfo)
+    {
+        return minigameRoomDictionary[minigameInfo];
+    }
 }

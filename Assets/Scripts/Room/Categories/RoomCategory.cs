@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomCategory : MonoBehaviour
 {
-    [SerializeField] public string name;
     [SerializeField] public RoomCategoryType roomCategoryType;
     [Space(10)]
-    [SerializeField] public float time;
+    [SerializeField] private MinigameInfo minigameInfo;
+    [Space(10)]
     [SerializeField] private List<GameObject> assetsForActivation = new List<GameObject>();
 
     public void ActivateCategory()
@@ -17,6 +16,15 @@ public class RoomCategory : MonoBehaviour
             asset.SetActive(true);
         }
     }
+    public RoomCategoryType GetType()
+    {
+        return roomCategoryType;
+    }
+
+    public MinigameInfo GetMinigameInfo()
+    {
+        return minigameInfo;
+    }
 }
 public enum RoomCategoryType
 {
@@ -24,5 +32,6 @@ public enum RoomCategoryType
     FinishDoorRoom,
     FinishRoom,
     MinigameRoom,
-    BonusRoom
+    BonusRoom,
+    None
 }

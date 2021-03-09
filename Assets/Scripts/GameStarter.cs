@@ -17,7 +17,9 @@ public class GameStarter : MonoBehaviour
         roomCollection = RoomCollection.Instance;
         
         List<Room> rooms = levelGenerator.MakeLevel();
-        roomCollection.SetRoomCollection(rooms);
 
+        roomCollection.SetRoomCollection(rooms);
+        roomCollection.ProcessRooms();
+        roomCollection.ColorRooms();
     }
 }
