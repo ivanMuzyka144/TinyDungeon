@@ -48,6 +48,11 @@ public class RoomCategorySetter : MonoBehaviour
 
     public MinigameInfo GetMinigameInfo()
     {
-        return currentCategory.GetMinigameInfo();//<----------currentCategory = null;
+        MinigameInfo returnMinigameInfo = null;
+        if(currentCategory!= null)
+        {
+            returnMinigameInfo = currentCategory.GetMinigameInfo();
+        }
+        return returnMinigameInfo;
     }
 }

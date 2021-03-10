@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomCollection : MonoBehaviour
@@ -51,5 +50,10 @@ public class RoomCollection : MonoBehaviour
             MinigameInfo correctColor = categoryPalette.GenerateColorFor(minigameInfoList);
             room.SetMinigameCategory(correctColor);
         }
+    }
+
+    public Vector3 GetSpawnPosition()
+    {
+        return startRoom.transform.position;
     }
 }
