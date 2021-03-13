@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Lean.Transition;
 
 public class PlayerMover : MonoBehaviour
 {
@@ -12,6 +11,11 @@ public class PlayerMover : MonoBehaviour
     public Room GetCurrentRoom()
     {
         return currentRoom;
+    }
+
+    public void MoveToAnotherRoom(Vector3 nextPosition)
+    {
+        transform.positionTransition(nextPosition, 1);
     }
     
 }

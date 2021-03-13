@@ -12,7 +12,11 @@ public class DoorSelector : MonoBehaviour, ISelectable
     private bool isActive;
 
     public void Enable() => isActive = true;
-    public void Disable() => isActive = false;
+    public void Disable()
+    {
+        isActive = false;
+        meshRenderer.material = defaultMaterial;
+    }
 
     public void OnSelected()
     {

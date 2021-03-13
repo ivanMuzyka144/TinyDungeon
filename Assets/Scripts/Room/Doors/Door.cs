@@ -7,13 +7,18 @@ public class Door : MonoBehaviour
     private Room currentRoom;
     private RoomType doorType;
 
+
+    private GameStateManager gameStateManager;
+
     private DoorShower doorShower;
     private DoorAnimationMaker doorAnimationMaker;
     private DoorSelector doorSelector;
     //mesh renedee add
     public void Activate()
     {
+        gameStateManager = GameStateManager.Instance;
         doorShower = DoorShower.Instance;
+        
         doorAnimationMaker = GetComponent<DoorAnimationMaker>();
         doorSelector = GetComponent<DoorSelector>();
         doorAnimationMaker.Activate();
@@ -44,6 +49,8 @@ public class Door : MonoBehaviour
     }
     public void ShowDoorBackAnim(Vector3 cameraRotation)
     {
+        doorSelector.Disable();
+
         switch (doorType)
         {
             case RoomType.TopDoor:
@@ -61,6 +68,44 @@ public class Door : MonoBehaviour
         }
     }
 
+    public void ShowDoorOpenAnim(Transform doorHolder)
+    {
+        switch (doorType)
+        {
+            case RoomType.TopDoor:
+                doorAnimationMaker.MakeAnimTopOpen(doorHolder);
+                break;
+            case RoomType.BottomDoor:
+                doorAnimationMaker.MakeAnimBottomOpen(doorHolder);
+                break;
+            case RoomType.LeftDoor:
+                doorAnimationMaker.MakeAnimLeftOpen(doorHolder);
+                break;
+            case RoomType.RightDoor:
+                doorAnimationMaker.MakeAnimRightOpen(doorHolder);
+                break;
+        }
+    }
+
+    public void ShowDoorCloseAnim(Transform doorHolder)
+    {
+        switch (doorType)
+        {
+            case RoomType.TopDoor:
+                doorAnimationMaker.MakeAnimTopClose(doorHolder);
+                break;
+            case RoomType.BottomDoor:
+                doorAnimationMaker.MakeAnimBottomClose(doorHolder);
+                break;
+            case RoomType.LeftDoor:
+                doorAnimationMaker.MakeAnimLeftClose(doorHolder);
+                break;
+            case RoomType.RightDoor:
+                doorAnimationMaker.MakeAnimRightClose(doorHolder);
+                break;
+        }
+    }
+
     public void OnUpAnimationEnded() 
     {
         doorSelector.Enable();
@@ -68,12 +113,23 @@ public class Door : MonoBehaviour
 
     public void OnDoorSelected()
     {
-        Debug.Log(doorType);
+        gameStateManager.SetDoorDirection(doorType);
         doorShower.ShowDoorsBackAnim();
     }
 
     public void OnBackAnimationEnded() 
     {
         doorSelector.Disable();
+        gameStateManager.SetState(GameState.DoorsOpen);
+    }
+
+    public void OnOpenAnimationEnded()
+    {
+        gameStateManager.SetState(GameState.PlayerMove);
+    }
+
+    public void OnCloseAnimationEnded()
+    {
+
     }
 }

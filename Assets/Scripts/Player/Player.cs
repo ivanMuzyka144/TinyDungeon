@@ -25,4 +25,13 @@ public class Player : MonoBehaviour
     {
         return playerMover.GetCurrentRoom();
     }
+
+    public void MoveToAnotherRoom(RoomType directionType)
+    {
+        Room nextRoom = playerMover.GetCurrentRoom().GetRelativeRoom(directionType);
+
+        playerMover.MoveToAnotherRoom(nextRoom.transform.position);
+
+        playerMover.SetCurrentRoom(nextRoom);
+    }
 }

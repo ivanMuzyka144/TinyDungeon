@@ -87,6 +87,11 @@ public class Room : MonoBehaviour
             roomTypesGenerator.AddConnectedType(roomType);
         }
     }
+
+    public Room GetRelativeRoom(RoomType roomType)
+    {
+        return roomLocator.GetRelativeRoom(roomType);
+    }
     #endregion
 
     #region Categories
@@ -148,7 +153,17 @@ public class Room : MonoBehaviour
         return roomDoorMaker.GetCurrentDoors();
     }
 
-    private RoomType ReverseType(RoomType inputRoomType)
+    public Door GetDoor(RoomType roomType)
+    {
+        return roomDoorMaker.GetDoor(roomType);
+    }
+
+    public Transform GetDoorHolder(RoomType roomType)
+    {
+        return roomDoorMaker.GetDoorHolder(roomType);
+    }
+
+    public static RoomType ReverseType(RoomType inputRoomType)
     {
         RoomType outputRoomType = RoomType.TopDoor;
 

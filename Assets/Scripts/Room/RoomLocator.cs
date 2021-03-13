@@ -12,6 +12,11 @@ public class RoomLocator : MonoBehaviour
         return roomDictionary[roomType] == room; 
     }
 
+    public Room GetRelativeRoom(RoomType roomType)
+    {
+        return roomDictionary[roomType];
+    }
+
     public List<MinigameInfo> GetRelativeMinigameInfo()
     {
         List<MinigameInfo> relativeMinigameInfo = new List<MinigameInfo>();

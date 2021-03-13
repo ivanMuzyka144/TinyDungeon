@@ -38,4 +38,24 @@ public class DoorShower : MonoBehaviour
             door.ShowDoorBackAnim(cameraTransform.localEulerAngles);
         }
     }
+
+    public void ShowTwoDoorsOpenAnim(RoomType direction)
+    {
+        Room currentRoom = player.GetCurrentRoom();
+        Room wantedRoom = currentRoom.GetRelativeRoom(direction);
+
+        Door currentDoor = currentRoom.GetDoor(direction);
+        Door nextDoor = wantedRoom.GetDoor(Room.ReverseType(direction));
+
+        Transform currentDoorHolder = currentRoom.GetDoorHolder(direction);
+        Transform nextDoorHolder = wantedRoom.GetDoorHolder(Room.ReverseType(direction));
+
+        currentDoor.ShowDoorOpenAnim(currentDoorHolder);
+        nextDoor.ShowDoorOpenAnim(nextDoorHolder);
+    }
+
+    public void ShowTwoDoorsCloseAnim()
+    {
+
+    }
 }
