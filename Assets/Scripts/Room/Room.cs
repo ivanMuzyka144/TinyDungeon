@@ -14,6 +14,7 @@ public class Room : MonoBehaviour
 
     private RoomTypesGenerator roomTypesGenerator;
     private RoomWallsMaker roomWallMaker;
+    private RoomDoorMaker roomDoorMaker;
     private RoomLocator roomLocator;
     private RoomCategorySetter roomCategorySetter;
 
@@ -21,10 +22,12 @@ public class Room : MonoBehaviour
     {
         roomTypesGenerator = GetComponent<RoomTypesGenerator>();
         roomWallMaker = GetComponent<RoomWallsMaker>();
+        roomDoorMaker = GetComponent<RoomDoorMaker>();
         roomLocator = GetComponent<RoomLocator>();
         roomCategorySetter = GetComponent<RoomCategorySetter>();
         roomTypesGenerator.Activate();
         roomWallMaker.Activate();
+        roomDoorMaker.Activate(this);
         roomCategorySetter.Activate();
     }
 
@@ -33,6 +36,7 @@ public class Room : MonoBehaviour
     {
         List<RoomType> generatedTypes = roomTypesGenerator.GenerateTypesForRoom();
         roomWallMaker.GenerateDoors(generatedTypes);
+        roomDoorMaker.GenerateDoors(generatedTypes);
     }
 
     public List<RoomPlaceHolder> GeneratePlaceholders()
@@ -129,6 +133,7 @@ public class Room : MonoBehaviour
         foreach (RoomType roomType in roomTypesGenerator.GetDisconnectedRooms())
         {
             roomWallMaker.AddClosedDoor(roomType);
+            roomDoorMaker.RemoveDoor(roomType);
             roomTypesForRemove.Add(roomType);
         }
         foreach (RoomType roomTypeForDelete in roomTypesForRemove)
@@ -137,6 +142,11 @@ public class Room : MonoBehaviour
         }
     }
     #endregion
+
+    public List<Door> GetDoors()
+    {
+        return null;
+    }
 
     private RoomType ReverseType(RoomType inputRoomType)
     {

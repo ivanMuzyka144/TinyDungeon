@@ -10,7 +10,9 @@ public class GameStateManager : MonoBehaviour
 
     private GameState currentState;
 
+    private DoorShower doorShower;
     private Player player;
+
     
     private void Awake() => Instance = this;
 
@@ -18,11 +20,11 @@ public class GameStateManager : MonoBehaviour
     {
         switch (gameState)
         {
-            case GameState.PlayerSpawn:
-                break;
             case GameState.PlayerSelectDoor:
+                doorShower.ShowDoorsUpAnim();
                 break;
             case GameState.PlayerMove:
+                doorShower.ShowDoorsBackAnim();
                 break;
             case GameState.PlayerMinigame:
                 break;
@@ -32,7 +34,6 @@ public class GameStateManager : MonoBehaviour
 
 public enum GameState
 {
-    PlayerSpawn,
     PlayerSelectDoor,
     PlayerMove,
     PlayerMinigame

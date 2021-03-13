@@ -20,4 +20,9 @@ public class Player : MonoBehaviour
     }
 
     public void SpawnPlayer(Vector3 startPosition) => playerMover.SpawnPlayer(startPosition);
+
+    public Room GetCurrentRoom()
+    {
+        return null;
+    }
 }
