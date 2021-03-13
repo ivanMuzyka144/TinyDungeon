@@ -23,6 +23,11 @@ public class RoomDoorMaker : MonoBehaviour
         allDoorsDictionary.Add(RoomType.BottomDoor, bottomDoor);
         allDoorsDictionary.Add(RoomType.LeftDoor, leftDoor);
         allDoorsDictionary.Add(RoomType.RightDoor, rightDoor);
+
+        topDoor.Activate();
+        bottomDoor.Activate();
+        leftDoor.Activate();
+        rightDoor.Activate();
     }
 
     public void GenerateDoors(List<RoomType> roomTypes)

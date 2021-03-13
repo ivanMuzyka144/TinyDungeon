@@ -56,4 +56,9 @@ public class RoomCollection : MonoBehaviour
     {
         return startRoom.transform.position;
     }
+
+    public Room GetStartRoom()
+    {
+        return startRoom;
+    }
 }

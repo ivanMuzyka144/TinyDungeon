@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameStarter : MonoBehaviour
-{   
+{
     public static GameStarter Instance { get; private set; }
 
     private LevelGenerator levelGenerator;
     private RoomCollection roomCollection;
     private Player player;
+    private GameStateManager gameStateManager;
 
     private void Awake() => Instance = this;
 
@@ -17,7 +18,9 @@ public class GameStarter : MonoBehaviour
         levelGenerator = LevelGenerator.Instance;
         roomCollection = RoomCollection.Instance;
         player = Player.Instance;
-        
+        gameStateManager = GameStateManager.Instance;
+
+
         List<Room> rooms = levelGenerator.MakeLevel();
 
         roomCollection.SetRoomCollection(rooms);
@@ -27,5 +30,14 @@ public class GameStarter : MonoBehaviour
 
         player.Activate();
         player.SpawnPlayer(spawnPoisition);
+        player.SetCurrentRoom(roomCollection.GetStartRoom());
+
+        gameStateManager.Activate();
+        StartCoroutine(StartDoorsAnimation(2));
+    }
+    IEnumerator StartDoorsAnimation(int sec)
+    {
+        yield return new WaitForSeconds(sec);
+        gameStateManager.SetState(GameState.PlayerSelectDoor);
     }
 }

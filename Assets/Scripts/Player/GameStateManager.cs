@@ -6,8 +6,6 @@ public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance { get; private set; }
 
-    [SerializeField] Player player_PB;
-
     private GameState currentState;
 
     private DoorShower doorShower;
@@ -16,7 +14,12 @@ public class GameStateManager : MonoBehaviour
     
     private void Awake() => Instance = this;
 
-    private void SetState(GameState gameState)
+    public void Activate()
+    {
+        doorShower = DoorShower.Instance;
+    }
+
+    public void SetState(GameState gameState)
     {
         switch (gameState)
         {

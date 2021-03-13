@@ -106,9 +106,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5163625986502544891}
   - component: {fileID: 839856409396222419}
+  - component: {fileID: 3156716718070058116}
+  - component: {fileID: 4213622078515308487}
+  - component: {fileID: 7844867846610559385}
   m_Layer: 0
   m_Name: BottomDoor
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,6 +143,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5784db8c2d352fd4a9066f3c55a009a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3156716718070058116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371670054143487592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52920c50132a5294185169cd4d12af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4213622078515308487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371670054143487592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be934bb28f591ab4182e86ac54072519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 2100000, guid: 48de8afab985c2240a362f920269e63c, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: a83c76b62f4fce74ba950f6f35ad5578, type: 2}
+  meshRenderer: {fileID: 1104847943952574155}
+--- !u!65 &7844867846610559385
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371670054143487592}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.59316444, y: 3.3734412, z: 2.4293418}
+  m_Center: {x: 0.003683567, y: -0.05609107, z: 0.021900117}
 --- !u!1 &470528558491583868
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,9 +680,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5871351234349236871}
   - component: {fileID: 6123500278503187938}
+  - component: {fileID: 7225707146322467201}
+  - component: {fileID: 8466954388522727059}
+  - component: {fileID: 1947525718344552980}
   m_Layer: 0
   m_Name: RightDoor
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -671,6 +717,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5784db8c2d352fd4a9066f3c55a009a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7225707146322467201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311004232126105205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52920c50132a5294185169cd4d12af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8466954388522727059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311004232126105205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be934bb28f591ab4182e86ac54072519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 2100000, guid: 48de8afab985c2240a362f920269e63c, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: a83c76b62f4fce74ba950f6f35ad5578, type: 2}
+  meshRenderer: {fileID: 5980753271929005405}
+--- !u!65 &1947525718344552980
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311004232126105205}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.3285208, y: 3.1110034, z: 0.659317}
+  m_Center: {x: -0.020195961, y: 0.09087205, z: 0.018860817}
 --- !u!1 &1316548146984526740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,9 +1127,12 @@ GameObject:
   m_Component:
   - component: {fileID: 6694445532644539213}
   - component: {fileID: 8064822802909086569}
+  - component: {fileID: 6128590015339472151}
+  - component: {fileID: 1434154977042951140}
+  - component: {fileID: 7209845778623662961}
   m_Layer: 0
   m_Name: TopDoor
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1055,14 +1144,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106409049209174038}
-  m_LocalRotation: {x: 0.008726225, y: -0.0000761528, z: 0.008726225, w: 0.9999238}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.4900036, y: 1.75, z: 0.451}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7669892843439055906}
   m_Father: {fileID: 2727125065226015245}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 1, y: 0, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8064822802909086569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1075,6 +1164,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5784db8c2d352fd4a9066f3c55a009a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6128590015339472151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106409049209174038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52920c50132a5294185169cd4d12af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1434154977042951140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106409049209174038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be934bb28f591ab4182e86ac54072519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 2100000, guid: 48de8afab985c2240a362f920269e63c, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: a83c76b62f4fce74ba950f6f35ad5578, type: 2}
+  meshRenderer: {fileID: 5748574276002360310}
+--- !u!65 &7209845778623662961
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106409049209174038}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 3.352458, z: 2.599527}
+  m_Center: {x: 0, y: -0.05179882, z: -0.13811237}
 --- !u!1 &2196374211587113722
 GameObject:
   m_ObjectHideFlags: 0
@@ -2824,9 +2953,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4038755895533141956}
   - component: {fileID: 1295808371526140942}
+  - component: {fileID: 8490178721115982199}
+  - component: {fileID: 7191640527870897777}
+  - component: {fileID: 6672205531911840061}
   m_Layer: 0
   m_Name: LeftDoor
-  m_TagString: Untagged
+  m_TagString: Selectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2858,6 +2990,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5784db8c2d352fd4a9066f3c55a009a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8490178721115982199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7331971228253498849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52920c50132a5294185169cd4d12af27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7191640527870897777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7331971228253498849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be934bb28f591ab4182e86ac54072519, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 2100000, guid: 48de8afab985c2240a362f920269e63c, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: a83c76b62f4fce74ba950f6f35ad5578, type: 2}
+  meshRenderer: {fileID: 2365798036045103205}
+--- !u!65 &6672205531911840061
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7331971228253498849}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.4697707, y: 3.3670454, z: 0.6035104}
+  m_Center: {x: 0.027086139, y: -0.03254032, z: -0.06738496}
 --- !u!1 &7936621026421006059
 GameObject:
   m_ObjectHideFlags: 0

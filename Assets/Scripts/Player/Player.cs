@@ -16,13 +16,13 @@ public class Player : MonoBehaviour
     public void Activate()
     {
         playerMover = GetComponent<PlayerMover>();
-        Debug.Log(playerMover);
     }
 
     public void SpawnPlayer(Vector3 startPosition) => playerMover.SpawnPlayer(startPosition);
 
+    public void SetCurrentRoom(Room currentRoom) => playerMover.SetCurrentRoom(currentRoom);
     public Room GetCurrentRoom()
     {
-        return null;
+        return playerMover.GetCurrentRoom();
     }
 }

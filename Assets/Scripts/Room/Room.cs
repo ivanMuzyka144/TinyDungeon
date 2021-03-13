@@ -145,7 +145,7 @@ public class Room : MonoBehaviour
 
     public List<Door> GetDoors()
     {
-        return null;
+        return roomDoorMaker.GetCurrentDoors();
     }
 
     private RoomType ReverseType(RoomType inputRoomType)

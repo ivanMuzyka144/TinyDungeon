@@ -5,6 +5,9 @@ public class DoorShower : MonoBehaviour
 {
     public static DoorShower Instance { get; private set; }
 
+    [SerializeField] private Transform cameraTransform;
+
+
     private Player player;
 
     private Room currentRoom;
@@ -19,10 +22,10 @@ public class DoorShower : MonoBehaviour
     public void ShowDoorsUpAnim()
     {
         currentRoom = player.GetCurrentRoom();
-        List<Door> currentDoors = new List<Door>();
+        List<Door> currentDoors = currentRoom.GetDoors();
         foreach(Door door in currentDoors)
         {
-            door.ShowDoorUpAnim();
+            door.ShowDoorUpAnim(cameraTransform.localEulerAngles);
         }
     }
 
