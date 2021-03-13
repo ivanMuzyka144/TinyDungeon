@@ -6,15 +6,20 @@ public class DoorAnimationMaker : MonoBehaviour
 
     private Door door;
 
-    private float animTime = 1;
+    private float animTime = 0.75f;
 
-    private float animY = 1;
+    private float animY = 1.2f;
     private float animWidth = 1.5f;
     private float animHeight = 1.25f;
 
+    private Vector3 startPosition;
+    private Vector3 startRotation;
     public void Activate()
     {
         door = GetComponent<Door>();
+
+        startPosition = transform.position;
+        startRotation = transform.eulerAngles;
     }
 
     public void MakeAnimTopUp(Vector3 cameraRotation)
@@ -50,20 +55,32 @@ public class DoorAnimationMaker : MonoBehaviour
             .EventTransition(() => door.OnUpAnimationEnded(), animTime);
     }
 
-    public void MakeAnimTopBack()
+    public void MakeAnimTopBack(Vector3 cameraRotation)
     {
-
+        Vector3 firstRotation = transform.eulerAngles + new Vector3(0, 0, cameraRotation.x);
+        transform.positionTransition(startPosition, animTime);
+        transform.eulerAnglesTransform(firstRotation, animTime)
+            .EventTransition(() => door.OnUpAnimationEnded(), animTime);
     }
-    public void MakeAnimBottomBack()
+    public void MakeAnimBottomBack(Vector3 cameraRotation)
     {
-
+        Vector3 firstRotation =  new Vector3(0, 0, 360);
+        transform.positionTransition(startPosition, animTime);
+        transform.eulerAnglesTransform(firstRotation, animTime)
+            .EventTransition(() => door.OnUpAnimationEnded(), animTime);
     }
-    public void MakeAnimLeftBack()
+    public void MakeAnimLeftBack(Vector3 cameraRotation)
     {
-
+        Vector3 firstRotation = new Vector3(0, 0, 0);
+        transform.positionTransition(startPosition, animTime);
+        transform.eulerAnglesTransform(firstRotation, animTime)
+            .EventTransition(() => door.OnUpAnimationEnded(), animTime);
     }
-    public void MakeAnimRightBack()
+    public void MakeAnimRightBack(Vector3 cameraRotation)
     {
-
+        Vector3 firstRotation = new Vector3(360, 360, 0);
+        transform.positionTransition(startPosition, animTime);
+        transform.eulerAnglesTransform(firstRotation, animTime)
+            .EventTransition(() => door.OnUpAnimationEnded(), animTime);
     }
 }

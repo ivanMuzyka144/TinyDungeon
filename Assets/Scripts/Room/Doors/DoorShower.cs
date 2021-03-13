@@ -32,10 +32,10 @@ public class DoorShower : MonoBehaviour
     public void ShowDoorsBackAnim()
     {
         currentRoom = player.GetCurrentRoom();
-        List<Door> currentDoors = new List<Door>();
+        List<Door> currentDoors = currentRoom.GetDoors();
         foreach (Door door in currentDoors)
         {
-            door.ShowDoorBackAnim();
+            door.ShowDoorBackAnim(cameraTransform.localEulerAngles);
         }
     }
 }

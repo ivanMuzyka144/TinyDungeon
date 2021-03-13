@@ -7,11 +7,13 @@ public class Door : MonoBehaviour
     private Room currentRoom;
     private RoomType doorType;
 
+    private DoorShower doorShower;
     private DoorAnimationMaker doorAnimationMaker;
     private DoorSelector doorSelector;
     //mesh renedee add
     public void Activate()
     {
+        doorShower = DoorShower.Instance;
         doorAnimationMaker = GetComponent<DoorAnimationMaker>();
         doorSelector = GetComponent<DoorSelector>();
         doorAnimationMaker.Activate();
@@ -40,21 +42,21 @@ public class Door : MonoBehaviour
                 break;
         }
     }
-    public void ShowDoorBackAnim()
+    public void ShowDoorBackAnim(Vector3 cameraRotation)
     {
         switch (doorType)
         {
             case RoomType.TopDoor:
-                doorAnimationMaker.MakeAnimTopBack();
+                doorAnimationMaker.MakeAnimTopBack(cameraRotation);
                 break;
             case RoomType.BottomDoor:
-                doorAnimationMaker.MakeAnimBottomBack();
+                doorAnimationMaker.MakeAnimBottomBack(cameraRotation);
                 break;
             case RoomType.LeftDoor:
-                doorAnimationMaker.MakeAnimLeftBack();
+                doorAnimationMaker.MakeAnimLeftBack(cameraRotation);
                 break;
             case RoomType.RightDoor:
-                doorAnimationMaker.MakeAnimRightBack();
+                doorAnimationMaker.MakeAnimRightBack(cameraRotation);
                 break;
         }
     }
@@ -62,6 +64,12 @@ public class Door : MonoBehaviour
     public void OnUpAnimationEnded() 
     {
         doorSelector.Enable();
+    }
+
+    public void OnDoorSelected()
+    {
+        Debug.Log(doorType);
+        doorShower.ShowDoorsBackAnim();
     }
 
     public void OnBackAnimationEnded() 

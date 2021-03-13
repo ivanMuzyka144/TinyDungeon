@@ -5,7 +5,9 @@ public class DoorSelector : MonoBehaviour, ISelectable
     [SerializeField] private Material defaultMaterial;
     [SerializeField] private Material selectedMaterial;
 
-    [SerializeField]  private MeshRenderer meshRenderer;
+    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private Door door;
+
 
     private bool isActive;
 
@@ -32,7 +34,7 @@ public class DoorSelector : MonoBehaviour, ISelectable
     {
         if (isActive)
         {
-            Debug.Log("Kek");
+            door.OnDoorSelected();
         }
     }
 

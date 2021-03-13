@@ -170,6 +170,7 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: 48de8afab985c2240a362f920269e63c, type: 2}
   selectedMaterial: {fileID: 2100000, guid: a83c76b62f4fce74ba950f6f35ad5578, type: 2}
   meshRenderer: {fileID: 1104847943952574155}
+  door: {fileID: 839856409396222419}
 --- !u!65 &7844867846610559385
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -744,6 +745,7 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: 48de8afab985c2240a362f920269e63c, type: 2}
   selectedMaterial: {fileID: 2100000, guid: a83c76b62f4fce74ba950f6f35ad5578, type: 2}
   meshRenderer: {fileID: 5980753271929005405}
+  door: {fileID: 6123500278503187938}
 --- !u!65 &1947525718344552980
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1191,6 +1193,7 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: 48de8afab985c2240a362f920269e63c, type: 2}
   selectedMaterial: {fileID: 2100000, guid: a83c76b62f4fce74ba950f6f35ad5578, type: 2}
   meshRenderer: {fileID: 5748574276002360310}
+  door: {fileID: 8064822802909086569}
 --- !u!65 &7209845778623662961
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3017,6 +3020,7 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: 48de8afab985c2240a362f920269e63c, type: 2}
   selectedMaterial: {fileID: 2100000, guid: a83c76b62f4fce74ba950f6f35ad5578, type: 2}
   meshRenderer: {fileID: 2365798036045103205}
+  door: {fileID: 1295808371526140942}
 --- !u!65 &6672205531911840061
 BoxCollider:
   m_ObjectHideFlags: 0
