@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     private PlayerMover playerMover;
 
+
     private void Awake()
     {
         Instance = this;
@@ -16,6 +17,8 @@ public class Player : MonoBehaviour
     public void Activate()
     {
         playerMover = GetComponent<PlayerMover>();
+
+        playerMover.Activate();
     }
 
     public void SpawnPlayer(Vector3 startPosition) => playerMover.SpawnPlayer(startPosition);

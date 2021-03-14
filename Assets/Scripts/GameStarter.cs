@@ -10,6 +10,7 @@ public class GameStarter : MonoBehaviour
     private RoomCollection roomCollection;
     private Player player;
     private GameStateManager gameStateManager;
+    private MinigameSimulator minigameSimulator;
 
     private void Awake() => Instance = this;
 
@@ -19,6 +20,7 @@ public class GameStarter : MonoBehaviour
         roomCollection = RoomCollection.Instance;
         player = Player.Instance;
         gameStateManager = GameStateManager.Instance;
+        minigameSimulator = MinigameSimulator.Instance;
 
 
         List<Room> rooms = levelGenerator.MakeLevel();
@@ -33,7 +35,10 @@ public class GameStarter : MonoBehaviour
         player.SetCurrentRoom(roomCollection.GetStartRoom());
 
         gameStateManager.Activate();
-        StartCoroutine(StartDoorsAnimation(2));
+
+        minigameSimulator.Activate();
+
+        StartCoroutine(StartDoorsAnimation(1));
     }
     IEnumerator StartDoorsAnimation(int sec)
     {

@@ -6,11 +6,11 @@ public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance { get; private set; }
 
-    private GameState currentState;
-
     private DoorShower doorShower;
     private Player player;
+    private MinigameSimulator minigameSimulator;
 
+    private GameState currentState;
     private RoomType selectedDoorDirection;
     
     private void Awake() => Instance = this;
@@ -19,6 +19,7 @@ public class GameStateManager : MonoBehaviour
     {
         doorShower = DoorShower.Instance;
         player = Player.Instance;
+        minigameSimulator = MinigameSimulator.Instance;
     }
 
     public void SetState(GameState gameState)
@@ -43,7 +44,19 @@ public class GameStateManager : MonoBehaviour
                     player.MoveToAnotherRoom(selectedDoorDirection);
                 }
                 break;
+            case GameState.DoorsClose:
+                if (currentState == GameState.PlayerMove)
+                {
+                    currentState = GameState.DoorsClose;
+                    doorShower.ShowTwoDoorsCloseAnim(selectedDoorDirection);
+                }
+                break;
             case GameState.PlayerMinigame:
+                if (currentState == GameState.DoorsClose)
+                {
+                    currentState = GameState.PlayerMinigame;
+                    minigameSimulator.StartMinigame();
+                }
                 break;
         }
     }
@@ -59,5 +72,6 @@ public enum GameState
     PlayerSelectDoor,
     DoorsOpen,
     PlayerMove,
+    DoorsClose,
     PlayerMinigame
 }

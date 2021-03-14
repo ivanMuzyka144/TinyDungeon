@@ -112,18 +112,26 @@ public class DoorAnimationMaker : MonoBehaviour
 
     public void MakeAnimTopClose(Transform doorHolder)
     {
-
+        Vector3 rotationVector = new Vector3(0, 0, 0);
+        doorHolder.eulerAnglesTransform(rotationVector, openCloseAnimTime)
+            .EventTransition(() => door.OnCloseAnimationEnded(), openCloseAnimTime);
     }
     public void MakeAnimBottomClose(Transform doorHolder)
     {
-
+        Vector3 rotationVector = new Vector3(0, 0, 0);
+        doorHolder.eulerAnglesTransform(rotationVector, openCloseAnimTime)
+            .EventTransition(() => door.OnCloseAnimationEnded(), openCloseAnimTime);
     }
     public void MakeAnimLeftClose(Transform doorHolder)
     {
-
+        Vector3 rotationVector = new Vector3(0, 0, 0);
+        doorHolder.eulerAnglesTransform(rotationVector, openCloseAnimTime)
+            .EventTransition(() => door.OnCloseAnimationEnded(), openCloseAnimTime);
     }
     public void MakeAnimRightClose(Transform doorHolder)
     {
-
+        Vector3 rotationVector = new Vector3(0, 0, 0);
+        doorHolder.eulerAnglesTransform(rotationVector, openCloseAnimTime)
+            .EventTransition(() => door.OnCloseAnimationEnded(), openCloseAnimTime);
     }
 }

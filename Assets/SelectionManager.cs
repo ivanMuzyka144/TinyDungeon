@@ -24,7 +24,6 @@ public class SelectionManager : MonoBehaviour
 
     public void MakeRaycast()
     {
-
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hit))
         {
