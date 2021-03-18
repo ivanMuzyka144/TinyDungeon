@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,105 +32,110 @@ public class Door : MonoBehaviour
     }
     public void ShowDoorUpAnim(Vector3 cameraRotation)
     {
+        Action afterAnimAction = () => doorSelector.Enable();
+        
+
         switch (doorType)
         {
             case RoomType.TopDoor:
-                doorAnimationMaker.MakeAnimTopUp(cameraRotation);
+                doorAnimationMaker.MakeAnimTopUp(cameraRotation, afterAnimAction);
                 break;
             case RoomType.BottomDoor:
-                doorAnimationMaker.MakeAnimBottomUp(cameraRotation);
+                doorAnimationMaker.MakeAnimBottomUp(cameraRotation, afterAnimAction);
                 break;
             case RoomType.LeftDoor:
-                doorAnimationMaker.MakeAnimLeftUp(cameraRotation);
+                doorAnimationMaker.MakeAnimLeftUp(cameraRotation, afterAnimAction);
                 break;
             case RoomType.RightDoor:
-                doorAnimationMaker.MakeAnimRightUp(cameraRotation);
+                doorAnimationMaker.MakeAnimRightUp(cameraRotation, afterAnimAction);
                 break;
         }
     }
     public void ShowDoorBackAnim(Vector3 cameraRotation)
     {
         doorSelector.Disable();
+        Action afterAnimAction = () => { doorSelector.Enable(); 
+                                         gameStateManager.ChangeState(); };
 
         switch (doorType)
         {
             case RoomType.TopDoor:
-                doorAnimationMaker.MakeAnimTopBack(cameraRotation);
+                doorAnimationMaker.MakeAnimTopBack(cameraRotation, afterAnimAction);
                 break;
             case RoomType.BottomDoor:
-                doorAnimationMaker.MakeAnimBottomBack(cameraRotation);
+                doorAnimationMaker.MakeAnimBottomBack(cameraRotation, afterAnimAction);
                 break;
             case RoomType.LeftDoor:
-                doorAnimationMaker.MakeAnimLeftBack(cameraRotation);
+                doorAnimationMaker.MakeAnimLeftBack(cameraRotation, afterAnimAction);
                 break;
             case RoomType.RightDoor:
-                doorAnimationMaker.MakeAnimRightBack(cameraRotation);
+                doorAnimationMaker.MakeAnimRightBack(cameraRotation, afterAnimAction);
                 break;
         }
     }
 
-    public void ShowDoorOpenAnim(Transform doorHolder)
+    public void ShowDoorOpenAnim(Transform doorHolder, Action afterAnimAction)
     {
         switch (doorType)
         {
             case RoomType.TopDoor:
-                doorAnimationMaker.MakeAnimTopOpen(doorHolder);
+                doorAnimationMaker.MakeAnimTopOpen(doorHolder, afterAnimAction);
                 break;
             case RoomType.BottomDoor:
-                doorAnimationMaker.MakeAnimBottomOpen(doorHolder);
+                doorAnimationMaker.MakeAnimBottomOpen(doorHolder, afterAnimAction);
                 break;
             case RoomType.LeftDoor:
-                doorAnimationMaker.MakeAnimLeftOpen(doorHolder);
+                doorAnimationMaker.MakeAnimLeftOpen(doorHolder, afterAnimAction);
                 break;
             case RoomType.RightDoor:
-                doorAnimationMaker.MakeAnimRightOpen(doorHolder);
+                doorAnimationMaker.MakeAnimRightOpen(doorHolder, afterAnimAction);
                 break;
         }
     }
 
-    public void ShowDoorCloseAnim(Transform doorHolder)
+    public void ShowDoorCloseAnim(Transform doorHolder, Action afterAnimAction)
     {
         switch (doorType)
         {
             case RoomType.TopDoor:
-                doorAnimationMaker.MakeAnimTopClose(doorHolder);
+                doorAnimationMaker.MakeAnimTopClose(doorHolder, afterAnimAction);
                 break;
             case RoomType.BottomDoor:
-                doorAnimationMaker.MakeAnimBottomClose(doorHolder);
+                doorAnimationMaker.MakeAnimBottomClose(doorHolder, afterAnimAction);
                 break;
             case RoomType.LeftDoor:
-                doorAnimationMaker.MakeAnimLeftClose(doorHolder);
+                doorAnimationMaker.MakeAnimLeftClose(doorHolder, afterAnimAction);
                 break;
             case RoomType.RightDoor:
-                doorAnimationMaker.MakeAnimRightClose(doorHolder);
+                doorAnimationMaker.MakeAnimRightClose(doorHolder, afterAnimAction);
                 break;
         }
     }
 
-    public void OnUpAnimationEnded() 
-    {
-        doorSelector.Enable();
-    }
+    //public void OnUpAnimationEnded() 
+    //{
+    //    doorSelector.Enable();
+    //}
 
     public void OnDoorSelected()
     {
-        gameStateManager.SetDoorDirection(doorType);
-        doorShower.ShowDoorsBackAnim();
+        gameStateManager.SetDoorDirection(doorType);//<----Problem
+        gameStateManager.EndCurrentState();
     }
 
-    public void OnBackAnimationEnded() 
-    {
-        doorSelector.Disable();
-        gameStateManager.SetState(GameState.DoorsOpen);
-    }
+    //public void OnBackAnimationEnded() 
+    //{
+    //    doorSelector.Disable();
+    //    gameStateManager.ChangeState();//<----Problem
+    //}
 
-    public void OnOpenAnimationEnded()
-    {
-        gameStateManager.SetState(GameState.PlayerMove);
-    }
+    //public void OnOpenAnimationEnded()
+    //{
+    //    gameStateManager.SetState(GameStateType.PlayerMove);
+    //}
 
-    public void OnCloseAnimationEnded()
-    {
-        gameStateManager.SetState(GameState.PlayerMinigame);
-    }
+    //public void OnCloseAnimationEnded()
+    //{
+    //    gameStateManager.SetState(GameStateType.PlayerMinigame);
+    //}
 }

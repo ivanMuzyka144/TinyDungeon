@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class MinigameSimulator : MonoBehaviour
         gameStateManager = GameStateManager.Instance;
     }
 
-    public void StartMinigame()
+    public void StartMinigame(object sender, EventArgs e)
     {
         minigamePanel.SetActive(true);
         StartCoroutine(EndMinigame(1.5f));
@@ -26,6 +27,6 @@ public class MinigameSimulator : MonoBehaviour
     {
         yield return new WaitForSeconds(sec);
         minigamePanel.SetActive(false);
-        gameStateManager.SetState(GameState.PlayerSelectDoor);
+        gameStateManager.SetState(GameStateType.PlayerSelectDoor);
     }
 }

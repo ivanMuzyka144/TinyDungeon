@@ -25,9 +25,11 @@ public class GameStarter : MonoBehaviour
 
         List<Room> rooms = levelGenerator.MakeLevel();
 
+        roomCollection.Activate();
         roomCollection.SetRoomCollection(rooms);
         roomCollection.ProcessRooms();
         roomCollection.ColorRooms();
+        roomCollection.SpawnItems();
         Vector3 spawnPoisition = roomCollection.GetSpawnPosition();
 
         player.Activate();
@@ -43,6 +45,6 @@ public class GameStarter : MonoBehaviour
     IEnumerator StartDoorsAnimation(int sec)
     {
         yield return new WaitForSeconds(sec);
-        gameStateManager.SetState(GameState.PlayerSelectDoor);
+        gameStateManager.SetStartState();
     }
 }

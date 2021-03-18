@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RoomCollection : MonoBehaviour
@@ -13,7 +14,14 @@ public class RoomCollection : MonoBehaviour
     private Room finishRoom;
     private List<Room> minigameRooms = new List<Room>();
 
+    private ItemsGenerator itemsGenerator;
+
     private void Awake() => Instance = this;
+
+    public void Activate()
+    {
+        itemsGenerator = GetComponent<ItemsGenerator>();
+    }
 
     public void SetRoomCollection(List<Room> roomCollection)
     {
@@ -49,6 +57,19 @@ public class RoomCollection : MonoBehaviour
             List<MinigameInfo> minigameInfoList = room.GetRelativeMinigameInfo();
             MinigameInfo correctColor = categoryPalette.GenerateColorFor(minigameInfoList);
             room.SetMinigameCategory(correctColor);
+        }
+    }
+
+    public void SpawnItems()
+    {
+        List<Item> generatedItems = itemsGenerator.GenerateItems();
+        System.Random rnd = new System.Random();
+        List<Room> roomsForItems = rooms.OrderBy(i => rnd.Next())
+                                        .Take(generatedItems.Count)
+                                        .ToList();
+        for(int i = 0; i< roomsForItems.Count; i++)
+        {
+            roomsForItems[i].SetItem(generatedItems[i]);
         }
     }
 

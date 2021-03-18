@@ -25,7 +25,7 @@ public class PlayerMover : MonoBehaviour
     public void MoveToAnotherRoom(Vector3 nextPosition)
     {
         transform.positionTransition(nextPosition, playerSpeed)
-            .EventTransition(() => gameStateManager.SetState(GameState.DoorsClose), playerSpeed);
+            .EventTransition(() => gameStateManager.SetState(GameStateType.DoorsClose), playerSpeed);
     }
     
 }

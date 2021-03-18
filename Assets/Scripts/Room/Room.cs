@@ -17,6 +17,7 @@ public class Room : MonoBehaviour
     private RoomDoorMaker roomDoorMaker;
     private RoomLocator roomLocator;
     private RoomCategorySetter roomCategorySetter;
+    private RoomItemHolder roomItemHolder;
 
     public void Activate()
     {
@@ -25,10 +26,12 @@ public class Room : MonoBehaviour
         roomDoorMaker = GetComponent<RoomDoorMaker>();
         roomLocator = GetComponent<RoomLocator>();
         roomCategorySetter = GetComponent<RoomCategorySetter>();
+        roomItemHolder = GetComponent<RoomItemHolder>();
         roomTypesGenerator.Activate();
         roomWallMaker.Activate();
         roomDoorMaker.Activate(this);
         roomCategorySetter.Activate();
+        roomItemHolder.Activate();
     }
 
     #region DoorsPlaceholdersGeneration
@@ -148,6 +151,7 @@ public class Room : MonoBehaviour
     }
     #endregion
 
+    #region Doors
     public List<Door> GetDoors()
     {
         return roomDoorMaker.GetCurrentDoors();
@@ -163,6 +167,27 @@ public class Room : MonoBehaviour
         return roomDoorMaker.GetDoorHolder(roomType);
     }
 
+    #endregion
+
+    #region Items
+
+    public void SetItem(Item item)
+    {
+        roomItemHolder.ActivatePresenter();
+        roomItemHolder.SetItem(item);
+    }
+
+    public bool HasItem()
+    {
+        return roomItemHolder.HasItem();
+    }
+
+    public Item GetItem()
+    {
+        return roomItemHolder.GetItem();
+    }
+
+    #endregion
     public static RoomType ReverseType(RoomType inputRoomType)
     {
         RoomType outputRoomType = RoomType.TopDoor;

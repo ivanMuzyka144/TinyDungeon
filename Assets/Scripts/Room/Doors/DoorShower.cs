@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorShower : MonoBehaviour
@@ -19,7 +20,7 @@ public class DoorShower : MonoBehaviour
         player = Player.Instance;
     }
 
-    public void ShowDoorsUpAnim()
+    public void ShowDoorsUpAnim(object sender, EventArgs e)
     {
         currentRoom = player.GetCurrentRoom();
         List<Door> currentDoors = currentRoom.GetDoors();
@@ -29,7 +30,7 @@ public class DoorShower : MonoBehaviour
         }
     }
 
-    public void ShowDoorsBackAnim()
+    public void ShowDoorsBackAnim(object sender, EventArgs e)
     {
         currentRoom = player.GetCurrentRoom();
         List<Door> currentDoors = currentRoom.GetDoors();
@@ -39,7 +40,7 @@ public class DoorShower : MonoBehaviour
         }
     }
 
-    public void ShowTwoDoorsOpenAnim(RoomType direction)
+    public void ShowTwoDoorsOpenAnim(RoomType direction, Action afterAnimAction)
     {
         Room currentRoom = player.GetCurrentRoom();
         Room wantedRoom = currentRoom.GetRelativeRoom(direction);
@@ -50,8 +51,8 @@ public class DoorShower : MonoBehaviour
         Transform currentDoorHolder = currentRoom.GetDoorHolder(direction);
         Transform nextDoorHolder = wantedRoom.GetDoorHolder(Room.ReverseType(direction));
 
-        currentDoor.ShowDoorOpenAnim(currentDoorHolder);
-        nextDoor.ShowDoorOpenAnim(nextDoorHolder);
+        currentDoor.ShowDoorOpenAnim(currentDoorHolder, afterAnimAction);
+        nextDoor.ShowDoorOpenAnim(nextDoorHolder, afterAnimAction);
     }
 
     public void ShowTwoDoorsCloseAnim(RoomType direction)
