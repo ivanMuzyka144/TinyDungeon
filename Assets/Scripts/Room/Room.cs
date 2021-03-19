@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum RoomType
@@ -182,9 +183,9 @@ public class Room : MonoBehaviour
         return roomItemHolder.HasItem();
     }
 
-    public Item GetItem()
+    public Item GetItem(Action afterAnimAction)
     {
-        return roomItemHolder.GetItem();
+        return roomItemHolder.GetItem(afterAnimAction);
     }
 
     #endregion

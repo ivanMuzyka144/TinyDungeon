@@ -1,11 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomItemPresenter : MonoBehaviour
 {
-    public void MakeEffectFor(Item item)
+    [SerializeField] private Box box;
+
+    public void MakeActive()
     {
-        Debug.Log("You got a " + item.name);
+        box.Activate();
+    }
+    public void MakeEffectFor(Item item , Action afterAnimAction)
+    {
+        box.MakeEffectForItem(item, afterAnimAction);
     }
 }

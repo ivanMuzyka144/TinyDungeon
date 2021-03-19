@@ -1,10 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomItemHolder : MonoBehaviour
 {
-    [SerializeField] private RoomItemPresenter roomItemPresenter;
+    private RoomItemPresenter roomItemPresenter;
     private bool hasItem;
     private Item item; 
     public void Activate()
@@ -14,7 +15,7 @@ public class RoomItemHolder : MonoBehaviour
 
     public void ActivatePresenter()
     {
-
+        roomItemPresenter.MakeActive();
     }
 
     public void SetItem(Item item)
@@ -28,10 +29,10 @@ public class RoomItemHolder : MonoBehaviour
         return hasItem;
     }
 
-    public Item GetItem()
+    public Item GetItem(Action afterAnimAction)
     {
         hasItem = false;
-        roomItemPresenter.MakeEffectFor(item);
+        roomItemPresenter.MakeEffectFor(item, afterAnimAction);
         return item;
     }
 }
