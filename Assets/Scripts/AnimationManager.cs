@@ -8,34 +8,38 @@ public class AnimationManager : MonoBehaviour
 
     private DoorShower doorShower;
     private Player player;
+    private GameStateManager gameStateManager;
 
     public void Activate()
     {
         doorShower = DoorShower.Instance;
         player = Player.Instance;
+        gameStateManager = GameStateManager.Instance;
     }
 
     public void MakeMovementSequence(object sender, EventArgs e)
     {
         GSEventArgs gsEventArgs = e as GSEventArgs;
-
-        Action afterAnimAction = () => MovePlayer();
-        
-        OpenTwoDoors(gsEventArgs.direction, afterAnimAction);
+        OpenTwoDoors(gsEventArgs.direction);
     }
 
-    public void OpenTwoDoors(RoomType directionType, Action afterAnimAction)
+    public void OpenTwoDoors(RoomType directionType)
     {
+        Action afterAnimAction = () => MovePlayer(directionType);
+        
         doorShower.ShowTwoDoorsOpenAnim(directionType, afterAnimAction);
     }
 
-    public void MovePlayer()
+    public void MovePlayer(RoomType directionType)
     {
-
+        Action afterAnimAction = () => CloseDoors(directionType);
+        player.MoveToAnotherRoom(directionType, afterAnimAction);
     }
 
-    public void CloseDoors()
+    public void CloseDoors(RoomType directionType)
     {
+        Action afterAnimAction = () => gameStateManager.ChangeState(GameStateType.PlayerMinigame);
 
+        doorShower.ShowTwoDoorsCloseAnim(directionType, afterAnimAction);
     }
 }

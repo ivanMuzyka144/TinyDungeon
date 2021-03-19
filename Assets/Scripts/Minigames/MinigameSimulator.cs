@@ -27,6 +27,6 @@ public class MinigameSimulator : MonoBehaviour
     {
         yield return new WaitForSeconds(sec);
         minigamePanel.SetActive(false);
-        gameStateManager.SetState(GameStateType.PlayerSelectDoor);
+        gameStateManager.EndCurrentState();
     }
 }

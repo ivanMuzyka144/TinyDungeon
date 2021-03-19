@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Lean.Transition;
+using System;
 
 public class PlayerMover : MonoBehaviour
 {
@@ -22,10 +23,10 @@ public class PlayerMover : MonoBehaviour
         return currentRoom;
     }
 
-    public void MoveToAnotherRoom(Vector3 nextPosition)
+    public void MoveToAnotherRoom(Vector3 nextPosition, Action afterAnimAction)
     {
         transform.positionTransition(nextPosition, playerSpeed)
-            .EventTransition(() => gameStateManager.SetState(GameStateType.DoorsClose), playerSpeed);
+            .EventTransition(afterAnimAction, playerSpeed);
     }
     
 }

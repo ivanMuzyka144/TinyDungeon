@@ -54,8 +54,10 @@ public class Door : MonoBehaviour
     public void ShowDoorBackAnim(Vector3 cameraRotation)
     {
         doorSelector.Disable();
-        Action afterAnimAction = () => { doorSelector.Enable(); 
-                                         gameStateManager.ChangeState(); };
+        Action afterAnimAction = () => { 
+                                         doorSelector.Enable(); 
+                                         gameStateManager.ChangeState(GameStateType.PlayerMove);
+                                        };
 
         switch (doorType)
         {

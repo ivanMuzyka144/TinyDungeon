@@ -2,6 +2,7 @@
 
 public class GameStateNode 
 {
+    private GameStateType previousState;
     private GameStateType thisState;
     private GameStateType nextState;
 
@@ -9,10 +10,16 @@ public class GameStateNode
     public EventHandler OnStateEnded;
     
 
-    public GameStateNode(GameStateType thisState, GameStateType nextState)
+    public GameStateNode(GameStateType thisState, GameStateType previousState, GameStateType nextState)
     {
         this.thisState = thisState;
+        this.previousState = previousState;
         this.nextState = nextState;
+    }
+
+    public GameStateType GetPreviousState()
+    {
+        return previousState;
     }
 
     public GameStateType GetGameStateType()
@@ -22,6 +29,6 @@ public class GameStateNode
 
     public GameStateType GetNextStateType()
     {
-        return thisState;
+        return nextState;
     }
 }

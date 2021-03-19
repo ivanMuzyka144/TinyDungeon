@@ -42,6 +42,8 @@ public class DoorShower : MonoBehaviour
 
     public void ShowTwoDoorsOpenAnim(RoomType direction, Action afterAnimAction)
     {
+        Action emptyAction = () => { };
+
         Room currentRoom = player.GetCurrentRoom();
         Room wantedRoom = currentRoom.GetRelativeRoom(direction);
 
@@ -52,11 +54,13 @@ public class DoorShower : MonoBehaviour
         Transform nextDoorHolder = wantedRoom.GetDoorHolder(Room.ReverseType(direction));
 
         currentDoor.ShowDoorOpenAnim(currentDoorHolder, afterAnimAction);
-        nextDoor.ShowDoorOpenAnim(nextDoorHolder, afterAnimAction);
+        nextDoor.ShowDoorOpenAnim(nextDoorHolder, emptyAction);
     }
 
-    public void ShowTwoDoorsCloseAnim(RoomType direction)
+    public void ShowTwoDoorsCloseAnim(RoomType direction, Action afterAnimAction)
     {
+        Action emptyAction = () => { };
+        
         Room currentRoom = player.GetCurrentRoom();
         Room wantedRoom = currentRoom.GetRelativeRoom(Room.ReverseType(direction));
 
@@ -67,7 +71,7 @@ public class DoorShower : MonoBehaviour
         Transform currentDoorHolder = currentRoom.GetDoorHolder(Room.ReverseType(direction));
         Transform nextDoorHolder = wantedRoom.GetDoorHolder(direction);
 
-        currentDoor.ShowDoorCloseAnim(currentDoorHolder);
-        nextDoor.ShowDoorCloseAnim(nextDoorHolder);
+        currentDoor.ShowDoorCloseAnim(currentDoorHolder, afterAnimAction);
+        nextDoor.ShowDoorCloseAnim(nextDoorHolder, emptyAction);
     }
 }

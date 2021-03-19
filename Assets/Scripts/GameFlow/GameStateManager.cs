@@ -27,18 +27,25 @@ public class GameStateManager : MonoBehaviour
         player = Player.Instance;
         minigameSimulator = MinigameSimulator.Instance;
 
+        animationManager.Activate();
+
         GameStateNode selectionDoorNode = new GameStateNode(GameStateType.PlayerSelectDoor, 
+                                                            GameStateType.PlayerMinigame,
                                                             GameStateType.PlayerMove);
         GameStateNode movemntNode = new GameStateNode(GameStateType.PlayerMove,
+                                                      GameStateType.PlayerSelectDoor,
                                                       GameStateType.PlayerMinigame);
         GameStateNode minigameNode = new GameStateNode(GameStateType.PlayerMinigame,
-                                                      GameStateType.PlayerSelectDoor);
+                                                       GameStateType.PlayerMove,
+                                                       GameStateType.PlayerSelectDoor);
 
         selectionDoorNode.OnStateStarted += doorShower.ShowDoorsUpAnim;
         selectionDoorNode.OnStateEnded += doorShower.ShowDoorsBackAnim;
+
         movemntNode.OnStateStarted += animationManager.MakeMovementSequence;
-        //movemntNode.OnStateEnded += 
+
         minigameNode.OnStateStarted += minigameSimulator.StartMinigame;
+        minigameNode.OnStateEnded += player.CollectItem;
 
         gameStateDictionary.Add(GameStateType.PlayerSelectDoor, selectionDoorNode);
         gameStateDictionary.Add(GameStateType.PlayerMove, movemntNode);
@@ -48,21 +55,25 @@ public class GameStateManager : MonoBehaviour
     public void SetStartState()
     {
         currentNode = gameStateDictionary[GameStateType.PlayerSelectDoor];
-        currentNode.OnStateEnded.Invoke(this, EventArgs.Empty);
+        currentNode.OnStateStarted.Invoke(this, EventArgs.Empty);
     }
     public void EndCurrentState()
     {
         currentNode.OnStateEnded.Invoke(this, EventArgs.Empty);
     }
-    public void ChangeState()
+    public void ChangeState(GameStateType gameStateType)
     {
+        
         GameStateNode nextNode = gameStateDictionary[currentNode.GetNextStateType()];
 
-        GSEventArgs gsEventArgs = new GSEventArgs();
-        gsEventArgs.direction = selectedDoorDirection;
+        if(nextNode.GetGameStateType() == gameStateType)
+        {
+            GSEventArgs gsEventArgs = new GSEventArgs();
+            gsEventArgs.direction = selectedDoorDirection;
 
-        nextNode.OnStateStarted(this, EventArgs.Empty);
-        currentNode = nextNode;
+            nextNode.OnStateStarted(this, gsEventArgs);
+            currentNode = nextNode;
+        }
     }
 
     //public void SetState(GameStateType gameState)
