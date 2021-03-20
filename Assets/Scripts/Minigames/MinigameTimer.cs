@@ -23,6 +23,7 @@ public class MinigameTimer : MonoBehaviour
         timerHasSetted = true;
         startSettedTime = time;
         settedTime = time;
+        slider.value = 1;
     }
 
     public void InterruptTimer()
@@ -39,6 +40,7 @@ public class MinigameTimer : MonoBehaviour
             if (settedTime > 0)
             {
                 settedTime -= Time.deltaTime;
+                slider.value = CountSliderValue();
             }
             else
             {
@@ -48,6 +50,10 @@ public class MinigameTimer : MonoBehaviour
         }
     }
 
+    private float CountSliderValue()
+    {
+        return settedTime/ startSettedTime;
+    }
 
 
 }

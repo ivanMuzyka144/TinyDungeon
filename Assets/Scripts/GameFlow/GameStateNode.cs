@@ -1,34 +1,33 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class GameStateNode 
 {
-    private GameStateType previousState;
+    private List<GameStateType> previousStates = new List<GameStateType>();
     private GameStateType thisState;
-    private GameStateType nextState;
+    private List<GameStateType> nextStates = new List<GameStateType>();
 
     public EventHandler OnStateStarted;
     public EventHandler OnStateEnded;
     
 
-    public GameStateNode(GameStateType thisState, GameStateType previousState, GameStateType nextState)
+    public GameStateNode(GameStateType thisState, 
+                        GameStateType[] previousStates, 
+                        GameStateType[] nextStates)
     {
         this.thisState = thisState;
-        this.previousState = previousState;
-        this.nextState = nextState;
+        this.previousStates.AddRange(previousStates);
+        this.nextStates.AddRange(nextStates);
     }
 
-    public GameStateType GetPreviousState()
-    {
-        return previousState;
-    }
 
     public GameStateType GetGameStateType()
     {
         return thisState;
     }
 
-    public GameStateType GetNextStateType()
+    public bool IsPreviousFor(GameStateType gameStateType)
     {
-        return nextState;
+        return nextStates.Contains(gameStateType);
     }
 }

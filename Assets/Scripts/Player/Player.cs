@@ -7,9 +7,12 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
+    private bool isAlive;
+
     private PlayerMover playerMover;
     private PlayerItemHolder playerItemHolder;
     private ItemCollection itemCollection;
+    private GameStateManager gameStateManager;
 
     private void Awake()
     {
@@ -18,7 +21,10 @@ public class Player : MonoBehaviour
 
     public void Activate()
     {
+        isAlive = true;
+
         itemCollection = ItemCollection.Instance;
+        gameStateManager = GameStateManager.Instance;
 
         playerMover = GetComponent<PlayerMover>();
         playerItemHolder = GetComponent<PlayerItemHolder>();
@@ -77,8 +83,14 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Debug.Log("YouDie!");
+            isAlive = false;
+            gameStateManager.ChangeState(GameStateType.GameOver);
         }
+    }
+
+    public bool IsAlive()
+    {
+        return isAlive;
     }
 
     public void RemoveMiracle()

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,11 +6,11 @@ public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager Instance { get; private set; }
 
-    private AnimationManager animationManager;
-
     private DoorShower doorShower;
+    private AnimationManager animationManager;
     private Player player;
     private MinigameSimulator minigameSimulator;
+    private UIManager uiManager;
 
     private GameStateNode currentNode;
     private RoomType selectedDoorDirection;
@@ -22,22 +21,28 @@ public class GameStateManager : MonoBehaviour
 
     public void Activate()
     {
-        animationManager = AnimationManager.Instance;
         doorShower = DoorShower.Instance;
+        animationManager = AnimationManager.Instance;
         player = Player.Instance;
         minigameSimulator = MinigameSimulator.Instance;
+        uiManager = UIManager.Instance;
 
         animationManager.Activate();
 
-        GameStateNode selectionDoorNode = new GameStateNode(GameStateType.PlayerSelectDoor, 
-                                                            GameStateType.PlayerMinigame,
-                                                            GameStateType.PlayerMove);
+        GameStateNode selectionDoorNode = new GameStateNode(GameStateType.PlayerSelectDoor,
+                                                     new[] { GameStateType.PlayerMinigame},
+                                                    new [] {GameStateType.PlayerMove});
         GameStateNode movemntNode = new GameStateNode(GameStateType.PlayerMove,
-                                                      GameStateType.PlayerSelectDoor,
-                                                      GameStateType.PlayerMinigame);
+                                              new [] { GameStateType.PlayerSelectDoor },
+                                               new[] { GameStateType.PlayerMinigame});
         GameStateNode minigameNode = new GameStateNode(GameStateType.PlayerMinigame,
-                                                       GameStateType.PlayerMove,
-                                                       GameStateType.PlayerSelectDoor);
+                                                new[] { GameStateType.PlayerMove},
+                                                new [] {GameStateType.PlayerSelectDoor,
+                                                        GameStateType.GameOver,
+                                                        GameStateType.Finish,});
+        GameStateNode gameOverNode = new GameStateNode(GameStateType.GameOver,
+                                               new[] { GameStateType.PlayerMinigame},
+                                               new[] { GameStateType.None});
 
         selectionDoorNode.OnStateStarted += doorShower.ShowDoorsUpAnim;
         selectionDoorNode.OnStateEnded += doorShower.ShowDoorsBackAnim;
@@ -47,9 +52,12 @@ public class GameStateManager : MonoBehaviour
         minigameNode.OnStateStarted += minigameSimulator.StartMinigame;
         minigameNode.OnStateEnded += player.CollectItem;
 
+        gameOverNode.OnStateStarted += uiManager.ShowGameOverScreen;
+
         gameStateDictionary.Add(GameStateType.PlayerSelectDoor, selectionDoorNode);
         gameStateDictionary.Add(GameStateType.PlayerMove, movemntNode);
         gameStateDictionary.Add(GameStateType.PlayerMinigame, minigameNode);
+        gameStateDictionary.Add(GameStateType.GameOver, gameOverNode);
     }
 
     public void SetStartState()
@@ -64,9 +72,9 @@ public class GameStateManager : MonoBehaviour
     public void ChangeState(GameStateType gameStateType)
     {
         
-        GameStateNode nextNode = gameStateDictionary[currentNode.GetNextStateType()];
+        GameStateNode nextNode = gameStateDictionary[gameStateType];
 
-        if(nextNode.GetGameStateType() == gameStateType)
+        if(currentNode.IsPreviousFor(nextNode.GetGameStateType()))
         {
             GSEventArgs gsEventArgs = new GSEventArgs();
             gsEventArgs.direction = selectedDoorDirection;
@@ -76,49 +84,7 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    //public void SetState(GameStateType gameState)
-    //{
-    //    switch (gameState)
-    //    {
-    //        case GameStateType.PlayerSelectDoor:
-    //            Room room = player.GetCurrentRoom();
-    //            if (room.HasItem())
-    //                room.GetItem();
-    //            ///---------
-    //            currentState = GameStateType.PlayerSelectDoor;
-    //            doorShower.ShowDoorsUpAnim();
-    //            break;
-    //        case GameStateType.DoorsOpen:
-    //            if(currentState == GameStateType.PlayerSelectDoor)
-    //            {
-    //                currentState = GameStateType.DoorsOpen;
-    //                doorShower.ShowTwoDoorsOpenAnim(selectedDoorDirection);
-    //            }
-    //            break;
-    //        case GameStateType.PlayerMove:
-    //            if (currentState == GameStateType.DoorsOpen)
-    //            {
-    //                currentState = GameStateType.PlayerMove;
-    //                player.MoveToAnotherRoom(selectedDoorDirection);
-    //            }
-    //            break;
-    //        case GameStateType.DoorsClose:
-    //            if (currentState == GameStateType.PlayerMove)
-    //            {
-    //                currentState = GameStateType.DoorsClose;
-    //                doorShower.ShowTwoDoorsCloseAnim(selectedDoorDirection);
-    //            }
-    //            break;
-    //        case GameStateType.PlayerMinigame:
-    //            if (currentState == GameStateType.DoorsClose)
-    //            {
-    //                currentState = GameStateType.PlayerMinigame;
-    //                minigameSimulator.StartMinigame();
-    //            }
-    //            break;
-    //    }
-    //}
-
+    
     public void SetDoorDirection(RoomType roomType)
     {
         selectedDoorDirection = roomType;
@@ -129,7 +95,10 @@ public enum GameStateType
 {
     PlayerSelectDoor,
     PlayerMove,
-    PlayerMinigame
+    PlayerMinigame,
+    GameOver,
+    Finish,
+    None
 }
 
 public class GSEventArgs : EventArgs

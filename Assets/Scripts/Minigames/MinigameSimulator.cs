@@ -41,7 +41,10 @@ public class MinigameSimulator : MonoBehaviour
         player.RemoveLife();
         minigameTimer.InterruptTimer();
         minigamePanel.SetActive(false);
-        gameStateManager.EndCurrentState();
+        if (player.IsAlive())
+        {
+            gameStateManager.EndCurrentState();
+        }
     }
 
     public void UseMiracleForMiniGame()
@@ -66,7 +69,11 @@ public class MinigameSimulator : MonoBehaviour
         Debug.Log("TimeEnded");
         player.RemoveLife();
         minigamePanel.SetActive(false);
-        gameStateManager.EndCurrentState();
+        if (player.IsAlive())
+        {
+            gameStateManager.EndCurrentState();
+        }
+    
     }
 
     //IEnumerator EndMinigame(float sec)
