@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 
     private PlayerMover playerMover;
     private PlayerItemHolder playerItemHolder;
-
+    private ItemCollection itemCollection;
 
     private void Awake()
     {
@@ -18,11 +18,15 @@ public class Player : MonoBehaviour
 
     public void Activate()
     {
+        itemCollection = ItemCollection.Instance;
+
         playerMover = GetComponent<PlayerMover>();
         playerItemHolder = GetComponent<PlayerItemHolder>();
 
         playerMover.Activate();
         playerItemHolder.Activate();
+
+        SetStartItems();
     }
 
     public void SpawnPlayer(Vector3 startPosition) => playerMover.SpawnPlayer(startPosition);
@@ -46,5 +50,39 @@ public class Player : MonoBehaviour
     {
         Room currentRoom = GetCurrentRoom();
         playerItemHolder.CollectItem(currentRoom);
+    }
+
+    public bool HasMiracle()
+    {
+        return playerItemHolder.HasItem(itemCollection.GetMiracleItem());
+    }
+
+    private void SetStartItems()
+    {
+        List<Item> startItems = new List<Item>();
+        startItems.Add(itemCollection.GetLifeItem());
+        startItems.Add(itemCollection.GetLifeItem());
+        startItems.Add(itemCollection.GetLifeItem());
+        startItems.Add(itemCollection.GetMiracleItem());
+        startItems.Add(itemCollection.GetMiracleItem());
+        playerItemHolder.SetStartItems(startItems);
+    }
+
+
+    public void RemoveLife()
+    {
+        if (playerItemHolder.HasItem(itemCollection.GetLifeItem()))
+        {
+            playerItemHolder.RemoveItem(itemCollection.GetLifeItem());
+        }
+        else
+        {
+            Debug.Log("YouDie!");
+        }
+    }
+
+    public void RemoveMiracle()
+    {
+        playerItemHolder.RemoveItem(itemCollection.GetMiracleItem());
     }
 }

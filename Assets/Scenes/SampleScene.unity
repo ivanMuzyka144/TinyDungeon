@@ -484,6 +484,7 @@ GameObject:
   - component: {fileID: 663041758}
   - component: {fileID: 663041760}
   - component: {fileID: 663041759}
+  - component: {fileID: 663041761}
   m_Layer: 5
   m_Name: ItemPanel
   m_TagString: Untagged
@@ -549,6 +550,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663041757}
   m_CullTransparentMesh: 0
+--- !u!114 &663041761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663041757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6339bec50356342b587c03feedd5fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeText: {fileID: 852866890}
+  coinText: {fileID: 905045643}
+  miracleText: {fileID: 2009975150}
+  lifeItem: {fileID: 11400000, guid: 315d46caf5ad9314bb6ccab4d67e95e5, type: 2}
+  coinItem: {fileID: 11400000, guid: 761a7e3bc5d64c94cb975aae9e37e959, type: 2}
+  miracleItem: {fileID: 11400000, guid: da37419155534eb48965d439f0c22810, type: 2}
 --- !u!1 &693300141
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,7 +1089,7 @@ GameObject:
   - component: {fileID: 928565419}
   - component: {fileID: 928565418}
   m_Layer: 5
-  m_Name: LifePanel (1)
+  m_Name: CoinPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1322,7 +1341,7 @@ GameObject:
   - component: {fileID: 1143168865}
   - component: {fileID: 1143168864}
   m_Layer: 5
-  m_Name: LifePanel (2)
+  m_Name: MiraclePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2046,6 +2065,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1948462576}
   - component: {fileID: 1948462575}
+  - component: {fileID: 1948462577}
   m_Layer: 0
   m_Name: MinigameSimulator
   m_TagString: Untagged
@@ -2080,6 +2100,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1948462577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948462574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f3c664b741fc3d41b735a3f7930ec9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2009975148
 GameObject:
   m_ObjectHideFlags: 0

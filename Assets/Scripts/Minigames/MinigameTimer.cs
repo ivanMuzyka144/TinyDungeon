@@ -1,18 +1,53 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MinigameTimer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Slider slider;
+
+    private float startSettedTime;
+    private float settedTime;
+    private bool timerHasSetted;
+
+    private MinigameSimulator minigameSimulator;
+    public void Activate()
     {
+        minigameSimulator = MinigameSimulator.Instance;
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartTimer(float time)
     {
-        
+        timerHasSetted = true;
+        startSettedTime = time;
+        settedTime = time;
     }
+
+    public void InterruptTimer()
+    {
+        timerHasSetted = false;
+    }
+
+    
+
+    private void Update()
+    {
+        if (timerHasSetted)
+        {
+            if (settedTime > 0)
+            {
+                settedTime -= Time.deltaTime;
+            }
+            else
+            {
+                timerHasSetted = false;
+                minigameSimulator.EndTimeMinigame();
+            }
+        }
+    }
+
+
+
 }
