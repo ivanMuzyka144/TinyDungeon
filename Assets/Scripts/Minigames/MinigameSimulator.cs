@@ -25,8 +25,18 @@ public class MinigameSimulator : MonoBehaviour
 
     public void StartMinigame(object sender, EventArgs e)
     {
-        minigamePanel.SetActive(true);
-        minigameTimer.StartTimer(1.5f);
+        Room currentRoom = player.GetCurrentRoom();
+        RoomCategoryType roomCategoryType = currentRoom.GetCategory();
+        Debug.Log(gameStateManager.currentNode.GetGameStateType());
+        if(roomCategoryType == RoomCategoryType.MinigameRoom)
+        {
+            minigamePanel.SetActive(true);
+            minigameTimer.StartTimer(1.5f);
+        }
+        else
+        {
+            gameStateManager.ChangeState(GameStateType.PlayerSelectDoor);
+        }
     }
 
     public void WinMiniGame()

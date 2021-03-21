@@ -12,7 +12,7 @@ public class GameStateManager : MonoBehaviour
     private MinigameSimulator minigameSimulator;
     private UIManager uiManager;
 
-    private GameStateNode currentNode;
+    public GameStateNode currentNode;
     private RoomType selectedDoorDirection;
 
     private Dictionary<GameStateType, GameStateNode> gameStateDictionary = new Dictionary<GameStateType, GameStateNode>();
@@ -71,7 +71,6 @@ public class GameStateManager : MonoBehaviour
     }
     public void ChangeState(GameStateType gameStateType)
     {
-        
         GameStateNode nextNode = gameStateDictionary[gameStateType];
 
         if(currentNode.IsPreviousFor(nextNode.GetGameStateType()))
@@ -79,8 +78,8 @@ public class GameStateManager : MonoBehaviour
             GSEventArgs gsEventArgs = new GSEventArgs();
             gsEventArgs.direction = selectedDoorDirection;
 
-            nextNode.OnStateStarted(this, gsEventArgs);
             currentNode = nextNode;
+            currentNode.OnStateStarted(this, gsEventArgs);
         }
     }
 

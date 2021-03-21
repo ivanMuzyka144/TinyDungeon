@@ -38,8 +38,11 @@ public class AnimationManager : MonoBehaviour
 
     public void CloseDoors(RoomType directionType)
     {
-        Action afterAnimAction = () => gameStateManager.ChangeState(GameStateType.PlayerMinigame);
-
+        Action afterAnimAction = () =>
+        {
+            gameStateManager.ChangeState(GameStateType.PlayerMinigame);
+        };
+        
         doorShower.ShowTwoDoorsCloseAnim(directionType, afterAnimAction);
     }
 }

@@ -67,7 +67,10 @@ public class RoomCollection : MonoBehaviour
         List<Room> roomsForItems = rooms.OrderBy(i => rnd.Next())
                                         .Take(generatedItems.Count)
                                         .ToList();
-        for(int i = 0; i< roomsForItems.Count; i++)
+        roomsForItems.Remove(startRoom);
+        roomsForItems.Remove(finishDoorRoom);
+        roomsForItems.Remove(finishRoom);
+        for (int i = 0; i< roomsForItems.Count; i++)
         {
             roomsForItems[i].SetItem(generatedItems[i]);
         }

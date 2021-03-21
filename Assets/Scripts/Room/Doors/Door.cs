@@ -55,7 +55,7 @@ public class Door : MonoBehaviour
     {
         doorSelector.Disable();
         Action afterAnimAction = () => { 
-                                         doorSelector.Enable(); 
+                                         doorSelector.Disable(); 
                                          gameStateManager.ChangeState(GameStateType.PlayerMove);
                                         };
 
