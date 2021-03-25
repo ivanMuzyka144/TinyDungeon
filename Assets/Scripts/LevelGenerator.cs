@@ -18,13 +18,16 @@ public class LevelGenerator : MonoBehaviour
 
     private Queue<RoomPlaceHolder> acceptedPlaceholdersQueue = new Queue<RoomPlaceHolder>();
 
-    private float height = 10;
-    private float width = 10;
+    private float height;
+    private float width;
 
     private void Awake() => Instance = this;
 
     public List<Room> MakeLevel()
     {
+        height = RoomOptions.Instance.GetHeight();
+        width = RoomOptions.Instance.GetWidth();
+
         SetFirstRoom();
         GenerateLevel();
 

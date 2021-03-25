@@ -220,12 +220,15 @@ public class RoomPlaceHolder
     public RoomType roomType;
     public Vector3 position => GetPosition();
 
-    private float height = 10;
-    private float width = 10;
+    private float height;
+    private float width;
 
     private Vector3 GetPosition()
     {
         Vector3 returnPosition = parentRoom.transform.position;
+
+        height = RoomOptions.Instance.GetHeight();
+        width = RoomOptions.Instance.GetWidth();
 
         switch (roomType)
         {

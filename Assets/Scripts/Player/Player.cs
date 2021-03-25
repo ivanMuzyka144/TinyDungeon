@@ -54,8 +54,18 @@ public class Player : MonoBehaviour
 
     public void CollectItem(object sender, EventArgs e)
     {
-        Room currentRoom = GetCurrentRoom();
-        playerItemHolder.CollectItem(currentRoom);
+        GSEventArgs gsEventArgs = e as GSEventArgs;
+        MiniGameResultType miniGameResultType = gsEventArgs.lastMinigameResult;
+        if (miniGameResultType == MiniGameResultType.Win || 
+            miniGameResultType == MiniGameResultType.UseMiracle)
+        {
+            Room currentRoom = GetCurrentRoom();
+            playerItemHolder.CollectItem(currentRoom);
+        }
+        else
+        {
+            gameStateManager.ChangeState(GameStateType.PlayerSelectDoor);
+        }
     }
 
     public bool HasMiracle()

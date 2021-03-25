@@ -12,8 +12,9 @@ public class GameStateManager : MonoBehaviour
     private MinigameSimulator minigameSimulator;
     private UIManager uiManager;
 
-    public GameStateNode currentNode;
+    private GameStateNode currentNode;
     private RoomType selectedDoorDirection;
+    private MiniGameResultType lastMinigameResult;
 
     private Dictionary<GameStateType, GameStateNode> gameStateDictionary = new Dictionary<GameStateType, GameStateNode>();
 
@@ -67,7 +68,11 @@ public class GameStateManager : MonoBehaviour
     }
     public void EndCurrentState()
     {
-        currentNode.OnStateEnded.Invoke(this, EventArgs.Empty);
+        GSEventArgs gsEventArgs = new GSEventArgs();
+        gsEventArgs.direction = selectedDoorDirection;
+        gsEventArgs.lastMinigameResult = lastMinigameResult;
+
+        currentNode.OnStateEnded.Invoke(this, gsEventArgs);
     }
     public void ChangeState(GameStateType gameStateType)
     {
@@ -77,6 +82,7 @@ public class GameStateManager : MonoBehaviour
         {
             GSEventArgs gsEventArgs = new GSEventArgs();
             gsEventArgs.direction = selectedDoorDirection;
+            gsEventArgs.lastMinigameResult = lastMinigameResult;
 
             currentNode = nextNode;
             currentNode.OnStateStarted(this, gsEventArgs);
@@ -87,6 +93,11 @@ public class GameStateManager : MonoBehaviour
     public void SetDoorDirection(RoomType roomType)
     {
         selectedDoorDirection = roomType;
+    }
+
+    public void SetMinigameResult(MiniGameResultType miniGameResultType)
+    {
+        lastMinigameResult = miniGameResultType;
     }
 }
 
@@ -100,7 +111,17 @@ public enum GameStateType
     None
 }
 
+public enum MiniGameResultType
+{
+    Win,
+    UseMiracle,
+    Lose,
+    TimeOver,
+    None
+}
+
 public class GSEventArgs : EventArgs
 {
     public RoomType direction;
+    public MiniGameResultType lastMinigameResult;
 }

@@ -27,7 +27,6 @@ public class MinigameSimulator : MonoBehaviour
     {
         Room currentRoom = player.GetCurrentRoom();
         RoomCategoryType roomCategoryType = currentRoom.GetCategory();
-        Debug.Log(gameStateManager.currentNode.GetGameStateType());
         if(roomCategoryType == RoomCategoryType.MinigameRoom)
         {
             minigamePanel.SetActive(true);
@@ -43,6 +42,7 @@ public class MinigameSimulator : MonoBehaviour
     {
         minigameTimer.InterruptTimer();
         minigamePanel.SetActive(false);
+        gameStateManager.SetMinigameResult(MiniGameResultType.Win);
         gameStateManager.EndCurrentState();
     }
     public void LoseMiniGame()
@@ -51,6 +51,7 @@ public class MinigameSimulator : MonoBehaviour
         player.RemoveLife();
         minigameTimer.InterruptTimer();
         minigamePanel.SetActive(false);
+        gameStateManager.SetMinigameResult(MiniGameResultType.Lose);
         if (player.IsAlive())
         {
             gameStateManager.EndCurrentState();
@@ -71,6 +72,7 @@ public class MinigameSimulator : MonoBehaviour
         Debug.Log("Miracle");
         minigameTimer.InterruptTimer();
         minigamePanel.SetActive(false);
+        gameStateManager.SetMinigameResult(MiniGameResultType.UseMiracle);
         gameStateManager.EndCurrentState();
     }
 
@@ -79,6 +81,7 @@ public class MinigameSimulator : MonoBehaviour
         Debug.Log("TimeEnded");
         player.RemoveLife();
         minigamePanel.SetActive(false);
+        gameStateManager.SetMinigameResult(MiniGameResultType.TimeOver);
         if (player.IsAlive())
         {
             gameStateManager.EndCurrentState();
