@@ -4,6 +4,22 @@
 public class MinigameInfo : ScriptableObject
 {
     [SerializeField] private int id;
-    [SerializeField] private string name;
+    [SerializeField] private MiniGameName miniGameName;
     [SerializeField] private float time;
+
+    public int GetId()
+    {
+        return id;
+    }
+
+    public MiniGameName GetName()
+    {
+        return miniGameName;
+    }
+
+}
+
+public enum MiniGameName
+{
+    Math
 }

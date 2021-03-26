@@ -3,23 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Domino : MonoBehaviour
+public class Domino 
 {
     private DominoValueHolder topValueHolder;
     private DominoValueHolder bottomValueHolder;
 
-    private void Start()
+    public Domino()
     {
         topValueHolder = new DominoValueHolder();
         bottomValueHolder = new DominoValueHolder();
     }
 
     #region GettersSetters
-    public void SetDominoHolder(int number, DominoPlace dominoValuePlace)
+    public void SetDominoValue(int number, DominoPlace dominoValuePlace)
                         => SetDominoHolder(new DominoValue(number), dominoValuePlace);
-    public void SetDominoHolder(string letter, DominoPlace dominoValuePlace)
+    public void SetDominoValue(string letter, DominoPlace dominoValuePlace)
                         => SetDominoHolder(new DominoValue(letter), dominoValuePlace);
-    public void SetDominoHolder(DominoColor dominoColor, DominoPlace dominoValuePlace)
+    public void SetDominoValue(DominoColor dominoColor, DominoPlace dominoValuePlace)
                         => SetDominoHolder(new DominoValue(dominoColor), dominoValuePlace);
 
     public int GetNumberValue(DominoPlace dominoValuePlace)

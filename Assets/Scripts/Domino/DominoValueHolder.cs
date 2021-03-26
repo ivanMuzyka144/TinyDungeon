@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DominoValueHolder : MonoBehaviour
+public class DominoValueHolder 
 {
     private DominoValue dominoValue;
 
