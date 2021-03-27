@@ -10,6 +10,7 @@ public class Topology : MonoBehaviour
     [SerializeField] private List<DominoHolder> questionsDominoHolders = new List<DominoHolder>();
     [SerializeField] private List<DominoHolder> smallPlacesDominoHolders = new List<DominoHolder>();
     [SerializeField] private List<DominoHolder> answersDominoHolders = new List<DominoHolder>();
+    [SerializeField] private List<Sign> signs = new List<Sign>();
     public void Activate()
     {
         topologyChildren.SetActive(true);
@@ -23,7 +24,8 @@ public class Topology : MonoBehaviour
     {
         return new TopologyData(questionsDominoHolders.Count, 
                                 smallPlacesDominoHolders.Count, 
-                                answersDominoHolders.Count);
+                                answersDominoHolders.Count,
+                                signs.Count);
     }
 
     public void ConfugurateTopology(TopologyConfiguration topologyConfiguration)
@@ -37,6 +39,17 @@ public class Topology : MonoBehaviour
         {
             smallPlacesDominoHolders[i].SetDomino(topologyConfiguration.smallPlacesDominos[i]);
         }
+
+        for (int i = 0; i < answersDominoHolders.Count; i++)
+        {
+            answersDominoHolders[i].SetDomino(topologyConfiguration.answersDominos[i]);
+        }
+
+        for (int i = 0; i < signs.Count; i++)
+        {
+            signs[i].SetSign(topologyConfiguration.signTypes[i]);
+        }
+
     }
 
 }
@@ -46,12 +59,14 @@ public class TopologyData
     public int questionsCount { get; private set; }
     public int smallPlacesCount { get; private set; }
     public int answersCount { get; private set; }
+    public int signsCount { get; private set; }
 
-    public TopologyData(int questionsCount, int smallPlacesCount, int answersCount)
+    public TopologyData(int questionsCount, int smallPlacesCount, int answersCount, int signsCount)
     {
         this.questionsCount = questionsCount;
         this.smallPlacesCount = smallPlacesCount;
         this.answersCount = answersCount;
+        this.signsCount = signsCount;
     }
 }
 
@@ -61,7 +76,7 @@ public class TopologyConfiguration
     public List<Domino> smallPlacesDominos = new List<Domino>();
     public List<Domino> answersDominos = new List<Domino>();
 
-    public List<bool> operations;
+    public List<SignType> signTypes = new List<SignType>();
 
     public void AddQuestionDomino(Domino domino) => questionsDominos.Add(domino);
     public void AddSmallPlacesDomino(Domino domino) => smallPlacesDominos.Add(domino);

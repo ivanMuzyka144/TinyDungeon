@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class DominoGenerator : MonoBehaviour
@@ -27,14 +28,13 @@ public class DominoGenerator : MonoBehaviour
     {
         TopologyConfiguration topologyConfiguration = new TopologyConfiguration();
 
-        int operationsCount = topologyData.questionsCount-1;
+        List<SignType> signTypes = new List<SignType>();
 
-        List<bool> operations = new List<bool>();
-
-        for(int i = 0; i< operationsCount; i++)
+        for(int i = 0; i< topologyData.signsCount; i++)
         {
-            bool operation = Random.value >= 0.5;
-            operations.Add(operation);
+            SignType signType = Random.value >= 0.5f? SignType.Add : SignType.Sub;
+            Debug.Log(signType);
+            signTypes.Add(signType);
         }
 
         List<int> topQuestionValues = new List<int>();
@@ -56,7 +56,7 @@ public class DominoGenerator : MonoBehaviour
             }
             else
             {
-                if (operations[i - 1] == true)
+                if (signTypes[i - 1] == SignType.Add)
                 {
                     int topValue = Random.Range(0, 7 - topSum);
                     int bottomValue = Random.Range(0, 7 - bottomSum);
@@ -65,7 +65,7 @@ public class DominoGenerator : MonoBehaviour
                     topQuestionValues.Add(topValue);
                     bottomQuestionValues.Add(bottomValue);
                 }
-                else
+                else if(signTypes[i - 1] == SignType.Sub)
                 {
                     int topValue = Random.Range(0, topSum + 1 );
                     int bottomValue = Random.Range(0, bottomSum + 1);
@@ -84,16 +84,47 @@ public class DominoGenerator : MonoBehaviour
             newQuestionDomino.SetDominoValue(topQuestionValues[i], DominoPlace.Top);
             newQuestionDomino.SetDominoValue(bottomQuestionValues[i], DominoPlace.Bottom);
             topologyConfiguration.AddQuestionDomino(newQuestionDomino);
-
-            
-            
         }
-        Debug.Log("SUM:" + " (" + topSum + ";" + bottomSum + ")");
 
         Domino newSmallPlacesDomino = new Domino();
         newSmallPlacesDomino.SetDominoValue(topSum, DominoPlace.Top);
         newSmallPlacesDomino.SetDominoValue(bottomSum, DominoPlace.Bottom);
         topologyConfiguration.AddSmallPlacesDomino(newSmallPlacesDomino);
+
+        for(int i = 0; i < topologyData.answersCount; i++)
+        {
+            Domino newDomino = new Domino();
+
+            int finalTopValue = Random.Range(0, 7);
+            int finalBottomValue = Random.Range(0, 7);
+            finalTopValue = Random.value >= 0.5f ? topSum : finalTopValue;
+            finalBottomValue = Random.value >= 0.5f ? bottomSum : finalBottomValue;
+            if(finalTopValue == topSum && finalBottomValue == bottomSum)
+            {
+                if(Random.value >= 0.5f)
+                {
+                    List<int> possibleTopValues = (new int[]{ 0, 1, 2, 3, 4, 5, 6 }).ToList();
+                    possibleTopValues.Remove(topSum);
+                    finalTopValue = possibleTopValues[Random.Range(0, possibleTopValues.Count)];
+                }
+                else
+                {
+                    List<int> possibleBottomValues = (new int[] { 0, 1, 2, 3, 4, 5, 6 }).ToList();
+                    possibleBottomValues.Remove(bottomSum);
+                    finalBottomValue = possibleBottomValues[Random.Range(0, possibleBottomValues.Count)];
+                }
+            }
+            newDomino.SetDominoValue(finalTopValue, DominoPlace.Top);
+            newDomino.SetDominoValue(finalBottomValue, DominoPlace.Bottom);
+
+            topologyConfiguration.AddAnswerDomino(newDomino);
+        }
+
+        int correctDomino = Random.Range(0, topologyConfiguration.answersDominos.Count);
+        topologyConfiguration.answersDominos[correctDomino].SetDominoValue(topSum, DominoPlace.Top);
+        topologyConfiguration.answersDominos[correctDomino].SetDominoValue(bottomSum, DominoPlace.Bottom);
+
+        topologyConfiguration.signTypes.AddRange(signTypes);
 
         return topologyConfiguration;
     }
