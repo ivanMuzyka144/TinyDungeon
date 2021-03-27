@@ -1,23 +1,45 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DominoHolder : MonoBehaviour
 {
-    [SerializeField] private bool isPlaceForDomino;
+    [SerializeField] private DominoType dominoType;
 
     private Domino domino;
     private DominoPresenter dominoPresenter;
+    private DominoSelector dominoSelector;
+    private DragMaker dragMaker;
 
     private void Awake()
     {
         dominoPresenter = GetComponent<DominoPresenter>();
+        dominoSelector = GetComponent<DominoSelector>();
+        dragMaker = GetComponent<DragMaker>();
+
+        if(dominoType == DominoType.Answer)
+        {
+            dragMaker.SetDrag(true);
+        }
     }
 
     public void SetDomino(Domino domino)
     {
         this.domino = domino;
-        dominoPresenter.SetTopValue(domino.GetNumberValue(DominoPlace.Top));
-        dominoPresenter.SetBottomValue(domino.GetNumberValue(DominoPlace.Bottom));
+        if (dominoType != DominoType.PlaceForDomino)
+        {
+            dominoPresenter.SetTopValue(domino.GetNumberValue(DominoPlace.Top));
+            dominoPresenter.SetBottomValue(domino.GetNumberValue(DominoPlace.Bottom));
+        }
+        if(dominoType == DominoType.Answer)
+        {
+            dominoSelector.Enable();
+        }
     }
+}
+
+public enum DominoType
+{
+    General,
+    Question,
+    Answer,
+    PlaceForDomino
 }
