@@ -1406,8 +1406,9 @@ MonoBehaviour:
   defaultMaterial: {fileID: 2100000, guid: b486ae57b1c9d044b88008ef7f02be85, type: 2}
   selectedMaterial: {fileID: 2100000, guid: a83c76b62f4fce74ba950f6f35ad5578, type: 2}
   selectionHeight: 1
-  selectionHeightTime: 0.5
+  selectionHeightTime: 0.3
   backTime: 0.5
+  dominoHolder: {fileID: 605624964816977322}
   meshRenderer: {fileID: 5118693691081823260}
 --- !u!114 &6782254182292606890
 MonoBehaviour:

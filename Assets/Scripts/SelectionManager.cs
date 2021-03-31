@@ -8,19 +8,6 @@ public class SelectionManager : MonoBehaviour
 
     void Update()
     {
-        //if (selectedObj != null)
-        //{
-        //    selectedObj.OnDeselected();
-        //}
-        //selectedObj = null;
-
-        //MakeRaycast();
-
-        //if (selectedObj != null)
-        //{
-        //    selectedObj.OnSelected();
-        //}
-
         ISelectable newSelected = MakeNewRaycast();
         if(newSelected != selectedObj)
         {

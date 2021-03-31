@@ -14,14 +14,17 @@ public class DominoSelector : MonoBehaviour, ISelectable
     [SerializeField] private float selectionHeightTime;
     [SerializeField] private float backTime;
     [Space(10)]
+    [SerializeField] private DominoHolder dominoHolder;
     [SerializeField] private MeshRenderer meshRenderer;
-
 
     private bool isActive;
     private bool effectActivated;
 
     private Vector3 startPosition;
+    private Vector3 currentBackPosition;
     private Vector3 finishPosition;
+
+
 
     private bool isSelected;
 
@@ -29,6 +32,7 @@ public class DominoSelector : MonoBehaviour, ISelectable
     {
         isActive = true;
         startPosition = transform.position;
+        currentBackPosition = startPosition;
         finishPosition = transform.position + new Vector3(0,0, - selectionHeight);
     }
 
@@ -42,9 +46,13 @@ public class DominoSelector : MonoBehaviour, ISelectable
     {
         meshRenderer.material = defaultMaterial;
 
-        Action afterAnimAction = () => isActive = true;
+        Action afterAnimAction = () =>
+        {
+            isActive = true;
+            dominoHolder.OnDominoHasSet();
+        };
 
-        transform.positionTransition(startPosition, backTime)
+        transform.positionTransition(currentBackPosition, backTime)
                   .EventTransition(afterAnimAction, backTime); 
     }
 
@@ -66,7 +74,7 @@ public class DominoSelector : MonoBehaviour, ISelectable
         {
             effectActivated = false;
             meshRenderer.material = defaultMaterial;
-            transform.positionTransition(startPosition, selectionHeightTime);
+            transform.positionTransition(currentBackPosition, selectionHeightTime);
         }
         isSelected = false;
     }
@@ -76,12 +84,29 @@ public class DominoSelector : MonoBehaviour, ISelectable
         return isSelected;
     }
 
+    public bool IsActive()
+    {
+        return isActive;
+    }
+
     public void TryToActivateEffect()
     {
         if (isActive)
         {
             OnSelected();
         }
+    }
+
+    public void SetPlaceForDominoPosition(Vector3 placeForDominoPosition)
+    {
+        currentBackPosition = placeForDominoPosition;
+        finishPosition = placeForDominoPosition + new Vector3(0, 0, -selectionHeight);
+    }
+
+    public void RemovePlaceForDominoPosition() 
+    {
+        currentBackPosition = startPosition;
+        finishPosition = startPosition + new Vector3(0, 0, -selectionHeight);
     }
 
 

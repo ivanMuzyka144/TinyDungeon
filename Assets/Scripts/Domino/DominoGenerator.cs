@@ -123,6 +123,8 @@ public class DominoGenerator : MonoBehaviour
         topologyConfiguration.answersDominos[correctDomino].SetDominoValue(topSum, DominoPlace.Top);
         topologyConfiguration.answersDominos[correctDomino].SetDominoValue(bottomSum, DominoPlace.Bottom);
 
+        topologyConfiguration.AddRealAnswerDomino(topologyConfiguration.answersDominos[correctDomino]);
+
         topologyConfiguration.signTypes.AddRange(signTypes);
 
         return topologyConfiguration;

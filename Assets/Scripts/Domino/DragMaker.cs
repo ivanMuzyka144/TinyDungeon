@@ -15,17 +15,19 @@ public class DragMaker : MonoBehaviour
     {
         if (canDrag)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && dominoSelector.IsSelected())
+            if (Input.GetKeyDown(KeyCode.Mouse0) 
+                && dominoSelector.IsActive()
+                && dominoSelector.IsSelected()
+                && isDragged == false)
             {
                 isDragged = true;
             }
-
-            if (Input.GetKeyUp(KeyCode.Mouse0))
+            else if (Input.GetKeyUp(KeyCode.Mouse0) && isDragged == true)
             {
                 isDragged = false;
                 dominoSelector.Activate();
             }
-
+            
             if (isDragged)
             {
                 OnDrag();

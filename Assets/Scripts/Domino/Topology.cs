@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Topology : MonoBehaviour
@@ -52,6 +53,15 @@ public class Topology : MonoBehaviour
 
     }
 
+    public List<DominoHolder> GetSmallPlacesDominos()
+    {
+        return smallPlacesDominoHolders;
+    }
+    public List<DominoHolder> GetAllAnswerDominos()
+    {
+        return answersDominoHolders;
+    }
+
 }
 
 public class TopologyData
@@ -75,10 +85,13 @@ public class TopologyConfiguration
     public List<Domino> questionsDominos = new List<Domino>();
     public List<Domino> smallPlacesDominos = new List<Domino>();
     public List<Domino> answersDominos = new List<Domino>();
+    public List<Domino> realAnswersDominos = new List<Domino>();
 
     public List<SignType> signTypes = new List<SignType>();
 
     public void AddQuestionDomino(Domino domino) => questionsDominos.Add(domino);
     public void AddSmallPlacesDomino(Domino domino) => smallPlacesDominos.Add(domino);
     public void AddAnswerDomino(Domino domino) => answersDominos.Add(domino);
+    public void AddRealAnswerDomino(Domino domino) => realAnswersDominos.Add(domino);
+
 }

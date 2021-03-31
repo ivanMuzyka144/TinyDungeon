@@ -1490,6 +1490,9 @@ GameObject:
   - component: {fileID: 8003335343715328468}
   - component: {fileID: 2253357202436562504}
   - component: {fileID: 6693400361277097858}
+  - component: {fileID: 1029798848292180441}
+  - component: {fileID: 4404862558845774713}
+  - component: {fileID: 8233531379518597655}
   m_Layer: 0
   m_Name: PlaceForAnswer
   m_TagString: Untagged
@@ -1524,7 +1527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2646afe4fdc9c6b41bf5c29dd546c825, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPlaceForDomino: 1
+  dominoType: 0
 --- !u!114 &6693400361277097858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1549,6 +1552,48 @@ MonoBehaviour:
   bottom_4: {fileID: 8994680174857112444}
   bottom_5: {fileID: 6240281453413428977}
   bottom_6: {fileID: 2293533142273627698}
+--- !u!65 &1029798848292180441
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3513143363519659628}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.2495277, y: 0.9892582, z: 6.2999234}
+  m_Center: {x: -0.052476898, y: 0.016109902, z: -0.020780995}
+--- !u!54 &4404862558845774713
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3513143363519659628}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &8233531379518597655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3513143363519659628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac5fc7799d2379a4e999e266b8531ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dominoInZone: {fileID: 0}
 --- !u!1 &3590876673238670757
 GameObject:
   m_ObjectHideFlags: 0
@@ -3205,7 +3250,6 @@ GameObject:
   - component: {fileID: 5776803406114830320}
   - component: {fileID: 5776803406114830333}
   - component: {fileID: 5776803406114830334}
-  - component: {fileID: 5776803406114830335}
   m_Layer: 0
   m_Name: DominoModel
   m_TagString: Untagged
@@ -3221,8 +3265,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5776803406114830321}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.112}
+  m_LocalScale: {x: 1, y: 1, z: 0.77694476}
   m_Children: []
   m_Father: {fileID: 7720404395333773506}
   m_RootOrder: 1
@@ -3274,19 +3318,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5776803406114830335
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5776803406114830321}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6069097603274241735
 GameObject:
   m_ObjectHideFlags: 0

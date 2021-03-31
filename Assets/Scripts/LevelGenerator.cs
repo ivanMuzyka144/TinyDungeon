@@ -79,7 +79,7 @@ public class LevelGenerator : MonoBehaviour
         foreach(Room room in roomsPositionDictionary.Values)
         {
             Vector3 topRoomPosition = room.transform.position + new Vector3(height, 0, 0);
-            Vector3 toppestRoomPosition = topRoomPosition + new Vector3(height, 0, 0);
+            Vector3 toppestRoomPosition = topRoomPosition + new Vector3(height, 0, 0);//<---?
             if(!roomsPositionDictionary.ContainsKey(topRoomPosition) &&
                 !roomsPositionDictionary.ContainsKey(toppestRoomPosition))
             {

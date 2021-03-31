@@ -1,13 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class DominoHolder : MonoBehaviour
 {
     [SerializeField] private DominoType dominoType;
 
+    public EventHandler OnDominoSet;
+
     private Domino domino;
     private DominoPresenter dominoPresenter;
     private DominoSelector dominoSelector;
     private DragMaker dragMaker;
+
 
     private void Awake()
     {
@@ -33,6 +37,26 @@ public class DominoHolder : MonoBehaviour
         {
             dominoSelector.Enable();
         }
+    }
+
+    public void SetPlaceForDominoPosition(Vector3 placeForDominoPosition) 
+    {
+        dominoSelector.SetPlaceForDominoPosition(placeForDominoPosition);
+    }
+
+    public void RemovePlaceForDominoPosition() 
+    {
+        dominoSelector.RemovePlaceForDominoPosition();
+    }
+
+    public void OnDominoHasSet()
+    {
+        OnDominoSet?.Invoke(this, EventArgs.Empty);
+    }
+
+    public Domino GetDomino()
+    {
+        return domino;
     }
 }
 
