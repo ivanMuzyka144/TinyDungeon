@@ -1423,6 +1423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dominoSelector: {fileID: 2827985113402900536}
+  dragVelocity: 25
 --- !u!1 &3218273677632312663
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,9 +8,13 @@ public class TinyGameSimulator : MonoBehaviour
     [SerializeField] private MinigameInfo minigameInfo;
     [Space(10)]
     [SerializeField] private TopologyCollection topologyCollection;
+    [Space(10)]
+    [SerializeField] private GameObject winPanel;
+    [SerializeField] private GameObject losePanel;
 
     private DifficultySimulator difficultySimulator;
     private DominoGenerator dominoGenerator;
+    private EventSubscriber eventSubscriber;
     private ConditionChecker conditionChecker;
 
     void Start()
@@ -21,25 +25,22 @@ public class TinyGameSimulator : MonoBehaviour
     public void Activate()
     {
         difficultySimulator = DifficultySimulator.Instance;
-        dominoGenerator = DominoGenerator.Instance;
-        conditionChecker = GetComponent<ConditionChecker>();
 
-        DifficultyType difficultyType = difficultySimulator.GetDifficultyType();
+        dominoGenerator = GetComponent<DominoGenerator>();
+        eventSubscriber = GetComponent<EventSubscriber>();
+        conditionChecker = GetComponent<ConditionChecker>();
 
         topologyCollection.Activate();
 
-        Topology currentTopology = topologyCollection.GetTopology(difficultyType);
+        DifficultyType difficultyType = difficultySimulator.GetDifficultyType();
 
+        Topology currentTopology = topologyCollection.GetTopology(difficultyType);
         currentTopology.Activate();
         TopologyData topologyData = currentTopology.GetTopologyData();
-        TopologyConfiguration topologyConfig = dominoGenerator.GenerateDominos(topologyData, minigameInfo);
-
+        TopologyConfiguration topologyConfig = dominoGenerator.GenerateDominos(topologyData);
         currentTopology.ConfugurateTopology(topologyConfig);
 
-        foreach(DominoHolder answerDomino in currentTopology.GetAllAnswerDominos())
-        {
-            answerDomino.OnDominoSet += CheckCondition;
-        }
+        eventSubscriber.SubscribeToEvent(currentTopology, this);
 
         conditionChecker.Configurate(currentTopology);
     }
@@ -60,12 +61,14 @@ public class TinyGameSimulator : MonoBehaviour
 
     public void OnGameWin()
     {
-        Debug.Log("YOU WIN!");
+        //winPanel.SetActive(true);
+        Debug.Log("Win!");
     }
 
     public void OnGameLose()
     {
-        Debug.Log("YOU LOSE!");
+        losePanel.SetActive(true);
+        Debug.Log("Lose!");
     }
 }
 

@@ -89,7 +89,7 @@ public class DominoSelector : MonoBehaviour, ISelectable
         return isActive;
     }
 
-    public void TryToActivateEffect()
+    public void OnStillSelected()
     {
         if (isActive)
         {

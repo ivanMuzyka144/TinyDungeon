@@ -5,6 +5,8 @@ using UnityEngine;
 public class DragMaker : MonoBehaviour
 {
     [SerializeField] private DominoSelector dominoSelector;
+    [Space(10)]
+    [SerializeField] private float dragVelocity;
 
     private bool canDrag;
     private bool isDragged;
@@ -41,6 +43,9 @@ public class DragMaker : MonoBehaviour
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
         Vector3 point = Camera.main.ScreenToWorldPoint(mousePosition);
         point.z = gameObject.transform.position.z;
-        gameObject.transform.position = point;
+
+        //gameObject.transform.position = point;
+        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position,
+                                                            point, dragVelocity * Time.deltaTime);
     }
 }

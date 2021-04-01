@@ -50,7 +50,7 @@ public class DoorSelector : MonoBehaviour, ISelectable
         }
     }
 
-    public void TryToActivateEffect()
+    public void OnStillSelected()
     {
         if (isActive)
         {

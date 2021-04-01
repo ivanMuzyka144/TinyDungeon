@@ -2,36 +2,17 @@
 using System.Linq;
 using UnityEngine;
 
-public class DominoGenerator : MonoBehaviour
+public class MathDominoGenerator : DominoGenerator
 {
-    public static DominoGenerator Instance { get; private set; }
-
-    private void Awake() => Instance = this;
-
-    public TopologyConfiguration GenerateDominos(TopologyData topologyData, MinigameInfo minigameInfo)
-    {
-        TopologyConfiguration topologyConfiguration = null;
-
-        switch (minigameInfo.GetName())
-        {
-            case MiniGameName.Math:
-                topologyConfiguration = GetConfigForMathGame(topologyData);
-                break;
-        }
-
-        return topologyConfiguration;
-    }
-
-
-    public TopologyConfiguration GetConfigForMathGame(TopologyData topologyData)
+    public override TopologyConfiguration GenerateDominos(TopologyData topologyData)
     {
         TopologyConfiguration topologyConfiguration = new TopologyConfiguration();
 
         List<SignType> signTypes = new List<SignType>();
 
-        for(int i = 0; i< topologyData.signsCount; i++)
+        for (int i = 0; i < topologyData.signsCount; i++)
         {
-            SignType signType = Random.value >= 0.5f? SignType.Add : SignType.Sub;
+            SignType signType = Random.value >= 0.5f ? SignType.Add : SignType.Sub;
             Debug.Log(signType);
             signTypes.Add(signType);
         }
@@ -42,7 +23,7 @@ public class DominoGenerator : MonoBehaviour
         int topSum = 0;
         int bottomSum = 0;
 
-        for(int i= 0; i< topologyData.questionsCount; i++)
+        for (int i = 0; i < topologyData.questionsCount; i++)
         {
             if (i == 0)
             {
@@ -64,9 +45,9 @@ public class DominoGenerator : MonoBehaviour
                     topQuestionValues.Add(topValue);
                     bottomQuestionValues.Add(bottomValue);
                 }
-                else if(signTypes[i - 1] == SignType.Sub)
+                else if (signTypes[i - 1] == SignType.Sub)
                 {
-                    int topValue = Random.Range(0, topSum + 1 );
+                    int topValue = Random.Range(0, topSum + 1);
                     int bottomValue = Random.Range(0, bottomSum + 1);
                     topSum -= topValue;
                     bottomSum -= bottomValue;
@@ -77,7 +58,7 @@ public class DominoGenerator : MonoBehaviour
             }
         }
 
-        for(int i =0; i< topQuestionValues.Count; i++)
+        for (int i = 0; i < topQuestionValues.Count; i++)
         {
             Domino newQuestionDomino = new Domino();
             newQuestionDomino.SetDominoValue(topQuestionValues[i], DominoPlace.Top);
@@ -90,7 +71,7 @@ public class DominoGenerator : MonoBehaviour
         newSmallPlacesDomino.SetDominoValue(bottomSum, DominoPlace.Bottom);
         topologyConfiguration.AddSmallPlacesDomino(newSmallPlacesDomino);
 
-        for(int i = 0; i < topologyData.answersCount; i++)
+        for (int i = 0; i < topologyData.answersCount; i++)
         {
             Domino newDomino = new Domino();
 
@@ -98,11 +79,11 @@ public class DominoGenerator : MonoBehaviour
             int finalBottomValue = Random.Range(0, 7);
             finalTopValue = Random.value >= 0.5f ? topSum : finalTopValue;
             finalBottomValue = Random.value >= 0.5f ? bottomSum : finalBottomValue;
-            if(finalTopValue == topSum && finalBottomValue == bottomSum)
+            if (finalTopValue == topSum && finalBottomValue == bottomSum)
             {
-                if(Random.value >= 0.5f)
+                if (Random.value >= 0.5f)
                 {
-                    List<int> possibleTopValues = (new int[]{ 0, 1, 2, 3, 4, 5, 6 }).ToList();
+                    List<int> possibleTopValues = (new int[] { 0, 1, 2, 3, 4, 5, 6 }).ToList();
                     possibleTopValues.Remove(topSum);
                     finalTopValue = possibleTopValues[Random.Range(0, possibleTopValues.Count)];
                 }
@@ -129,5 +110,5 @@ public class DominoGenerator : MonoBehaviour
 
         return topologyConfiguration;
     }
-}
 
+}

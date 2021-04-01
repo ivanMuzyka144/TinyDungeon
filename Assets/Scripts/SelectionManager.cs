@@ -8,7 +8,7 @@ public class SelectionManager : MonoBehaviour
 
     void Update()
     {
-        ISelectable newSelected = MakeNewRaycast();
+        ISelectable newSelected = MakeRaycast();
         if(newSelected != selectedObj)
         {
             if(selectedObj!= null)
@@ -25,43 +25,22 @@ public class SelectionManager : MonoBehaviour
         {
             if (selectedObj != null)
             {
-                selectedObj.TryToActivateEffect();
+                selectedObj.OnStillSelected();
             }
         }
     }
 
-    public ISelectable MakeNewRaycast()
+    private ISelectable MakeRaycast()
     {
         ISelectable newSelectableObj = null;
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hit))
         {
-            if (hit.transform.CompareTag("Selectable"))
+            if (hit.transform.GetComponent<ISelectable>()!=null)
             {
                 newSelectableObj = hit.transform.GetComponent<ISelectable>();
             }
         }
         return newSelectableObj;
-    }
-
-    public void MakeRaycast()
-    {
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out var hit))
-        {
-            if (hit.transform.CompareTag("Selectable"))
-            {
-                //ISelectable newSelectedObj = hit.transform.GetComponent<ISelectable>();
-                //if (newSelectedObj != selectedObj)
-                //{
-                //    if (selectedObj != null)
-                //    {
-                //        selectedObj.OnDeselected()l
-                //    }
-                //}
-                selectedObj = hit.transform.GetComponent<ISelectable>();
-            }
-        }
-
     }
 }
