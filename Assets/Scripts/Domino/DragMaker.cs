@@ -8,28 +8,27 @@ public class DragMaker : MonoBehaviour
     [Space(10)]
     [SerializeField] private float dragVelocity;
 
-    private bool canDrag;
+    private bool canDrag =true;
     private bool isDragged;
-
-    public void SetDrag(bool canDrag) => this.canDrag = canDrag;
 
     private void Update()
     {
         if (canDrag)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) 
-                && dominoSelector.IsActive()
+            if (Input.GetKeyDown(KeyCode.Mouse0)
                 && dominoSelector.IsSelected()
+                && !dominoSelector.IsBlocked()
                 && isDragged == false)
             {
                 isDragged = true;
+                dominoSelector.Block();
             }
             else if (Input.GetKeyUp(KeyCode.Mouse0) && isDragged == true)
             {
+                dominoSelector.MakeReturnAction();
                 isDragged = false;
-                dominoSelector.Activate();
             }
-            
+
             if (isDragged)
             {
                 OnDrag();
@@ -39,13 +38,61 @@ public class DragMaker : MonoBehaviour
 
     private void OnDrag()
     {
-        dominoSelector.Disable();
+
+
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
         Vector3 point = Camera.main.ScreenToWorldPoint(mousePosition);
         point.z = gameObject.transform.position.z;
 
-        //gameObject.transform.position = point;
-        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position,
-                                                            point, dragVelocity * Time.deltaTime);
+        gameObject.transform.position = point;
+        //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position,
+                                         //                   point, dragVelocity * Time.deltaTime);
     }
+
+
+    //    [SerializeField] private DominoSelector dominoSelector;
+    //    [Space(10)]
+    //    [SerializeField] private float dragVelocity;
+
+    //    private bool canDrag;
+    //    private bool isDragged;
+
+    //    public void SetDrag(bool canDrag) => this.canDrag = canDrag;
+
+    //    private void Update()
+    //    {
+    //        if (canDrag)
+    //        {
+    //            if (Input.GetKeyDown(KeyCode.Mouse0) 
+    //                && dominoSelector.IsActive()
+    //                && dominoSelector.IsSelected()
+    //                && isDragged == false)
+    //            {
+    //                isDragged = true;
+    //            }
+    //            else if (Input.GetKeyUp(KeyCode.Mouse0) && isDragged == true)
+    //            {
+    //                isDragged = false;
+    //                dominoSelector.Activate();
+    //            }
+
+    //            if (isDragged)
+    //            {
+    //                OnDrag();
+    //            }
+    //        }
+    //    }
+
+    //    private void OnDrag()
+    //    {
+    //        dominoSelector.Disable();
+    //        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
+    //        Vector3 point = Camera.main.ScreenToWorldPoint(mousePosition);
+    //        point.z = gameObject.transform.position.z;
+
+    //        //gameObject.transform.position = point;
+    //        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position,
+    //                                                            point, dragVelocity * Time.deltaTime);
+    //    }
+    //}
 }

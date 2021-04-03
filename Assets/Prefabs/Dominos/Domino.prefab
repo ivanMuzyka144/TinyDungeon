@@ -1318,6 +1318,7 @@ GameObject:
   - component: {fileID: 605624964816977322}
   - component: {fileID: 5458830005736711264}
   - component: {fileID: 2827985113402900536}
+  - component: {fileID: 3453767564634009990}
   - component: {fileID: 6782254182292606890}
   m_Layer: 0
   m_Name: Domino
@@ -1403,13 +1404,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25b956fd665f00478e1033177a8caf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 5118693691081823260}
   defaultMaterial: {fileID: 2100000, guid: b486ae57b1c9d044b88008ef7f02be85, type: 2}
   selectedMaterial: {fileID: 2100000, guid: a83c76b62f4fce74ba950f6f35ad5578, type: 2}
+--- !u!114 &3453767564634009990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2874182335376825742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e40274d90e41554dac8b9a90ea6f168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   selectionHeight: 1
-  selectionHeightTime: 0.3
+  selectionHeightTime: 0.5
   backTime: 0.5
-  dominoHolder: {fileID: 605624964816977322}
-  meshRenderer: {fileID: 5118693691081823260}
 --- !u!114 &6782254182292606890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1423,7 +1435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dominoSelector: {fileID: 2827985113402900536}
-  dragVelocity: 25
+  dragVelocity: 0
 --- !u!1 &3218273677632312663
 GameObject:
   m_ObjectHideFlags: 0

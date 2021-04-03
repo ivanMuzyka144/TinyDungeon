@@ -18,11 +18,6 @@ public class DominoHolder : MonoBehaviour
         dominoPresenter = GetComponent<DominoPresenter>();
         dominoSelector = GetComponent<DominoSelector>();
         dragMaker = GetComponent<DragMaker>();
-
-        if(dominoType == DominoType.Answer)
-        {
-            dragMaker.SetDrag(true);
-        }
     }
 
     public void SetDomino(Domino domino)
@@ -41,12 +36,12 @@ public class DominoHolder : MonoBehaviour
 
     public void SetPlaceForDominoPosition(Vector3 placeForDominoPosition) 
     {
-        dominoSelector.SetPlaceForDominoPosition(placeForDominoPosition);
+        //dominoSelector.SetPlaceForDominoPosition(placeForDominoPosition);
     }
 
     public void RemovePlaceForDominoPosition() 
     {
-        dominoSelector.RemovePlaceForDominoPosition();
+        //dominoSelector.RemovePlaceForDominoPosition();
     }
 
     public void OnDominoHasSet()
