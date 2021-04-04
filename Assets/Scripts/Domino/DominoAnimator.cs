@@ -14,10 +14,12 @@ public class DominoAnimator : MonoBehaviour
     private Vector3 currentBackPosition;
     private Vector3 finishPosition;
 
+    private DominoHolder dominoHolder;
     private DominoSelector dominoSelector;
 
     public void Activate()
     {
+        dominoHolder = GetComponent<DominoHolder>();
         dominoSelector = GetComponent<DominoSelector>();
 
         startPosition = transform.position;
@@ -32,10 +34,23 @@ public class DominoAnimator : MonoBehaviour
     {
         Action afterAnimAction = () =>
         {
+            dominoHolder.OnDominoHasSet();
             dominoSelector.Unblock();
         };
 
-        transform.positionTransition(startPosition, backTime)//;
+        transform.positionTransition(currentBackPosition, backTime)
                  .EventTransition(afterAnimAction, backTime);
+    }
+
+    public void SetPlaceForDominoPosition(Vector3 placeForDominoPosition)
+    {
+        currentBackPosition = placeForDominoPosition;
+        finishPosition = placeForDominoPosition + new Vector3(0, 0, -selectionHeight);
+    }
+
+    public void RemovePlaceForDominoPosition()
+    {
+        currentBackPosition = startPosition;
+        finishPosition = startPosition + new Vector3(0, 0, -selectionHeight);
     }
 }

@@ -31,7 +31,6 @@ public class DominoSelector : MonoBehaviour, ISelectable
     {
         if (isActivated && !isBlocked)
         {
-            Debug.Log("SELECTED");
             isSelected = true;
             meshRenderer.material = selectedMaterial;
             dominoAnimator.MakeTowardAnim();
@@ -42,7 +41,6 @@ public class DominoSelector : MonoBehaviour, ISelectable
     {
         if (isActivated && !isBlocked)
         {
-            Debug.Log("DESELECTED");
             isSelected = false;
             meshRenderer.material = defaultMaterial;
             dominoAnimator.MakeBackAnim();

@@ -15,6 +15,7 @@ public class TinyGameSimulator : MonoBehaviour
     private DifficultySimulator difficultySimulator;
     private DominoGenerator dominoGenerator;
     private EventSubscriber eventSubscriber;
+    private MoverSetter moverSetter;
     private ConditionChecker conditionChecker;
 
     void Start()
@@ -28,8 +29,9 @@ public class TinyGameSimulator : MonoBehaviour
 
         dominoGenerator = GetComponent<DominoGenerator>();
         eventSubscriber = GetComponent<EventSubscriber>();
+        moverSetter = GetComponent<MoverSetter>();
         conditionChecker = GetComponent<ConditionChecker>();
-
+        
         topologyCollection.Activate();
 
         DifficultyType difficultyType = difficultySimulator.GetDifficultyType();
@@ -37,11 +39,11 @@ public class TinyGameSimulator : MonoBehaviour
         Topology currentTopology = topologyCollection.GetTopology(difficultyType);
         currentTopology.Activate();
         TopologyData topologyData = currentTopology.GetTopologyData();
-        TopologyConfiguration topologyConfig = dominoGenerator.GenerateDominos(topologyData);
+        TopologyConfiguration topologyConfig = dominoGenerator.GenerateDominos(topologyData, difficultyType);
         currentTopology.ConfugurateTopology(topologyConfig);
 
         eventSubscriber.SubscribeToEvent(currentTopology, this);
-
+        moverSetter.SetMover(currentTopology);
         conditionChecker.Configurate(currentTopology);
     }
 
@@ -61,7 +63,7 @@ public class TinyGameSimulator : MonoBehaviour
 
     public void OnGameWin()
     {
-        //winPanel.SetActive(true);
+        winPanel.SetActive(true);
         Debug.Log("Win!");
     }
 

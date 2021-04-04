@@ -21,11 +21,17 @@ public class PlaceForDomino : MonoBehaviour
     {
         Domino myDomino = myHolder.GetDomino();
         Domino inZoneDomino = dominoInZone.GetDomino();
+        bool returnValue = false;
 
-        bool topResult = myDomino.GetNumberValue(DominoPlace.Top) == inZoneDomino.GetNumberValue(DominoPlace.Top);
-        bool bottomResult = myDomino.GetNumberValue(DominoPlace.Bottom) == inZoneDomino.GetNumberValue(DominoPlace.Bottom);
-
-        return topResult && bottomResult;
+        if (myHolder.HasWholeValue())
+        {
+            returnValue = inZoneDomino.EquealToWholeDomino(myDomino);
+        }
+        else
+        {
+            returnValue = inZoneDomino.EquealToNormalDomino(myDomino);
+        }
+        return returnValue;
     }
 
     private void OnTriggerEnter(Collider other)

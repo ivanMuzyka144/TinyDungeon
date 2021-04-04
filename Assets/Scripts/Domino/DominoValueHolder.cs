@@ -5,10 +5,15 @@ using UnityEngine;
 public class DominoValueHolder 
 {
     private DominoValue dominoValue;
-
+    private DominoValueType dominoValueType;
     public DominoValueHolder() { }
 
     public void SetValue(DominoValue dominoValue) => this.dominoValue = dominoValue;
+
+    public void SetDominoValueType(DominoValueType dominoValueType)
+    {
+        this.dominoValueType = dominoValueType;
+    }
 
     public int GetNumberValue()
     {
@@ -21,6 +26,11 @@ public class DominoValueHolder
     public DominoColor GetColorValue()
     {
         return dominoValue.GetColorValue();
+    }
+
+    public DominoValueType GetDominoValueType()
+    {
+        return dominoValueType;
     }
 
     public static DominoPlace ReversePlaceValue(DominoPlace dominoValuePlace)
@@ -97,7 +107,8 @@ public enum DominoColor
 public enum DominoPlace
 {
     Top,
-    Bottom
+    Bottom,
+    Whole
 }
 
 

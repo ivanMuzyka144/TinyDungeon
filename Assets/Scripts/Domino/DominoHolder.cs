@@ -4,12 +4,14 @@ using UnityEngine;
 public class DominoHolder : MonoBehaviour
 {
     [SerializeField] private DominoType dominoType;
+    [SerializeField] private bool hasWholeValue;
 
     public EventHandler OnDominoSet;
 
     private Domino domino;
     private DominoPresenter dominoPresenter;
     private DominoSelector dominoSelector;
+    private DominoAnimator dominoAnimator;
     private DragMaker dragMaker;
 
 
@@ -17,6 +19,7 @@ public class DominoHolder : MonoBehaviour
     {
         dominoPresenter = GetComponent<DominoPresenter>();
         dominoSelector = GetComponent<DominoSelector>();
+        dominoAnimator = GetComponent<DominoAnimator>();
         dragMaker = GetComponent<DragMaker>();
     }
 
@@ -25,8 +28,40 @@ public class DominoHolder : MonoBehaviour
         this.domino = domino;
         if (dominoType != DominoType.PlaceForDomino)
         {
-            dominoPresenter.SetTopValue(domino.GetNumberValue(DominoPlace.Top));
-            dominoPresenter.SetBottomValue(domino.GetNumberValue(DominoPlace.Bottom));
+            switch (domino.GetDominoValueType(DominoPlace.Top))
+            {
+                case DominoValueType.Number:
+                    dominoPresenter.SetTopValue(domino.GetNumberValue(DominoPlace.Top));
+                    break;
+                case DominoValueType.Letter:
+                    dominoPresenter.SetTopValue(domino.GetLetterValue(DominoPlace.Top));
+                    break;
+            }
+
+            switch (domino.GetDominoValueType(DominoPlace.Bottom))
+            {
+                case DominoValueType.Number:
+                    dominoPresenter.SetBottomValue(domino.GetNumberValue(DominoPlace.Bottom));
+                    break;
+                case DominoValueType.Letter:
+                    dominoPresenter.SetBottomValue(domino.GetLetterValue(DominoPlace.Bottom));
+                    break;
+            }
+        }
+        else if( dominoType == DominoType.PlaceForDomino)
+        {
+            if (hasWholeValue)
+            {
+                switch (domino.GetDominoValueType(DominoPlace.Whole))
+                {
+                    case DominoValueType.Number:
+                        dominoPresenter.SetWholeValue(domino.GetNumberValue(DominoPlace.Whole));
+                        break;
+                    case DominoValueType.Letter:
+                        dominoPresenter.SetWholeValue(domino.GetLetterValue(DominoPlace.Whole));
+                        break;
+                }
+            }
         }
         if(dominoType == DominoType.Answer)
         {
@@ -36,12 +71,12 @@ public class DominoHolder : MonoBehaviour
 
     public void SetPlaceForDominoPosition(Vector3 placeForDominoPosition) 
     {
-        //dominoSelector.SetPlaceForDominoPosition(placeForDominoPosition);
+        dominoAnimator.SetPlaceForDominoPosition(placeForDominoPosition);
     }
 
     public void RemovePlaceForDominoPosition() 
     {
-        //dominoSelector.RemovePlaceForDominoPosition();
+        dominoAnimator.RemovePlaceForDominoPosition();
     }
 
     public void OnDominoHasSet()
@@ -52,6 +87,14 @@ public class DominoHolder : MonoBehaviour
     public Domino GetDomino()
     {
         return domino;
+    }
+    public void EnableSelector() => dominoSelector.Enable();
+
+    public void EnableDragMaker() => dragMaker.Enable();
+
+    public bool HasWholeValue()
+    {
+        return hasWholeValue;
     }
 }
 

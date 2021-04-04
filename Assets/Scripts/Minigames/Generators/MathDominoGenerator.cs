@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MathDominoGenerator : DominoGenerator
 {
-    public override TopologyConfiguration GenerateDominos(TopologyData topologyData)
+    public override TopologyConfiguration GenerateDominos(TopologyData topologyData, DifficultyType difficultyType)
     {
         TopologyConfiguration topologyConfiguration = new TopologyConfiguration();
 

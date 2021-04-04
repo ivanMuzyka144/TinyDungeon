@@ -8,8 +8,10 @@ public class DragMaker : MonoBehaviour
     [Space(10)]
     [SerializeField] private float dragVelocity;
 
-    private bool canDrag =true;
+    private bool canDrag;
     private bool isDragged;
+
+    public void Enable() => canDrag = true;
 
     private void Update()
     {
@@ -38,9 +40,9 @@ public class DragMaker : MonoBehaviour
 
     private void OnDrag()
     {
+        float dz = Camera.main.transform.InverseTransformPoint(transform.position).z;
 
-
-        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, dz);
         Vector3 point = Camera.main.ScreenToWorldPoint(mousePosition);
         point.z = gameObject.transform.position.z;
 

@@ -2,7 +2,7 @@
 
 public abstract class DominoGenerator : MonoBehaviour
 {
-    public abstract TopologyConfiguration GenerateDominos(TopologyData topologyData);
+    public abstract TopologyConfiguration GenerateDominos(TopologyData topologyData, DifficultyType difficultyType);
 
     //public TopologyConfiguration GenerateDominos(TopologyData topologyData, MinigameInfo minigameInfo)
     //{

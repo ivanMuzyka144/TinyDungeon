@@ -61,7 +61,6 @@ public class Topology : MonoBehaviour
     {
         return answersDominoHolders;
     }
-
 }
 
 public class TopologyData

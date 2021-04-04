@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MathEventSubscriber : EventSubscriber
+public class SimpleEventSubscriber : EventSubscriber
 {
     public override void SubscribeToEvent(Topology topology, TinyGameSimulator tinyGameSimulator)
     {
