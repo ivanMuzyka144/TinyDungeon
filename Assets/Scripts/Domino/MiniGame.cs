@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TinyGameSimulator : MonoBehaviour
+public class MiniGame : MonoBehaviour
 {
     [SerializeField] private MinigameInfo minigameInfo;
     [Space(10)]
@@ -18,11 +18,6 @@ public class TinyGameSimulator : MonoBehaviour
     private MoverSetter moverSetter;
     private ConditionChecker conditionChecker;
 
-    void Start()
-    {
-        Activate();
-    }
-
     public void Activate()
     {
         difficultySimulator = DifficultySimulator.Instance;
@@ -31,9 +26,12 @@ public class TinyGameSimulator : MonoBehaviour
         eventSubscriber = GetComponent<EventSubscriber>();
         moverSetter = GetComponent<MoverSetter>();
         conditionChecker = GetComponent<ConditionChecker>();
-        
-        topologyCollection.Activate();
 
+        topologyCollection.Activate();
+    }
+
+    public void StartMinigame()
+    {
         DifficultyType difficultyType = difficultySimulator.GetDifficultyType();
 
         Topology currentTopology = topologyCollection.GetTopology(difficultyType);
@@ -71,6 +69,11 @@ public class TinyGameSimulator : MonoBehaviour
     {
         losePanel.SetActive(true);
         Debug.Log("Lose!");
+    }
+
+    public MinigameInfo GetMinigameInfo()
+    {
+        return minigameInfo;
     }
 }
 

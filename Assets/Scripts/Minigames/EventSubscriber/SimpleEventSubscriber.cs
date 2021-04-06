@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SimpleEventSubscriber : EventSubscriber
 {
-    public override void SubscribeToEvent(Topology topology, TinyGameSimulator tinyGameSimulator)
+    public override void SubscribeToEvent(Topology topology, MiniGame miniGame)
     {
         foreach (DominoHolder answerDomino in topology.GetAllAnswerDominos())
         {
-            answerDomino.OnDominoSet += tinyGameSimulator.CheckCondition;
+            answerDomino.OnDominoSet += miniGame.CheckCondition;
         }
     }
 }

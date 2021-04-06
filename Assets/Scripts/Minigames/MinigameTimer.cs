@@ -11,10 +11,10 @@ public class MinigameTimer : MonoBehaviour
     private float settedTime;
     private bool timerHasSetted;
 
-    private MinigameSimulator minigameSimulator;
+    private MinigameManager minigameSimulator;
     public void Activate()
     {
-        minigameSimulator = MinigameSimulator.Instance;
+        minigameSimulator = MinigameManager.Instance;
         
     }
 

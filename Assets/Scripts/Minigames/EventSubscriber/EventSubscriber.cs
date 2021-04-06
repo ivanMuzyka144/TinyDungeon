@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class EventSubscriber : MonoBehaviour
 {
-    public abstract void SubscribeToEvent(Topology topology, TinyGameSimulator tinyGameSimulator);
+    public abstract void SubscribeToEvent(Topology topology, MiniGame MiniGame);
 }

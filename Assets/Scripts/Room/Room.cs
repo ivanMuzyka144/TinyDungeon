@@ -19,6 +19,7 @@ public class Room : MonoBehaviour
     private RoomLocator roomLocator;
     private RoomCategorySetter roomCategorySetter;
     private RoomItemHolder roomItemHolder;
+    private MGPresenter mgPresenter;
 
     public void Activate()
     {
@@ -28,6 +29,7 @@ public class Room : MonoBehaviour
         roomLocator = GetComponent<RoomLocator>();
         roomCategorySetter = GetComponent<RoomCategorySetter>();
         roomItemHolder = GetComponent<RoomItemHolder>();
+        mgPresenter = GetComponent<MGPresenter>();
         roomTypesGenerator.Activate();
         roomWallMaker.Activate();
         roomDoorMaker.Activate(this);
@@ -189,6 +191,11 @@ public class Room : MonoBehaviour
     }
 
     #endregion
+
+    public MGPresenter GetMGPresenter()
+    {
+        return mgPresenter;
+    }
     public static RoomType ReverseType(RoomType inputRoomType)
     {
         RoomType outputRoomType = RoomType.TopDoor;

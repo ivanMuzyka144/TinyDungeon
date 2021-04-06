@@ -10,7 +10,7 @@ public class GameStarter : MonoBehaviour
     private RoomCollection roomCollection;
     private Player player;
     private GameStateManager gameStateManager;
-    private MinigameSimulator minigameSimulator;
+    private MinigameManager minigameSimulator;
 
     private void Awake() => Instance = this;
 
@@ -20,7 +20,7 @@ public class GameStarter : MonoBehaviour
         roomCollection = RoomCollection.Instance;
         player = Player.Instance;
         gameStateManager = GameStateManager.Instance;
-        minigameSimulator = MinigameSimulator.Instance;
+        minigameSimulator = MinigameManager.Instance;
 
 
         List<Room> rooms = levelGenerator.MakeLevel();
