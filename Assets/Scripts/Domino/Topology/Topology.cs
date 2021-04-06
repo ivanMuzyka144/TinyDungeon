@@ -52,6 +52,28 @@ public class Topology : MonoBehaviour
         }
 
     }
+    
+    public void SetStartPositions()
+    {
+        for (int i = 0; i < questionsDominoHolders.Count; i++)
+        {
+            questionsDominoHolders[i].HideAllValueModels();
+        }
+
+        for (int i = 0; i < smallPlacesDominoHolders.Count; i++)
+        {
+            smallPlacesDominoHolders[i].HideAllValueModels();
+        }
+        for (int i = 0; i < answersDominoHolders.Count; i++)
+        {
+            answersDominoHolders[i].SetStartPosition();
+            answersDominoHolders[i].HideAllValueModels();
+        }
+        for (int i = 0; i < signs.Count; i++)
+        {
+            signs[i].SetSign(SignType.None);
+        }
+    }
 
     public List<DominoHolder> GetSmallPlacesDominos()
     {

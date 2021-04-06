@@ -24,7 +24,7 @@ public class DominoAnimator : MonoBehaviour
 
         startPosition = transform.position;
         currentBackPosition = startPosition;
-        finishPosition = transform.position + new Vector3(0, 0, -selectionHeight);
+        finishPosition = transform.position + new Vector3(0, selectionHeight, 0);
     }
     public void MakeTowardAnim()
     {
@@ -45,12 +45,17 @@ public class DominoAnimator : MonoBehaviour
     public void SetPlaceForDominoPosition(Vector3 placeForDominoPosition)
     {
         currentBackPosition = placeForDominoPosition;
-        finishPosition = placeForDominoPosition + new Vector3(0, 0, -selectionHeight);
+        finishPosition = placeForDominoPosition + new Vector3(0, selectionHeight, 0);
+    }
+
+    public void SetStartPosition()
+    {
+        transform.position = new Vector3(startPosition.x, transform.position.y, startPosition.z);
     }
 
     public void RemovePlaceForDominoPosition()
     {
         currentBackPosition = startPosition;
-        finishPosition = startPosition + new Vector3(0, 0, -selectionHeight);
+        finishPosition = startPosition + new Vector3(0, selectionHeight, 0);
     }
 }

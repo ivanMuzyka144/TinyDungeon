@@ -34,8 +34,10 @@ public class MinigameManager : MonoBehaviour
         if(roomCategoryType == RoomCategoryType.MinigameRoom)
         {
             //minigamePanel.SetActive(true);
-            miniGameExecutor.Execute(currentRoom.GetMinigameInfo(), currentRoom.transform.position, DifficultyType.Easy);
-            minigameTimer.StartTimer(1.5f);
+            miniGameExecutor.Execute(currentRoom.GetMinigameInfo(), 
+                                     currentRoom.transform.position, 
+                                     DifficultyType.Easy);
+            //minigameTimer.StartTimer(1.5f);
         }
         else
         {
@@ -46,16 +48,19 @@ public class MinigameManager : MonoBehaviour
     public void WinMiniGame()
     {
         minigameTimer.InterruptTimer();
-        minigamePanel.SetActive(false);
+        //minigamePanel.SetActive(false);
+        miniGameExecutor.HideGame();
+
         gameStateManager.SetMinigameResult(MiniGameResultType.Win);
         gameStateManager.EndCurrentState();
     }
     public void LoseMiniGame()
     {
-        Debug.Log("LOSE");
         player.RemoveLife();
         minigameTimer.InterruptTimer();
-        minigamePanel.SetActive(false);
+        //minigamePanel.SetActive(false);
+        miniGameExecutor.HideGame();
+
         gameStateManager.SetMinigameResult(MiniGameResultType.Lose);
         if (player.IsAlive())
         {

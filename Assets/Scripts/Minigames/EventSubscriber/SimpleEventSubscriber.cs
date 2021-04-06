@@ -11,4 +11,12 @@ public class SimpleEventSubscriber : EventSubscriber
             answerDomino.OnDominoSet += miniGame.CheckCondition;
         }
     }
+
+    public override void UnsubscribeToEvent(Topology topology, MiniGame miniGame)
+    {
+        foreach (DominoHolder answerDomino in topology.GetAllAnswerDominos())
+        {
+            answerDomino.OnDominoSet -= miniGame.CheckCondition;
+        }
+    }
 }

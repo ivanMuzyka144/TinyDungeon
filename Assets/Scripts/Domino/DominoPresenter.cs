@@ -28,6 +28,23 @@ public class DominoPresenter : MonoBehaviour
     [SerializeField] private GameObject whole_5;
     [SerializeField] private GameObject whole_6;
 
+
+    public void HideAllValueModels()
+    {
+        top_1.SetActive(false);
+        top_2.SetActive(false);
+        top_3.SetActive(false);
+        top_4.SetActive(false);
+        top_5.SetActive(false);
+        top_6.SetActive(false);
+        bottom_1.SetActive(false);
+        bottom_2.SetActive(false);
+        bottom_3.SetActive(false);
+        bottom_4.SetActive(false);
+        bottom_5.SetActive(false);
+        bottom_6.SetActive(false);
+    }
+
     public void SetTopValue(string letter)
     {
         top_text.text = letter;

@@ -27,6 +27,11 @@ public class DominoSelector : MonoBehaviour, ISelectable
         dominoAnimator = GetComponent<DominoAnimator>();
         dominoAnimator.Activate();
     }
+
+    public void Disable()
+    {
+        isActivated = false;
+    }
     public void OnSelected()
     {
         if (isActivated && !isBlocked)

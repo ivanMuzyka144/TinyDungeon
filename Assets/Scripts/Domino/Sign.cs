@@ -17,6 +17,10 @@ public class Sign : MonoBehaviour
             case SignType.Sub:
                 subModel.SetActive(true);
                 break;
+            case SignType.None:
+                addModel.SetActive(false);
+                subModel.SetActive(false);
+                break;
         }
     }
 }
@@ -24,5 +28,6 @@ public class Sign : MonoBehaviour
 public enum SignType
 {
     Add,
-    Sub
+    Sub,
+    None
 }

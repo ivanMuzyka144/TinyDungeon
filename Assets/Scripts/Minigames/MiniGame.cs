@@ -12,37 +12,55 @@ public class MiniGame : MonoBehaviour
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
 
+    private MinigameManager minigameManager;
     private DifficultySimulator difficultySimulator;
     private DominoGenerator dominoGenerator;
     private EventSubscriber eventSubscriber;
     private MoverSetter moverSetter;
     private ConditionChecker conditionChecker;
 
+    private Topology currentTopology;
+
     public void Activate()
     {
         difficultySimulator = DifficultySimulator.Instance;
+        minigameManager = MinigameManager.Instance;
 
         dominoGenerator = GetComponent<DominoGenerator>();
         eventSubscriber = GetComponent<EventSubscriber>();
         moverSetter = GetComponent<MoverSetter>();
         conditionChecker = GetComponent<ConditionChecker>();
-
         topologyCollection.Activate();
+
     }
 
-    public void StartMinigame()
+    public void ShowMiniGame()
     {
         DifficultyType difficultyType = difficultySimulator.GetDifficultyType();
 
-        Topology currentTopology = topologyCollection.GetTopology(difficultyType);
+        currentTopology = topologyCollection.GetTopology(difficultyType);
         currentTopology.Activate();
         TopologyData topologyData = currentTopology.GetTopologyData();
         TopologyConfiguration topologyConfig = dominoGenerator.GenerateDominos(topologyData, difficultyType);
         currentTopology.ConfugurateTopology(topologyConfig);
-
-        eventSubscriber.SubscribeToEvent(currentTopology, this);
+    }
+    public void EnableMiniGame()
+    {
         moverSetter.SetMover(currentTopology);
+        eventSubscriber.SubscribeToEvent(currentTopology, this);
         conditionChecker.Configurate(currentTopology);
+    }
+
+    public void DisableMiniGame()
+    {
+        currentTopology.SetStartPositions();
+        moverSetter.DestroyMover(currentTopology);
+        eventSubscriber.UnsubscribeToEvent(currentTopology, this);
+    }
+    
+    public void RenewMiniGame()
+    {
+        currentTopology.SetStartPositions();
     }
 
     public void CheckCondition(object sender, EventArgs e)
@@ -61,14 +79,12 @@ public class MiniGame : MonoBehaviour
 
     public void OnGameWin()
     {
-        winPanel.SetActive(true);
-        Debug.Log("Win!");
+        minigameManager.WinMiniGame();
     }
 
     public void OnGameLose()
     {
-        losePanel.SetActive(true);
-        Debug.Log("Lose!");
+        minigameManager.LoseMiniGame();
     }
 
     public MinigameInfo GetMinigameInfo()
