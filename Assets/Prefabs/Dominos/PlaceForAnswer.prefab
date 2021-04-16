@@ -2348,6 +2348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dominoType: 0
+  hasWholeValue: 0
 --- !u!114 &6693400361277097858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5029,8 +5030,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5776803406114830321}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.112}
-  m_LocalScale: {x: 1, y: 1, z: 0.77694476}
+  m_LocalPosition: {x: 0, y: -0, z: 0.28}
+  m_LocalScale: {x: 1, y: 1, z: 0.44122115}
   m_Children: []
   m_Father: {fileID: 7720404395333773506}
   m_RootOrder: 1

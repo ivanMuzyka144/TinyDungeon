@@ -12,4 +12,14 @@ public class DragMoverSetter : MoverSetter
             answerDomino.EnableDragMaker();
         }
     }
+
+    public override void DestroyMover(Topology topology)
+    {
+        foreach (DominoHolder answerDomino in topology.GetAllAnswerDominos())
+        {
+            answerDomino.DisableSelector();
+            answerDomino.DisableDragMaker();
+        }
+    }
+
 }

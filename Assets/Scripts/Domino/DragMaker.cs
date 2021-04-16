@@ -12,6 +12,7 @@ public class DragMaker : MonoBehaviour
     private bool isDragged;
 
     public void Enable() => canDrag = true;
+    public void Disable() => canDrag = false;
 
     private void Update()
     {
@@ -40,15 +41,15 @@ public class DragMaker : MonoBehaviour
 
     private void OnDrag()
     {
-        float dz = Camera.main.transform.InverseTransformPoint(transform.position).z;
+        float dz = Camera.main.transform.position.y - transform.position.y;
 
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, dz);
         Vector3 point = Camera.main.ScreenToWorldPoint(mousePosition);
-        point.z = gameObject.transform.position.z;
+        point.y = gameObject.transform.position.y;
 
         gameObject.transform.position = point;
         //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position,
-                                         //                   point, dragVelocity * Time.deltaTime);
+        //                                                    point, dragVelocity * Time.deltaTime);
     }
 
 

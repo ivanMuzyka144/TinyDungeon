@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinigameSimulator : MonoBehaviour
+public class MinigameManager : MonoBehaviour
 {
-    public static MinigameSimulator Instance { get; private set; }
+    public static MinigameManager Instance { get; private set; }
 
     [SerializeField] private GameObject minigamePanel;
 
     private GameStateManager gameStateManager;
     private Player player;
     private MinigameTimer minigameTimer;
+    private MiniGameExecutor miniGameExecutor;
 
     private void Awake() => Instance = this;
 
@@ -20,17 +21,23 @@ public class MinigameSimulator : MonoBehaviour
         gameStateManager = GameStateManager.Instance;
         player = Player.Instance;
         minigameTimer = GetComponent<MinigameTimer>();
+        miniGameExecutor = GetComponent<MiniGameExecutor>();
         minigameTimer.Activate();
+        miniGameExecutor.Activate();
     }
 
     public void StartMinigame(object sender, EventArgs e)
     {
         Room currentRoom = player.GetCurrentRoom();
+        Debug.Log(currentRoom.GetMinigameInfo());
         RoomCategoryType roomCategoryType = currentRoom.GetCategory();
         if(roomCategoryType == RoomCategoryType.MinigameRoom)
         {
-            minigamePanel.SetActive(true);
-            minigameTimer.StartTimer(1.5f);
+            //minigamePanel.SetActive(true);
+            miniGameExecutor.Execute(currentRoom.GetMinigameInfo(), 
+                                     currentRoom.transform.position, 
+                                     DifficultyType.Easy);
+            //minigameTimer.StartTimer(1.5f);
         }
         else
         {
@@ -41,16 +48,19 @@ public class MinigameSimulator : MonoBehaviour
     public void WinMiniGame()
     {
         minigameTimer.InterruptTimer();
-        minigamePanel.SetActive(false);
+        //minigamePanel.SetActive(false);
+        miniGameExecutor.HideGame();
+
         gameStateManager.SetMinigameResult(MiniGameResultType.Win);
         gameStateManager.EndCurrentState();
     }
     public void LoseMiniGame()
     {
-        Debug.Log("LOSE");
         player.RemoveLife();
         minigameTimer.InterruptTimer();
-        minigamePanel.SetActive(false);
+        //minigamePanel.SetActive(false);
+        miniGameExecutor.HideGame();
+
         gameStateManager.SetMinigameResult(MiniGameResultType.Lose);
         if (player.IsAlive())
         {

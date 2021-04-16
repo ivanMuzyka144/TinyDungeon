@@ -9,7 +9,7 @@ public class GameStateManager : MonoBehaviour
     private DoorShower doorShower;
     private AnimationManager animationManager;
     private Player player;
-    private MinigameSimulator minigameSimulator;
+    private MinigameManager minigameSimulator;
     private UIManager uiManager;
 
     private GameStateNode currentNode;
@@ -25,7 +25,7 @@ public class GameStateManager : MonoBehaviour
         doorShower = DoorShower.Instance;
         animationManager = AnimationManager.Instance;
         player = Player.Instance;
-        minigameSimulator = MinigameSimulator.Instance;
+        minigameSimulator = MinigameManager.Instance;
         uiManager = UIManager.Instance;
 
         animationManager.Activate();

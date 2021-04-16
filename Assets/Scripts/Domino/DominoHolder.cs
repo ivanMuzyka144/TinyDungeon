@@ -63,15 +63,20 @@ public class DominoHolder : MonoBehaviour
                 }
             }
         }
-        if(dominoType == DominoType.Answer)
-        {
-            dominoSelector.Enable();
-        }
     }
 
     public void SetPlaceForDominoPosition(Vector3 placeForDominoPosition) 
     {
         dominoAnimator.SetPlaceForDominoPosition(placeForDominoPosition);
+    }
+
+    public void SetStartPosition()
+    {
+        dominoAnimator.SetStartPosition();
+    }
+    public void HideAllValueModels()
+    {
+        dominoPresenter.HideAllValueModels();
     }
 
     public void RemovePlaceForDominoPosition() 
@@ -91,6 +96,10 @@ public class DominoHolder : MonoBehaviour
     public void EnableSelector() => dominoSelector.Enable();
 
     public void EnableDragMaker() => dragMaker.Enable();
+
+    public void DisableSelector() => dominoSelector.Disable();
+
+    public void DisableDragMaker() => dragMaker.Disable();
 
     public bool HasWholeValue()
     {

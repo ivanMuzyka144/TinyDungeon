@@ -5,4 +5,6 @@ using UnityEngine;
 public abstract class MoverSetter : MonoBehaviour
 {
     public abstract void SetMover(Topology topology);
+
+    public abstract void DestroyMover(Topology topology);
 }
