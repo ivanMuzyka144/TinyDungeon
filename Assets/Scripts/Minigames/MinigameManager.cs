@@ -7,7 +7,8 @@ public class MinigameManager : MonoBehaviour
 {
     public static MinigameManager Instance { get; private set; }
 
-    [SerializeField] private GameObject minigamePanel;
+    [SerializeField] private GameObject winPanel;
+    [SerializeField] private GameObject losePanel;
 
     private GameStateManager gameStateManager;
     private Player player;
@@ -33,11 +34,9 @@ public class MinigameManager : MonoBehaviour
         RoomCategoryType roomCategoryType = currentRoom.GetCategory();
         if(roomCategoryType == RoomCategoryType.MinigameRoom)
         {
-            //minigamePanel.SetActive(true);
             miniGameExecutor.Execute(currentRoom.GetMinigameInfo(), 
                                      currentRoom.transform.position, 
                                      DifficultyType.Easy);
-            //minigameTimer.StartTimer(1.5f);
         }
         else
         {
@@ -48,24 +47,17 @@ public class MinigameManager : MonoBehaviour
     public void WinMiniGame()
     {
         minigameTimer.InterruptTimer();
-        //minigamePanel.SetActive(false);
         miniGameExecutor.HideGame();
 
-        gameStateManager.SetMinigameResult(MiniGameResultType.Win);
-        gameStateManager.EndCurrentState();
+        StartCoroutine(ShowWinPanel(1f));
     }
     public void LoseMiniGame()
     {
         player.RemoveLife();
         minigameTimer.InterruptTimer();
-        //minigamePanel.SetActive(false);
         miniGameExecutor.HideGame();
 
-        gameStateManager.SetMinigameResult(MiniGameResultType.Lose);
-        if (player.IsAlive())
-        {
-            gameStateManager.EndCurrentState();
-        }
+        StartCoroutine(ShowLosePanel(1f));
     }
 
     public void UseMiracleForMiniGame()
@@ -81,7 +73,6 @@ public class MinigameManager : MonoBehaviour
     {
         Debug.Log("Miracle");
         minigameTimer.InterruptTimer();
-        minigamePanel.SetActive(false);
         gameStateManager.SetMinigameResult(MiniGameResultType.UseMiracle);
         gameStateManager.EndCurrentState();
     }
@@ -90,7 +81,6 @@ public class MinigameManager : MonoBehaviour
     {
         Debug.Log("TimeEnded");
         player.RemoveLife();
-        minigamePanel.SetActive(false);
         gameStateManager.SetMinigameResult(MiniGameResultType.TimeOver);
         if (player.IsAlive())
         {
@@ -99,10 +89,24 @@ public class MinigameManager : MonoBehaviour
     
     }
 
-    //IEnumerator EndMinigame(float sec)
-    //{
-    //    yield return new WaitForSeconds(sec);
-    //    minigamePanel.SetActive(false);
-    //    gameStateManager.EndCurrentState();
-    //}
+    IEnumerator ShowWinPanel(float sec)
+    {
+        winPanel.SetActive(true);
+        yield return new WaitForSeconds(sec);
+        winPanel.SetActive(false);
+        gameStateManager.SetMinigameResult(MiniGameResultType.Win);
+        gameStateManager.EndCurrentState();
+    }
+
+    IEnumerator ShowLosePanel(float sec)
+    {
+        losePanel.SetActive(true);
+        yield return new WaitForSeconds(sec);
+        losePanel.SetActive(false);
+        gameStateManager.SetMinigameResult(MiniGameResultType.Lose);
+        if (player.IsAlive())
+        {
+            gameStateManager.EndCurrentState();
+        }
+    }
 }

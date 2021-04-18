@@ -7,12 +7,16 @@ public class DominoHolder : MonoBehaviour
     [SerializeField] private bool hasWholeValue;
 
     public EventHandler OnDominoSet;
+    public EventHandler OnDominoClicked;
 
     private Domino domino;
     private DominoPresenter dominoPresenter;
     private DominoSelector dominoSelector;
     private DominoAnimator dominoAnimator;
     private DragMaker dragMaker;
+    private Blinker blinker;
+
+    private PlaceForDomino currentPlaceForDomino;
 
 
     private void Awake()
@@ -21,6 +25,7 @@ public class DominoHolder : MonoBehaviour
         dominoSelector = GetComponent<DominoSelector>();
         dominoAnimator = GetComponent<DominoAnimator>();
         dragMaker = GetComponent<DragMaker>();
+        blinker = GetComponent<Blinker>();
     }
 
     public void SetDomino(Domino domino)
@@ -65,9 +70,10 @@ public class DominoHolder : MonoBehaviour
         }
     }
 
-    public void SetPlaceForDominoPosition(Vector3 placeForDominoPosition) 
+    public void SetPlaceForDomino(PlaceForDomino placeForDomino) 
     {
-        dominoAnimator.SetPlaceForDominoPosition(placeForDominoPosition);
+        currentPlaceForDomino = placeForDomino;
+        dominoAnimator.SetPlaceForDominoPosition(placeForDomino.transform.position + new Vector3(0,0.1f,0));
     }
 
     public void SetStartPosition()
@@ -76,17 +82,27 @@ public class DominoHolder : MonoBehaviour
     }
     public void HideAllValueModels()
     {
-        dominoPresenter.HideAllValueModels();
+        dominoPresenter.ClearAllValues();
     }
 
-    public void RemovePlaceForDominoPosition() 
+    public void RemovePlaceForDominoPosition(PlaceForDomino placeForDomino) 
     {
-        dominoAnimator.RemovePlaceForDominoPosition();
+        if(currentPlaceForDomino == placeForDomino)
+        {
+            currentPlaceForDomino = null;
+            dominoAnimator.RemovePlaceForDominoPosition();
+        }
     }
 
     public void OnDominoHasSet()
     {
+        dominoSelector.BlockForSec();
         OnDominoSet?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void OnDominoHasClicked()
+    {
+        OnDominoClicked?.Invoke(this, EventArgs.Empty);
     }
 
     public Domino GetDomino()
@@ -97,9 +113,17 @@ public class DominoHolder : MonoBehaviour
 
     public void EnableDragMaker() => dragMaker.Enable();
 
+    public void EnableBlinker()
+    {
+        blinker.Activate();
+        blinker.Enable();
+    }
+
     public void DisableSelector() => dominoSelector.Disable();
 
     public void DisableDragMaker() => dragMaker.Disable();
+
+    public void DisableBlinker() => blinker.Disable();
 
     public bool HasWholeValue()
     {

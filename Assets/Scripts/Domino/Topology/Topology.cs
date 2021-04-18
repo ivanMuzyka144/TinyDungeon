@@ -74,7 +74,10 @@ public class Topology : MonoBehaviour
             signs[i].SetSign(SignType.None);
         }
     }
-
+    public List<DominoHolder> GetAllQuestionDominos()
+    {
+        return questionsDominoHolders;
+    }
     public List<DominoHolder> GetSmallPlacesDominos()
     {
         return smallPlacesDominoHolders;

@@ -28,9 +28,26 @@ public class DominoPresenter : MonoBehaviour
     [SerializeField] private GameObject whole_5;
     [SerializeField] private GameObject whole_6;
 
-
-    public void HideAllValueModels()
+    public void HideText()
     {
+        top_text.gameObject.SetActive(false);
+        bottom_text.gameObject.SetActive(false); 
+        whole_text.gameObject.SetActive(false);
+    }
+    public void ShowText()
+    {
+        top_text.gameObject.SetActive(true);
+        bottom_text.gameObject.SetActive(true);
+        whole_text.gameObject.SetActive(true);
+    }
+
+    public void ClearAllValues()
+    {
+        top_text.text = "";
+        bottom_text.text = "";
+        if(whole_text != null)
+            whole_text.text = "";
+
         top_1.SetActive(false);
         top_2.SetActive(false);
         top_3.SetActive(false);
