@@ -85,13 +85,11 @@ public class MiniGame : MonoBehaviour
 
     public void OnGameWin()
     {
-        //Debug.Log("YPPPU WIN");
         minigameManager.WinMiniGame();
     }
 
     public void OnGameLose()
     {
-        //Debug.Log("YPPPU LOSE");
         minigameManager.LoseMiniGame();
     }
 

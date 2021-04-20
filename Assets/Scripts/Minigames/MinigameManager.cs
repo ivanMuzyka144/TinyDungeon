@@ -30,7 +30,6 @@ public class MinigameManager : MonoBehaviour
     public void StartMinigame(object sender, EventArgs e)
     {
         Room currentRoom = player.GetCurrentRoom();
-        Debug.Log(currentRoom.GetMinigameInfo());
         RoomCategoryType roomCategoryType = currentRoom.GetCategory();
         if(roomCategoryType == RoomCategoryType.MinigameRoom)
         {
@@ -71,10 +70,10 @@ public class MinigameManager : MonoBehaviour
 
     private void SkipWithMiracle()
     {
-        Debug.Log("Miracle");
+        miniGameExecutor.HideGame();
         minigameTimer.InterruptTimer();
         gameStateManager.SetMinigameResult(MiniGameResultType.UseMiracle);
-        gameStateManager.EndCurrentState();
+        
     }
 
     public void  EndTimeMinigame()
@@ -95,7 +94,7 @@ public class MinigameManager : MonoBehaviour
         yield return new WaitForSeconds(sec);
         winPanel.SetActive(false);
         gameStateManager.SetMinigameResult(MiniGameResultType.Win);
-        gameStateManager.EndCurrentState();
+        //gameStateManager.EndCurrentState();
     }
 
     IEnumerator ShowLosePanel(float sec)

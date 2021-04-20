@@ -66,6 +66,7 @@ public class Topology : MonoBehaviour
         }
         for (int i = 0; i < answersDominoHolders.Count; i++)
         {
+            answersDominoHolders[i].DisableSelector();
             answersDominoHolders[i].SetStartPosition();
             answersDominoHolders[i].HideAllValueModels();
         }

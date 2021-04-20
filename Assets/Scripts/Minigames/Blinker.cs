@@ -55,6 +55,7 @@ public class Blinker : MonoBehaviour
             sequenceRecorder.Record(this);
             dominoHolder.OnDominoBlinked.Invoke(this, EventArgs.Empty);
         };
+        Debug.Log(this);
         sequenceRecorder.StartShowingStatus();
         MakeBlinkMaterial();
         Vector3 scale = transform.localScale;

@@ -83,6 +83,7 @@ public class SequenceRecorder : MonoBehaviour
             {
                 if (currentRound == howManyRounds)
                 {
+                    answerContainer.Clear();
                     currResult = ConditionResult.Win;
                 }
                 else
@@ -95,6 +96,7 @@ public class SequenceRecorder : MonoBehaviour
         }
         else
         {
+            answerContainer.Clear();
             currResult = ConditionResult.Lose;
         }
     }

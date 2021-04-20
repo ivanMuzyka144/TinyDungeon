@@ -10,6 +10,8 @@ public class OutlineDominoSelector : DominoSelector
     [Space(10)]
     [SerializeField] private float blockSec;
 
+    private DominoAnimator dominoAnimator;
+
     private bool isActivated;
     private bool isSelected;
 
@@ -20,11 +22,15 @@ public class OutlineDominoSelector : DominoSelector
     public override void Enable()
     {
         isActivated = true;
+
+        dominoAnimator = GetComponent<DominoAnimator>();
+        dominoAnimator.Activate();
     }
 
     public override void Disable()
     {
         isActivated = false;
+        isSelected = false;
         meshRenderer.material = defaultMaterial;
         transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }

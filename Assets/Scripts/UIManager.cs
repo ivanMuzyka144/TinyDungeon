@@ -8,9 +8,18 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject miraclePanel;
 
     private void Awake() => Instance = this;
   
+    public void ShowMiraclePanel()
+    {
+        miraclePanel.SetActive(true);
+    }
+    public void HideMiraclePanel()
+    {
+        miraclePanel.SetActive(false);
+    }
     public void ShowGameOverScreen(object sender, EventArgs e)
     {
         gameOverPanel.SetActive(true);
