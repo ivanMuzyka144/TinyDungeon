@@ -1720,9 +1720,9 @@ MonoBehaviour:
   meshRenderer: {fileID: 5118693691081823260}
   defaultColor: {r: 0.8745099, g: 0.9058824, b: 0.9490197, a: 0}
   blinkColor: {r: 0.3820755, g: 1, b: 0.786259, a: 0}
-  towardTime: 1
-  backTime: 1
-  delayTime: 0.3
+  towardTime: 0.5
+  backTime: 0.5
+  delayTime: 0.1
 --- !u!1 &3218273677632312663
 GameObject:
   m_ObjectHideFlags: 0

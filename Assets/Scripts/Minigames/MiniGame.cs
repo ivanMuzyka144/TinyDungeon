@@ -21,12 +21,11 @@ public class MiniGame : MonoBehaviour
 
     private Topology currentTopology;
 
-
     private void Start()
     {
-        Activate();
-        ShowMiniGame();
-        EnableMiniGame();
+        //Activate();
+        //ShowMiniGame();
+        //EnableMiniGame();
     }
     public void Activate()
     {
@@ -86,11 +85,13 @@ public class MiniGame : MonoBehaviour
 
     public void OnGameWin()
     {
+        //Debug.Log("YPPPU WIN");
         minigameManager.WinMiniGame();
     }
 
     public void OnGameLose()
     {
+        //Debug.Log("YPPPU LOSE");
         minigameManager.LoseMiniGame();
     }
 

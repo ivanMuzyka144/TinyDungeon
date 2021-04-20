@@ -8,7 +8,7 @@ public class ClickEventSubscriber : EventSubscriber
     {
         foreach (DominoHolder answerDomino in topology.GetAllAnswerDominos())
         {
-            answerDomino.OnDominoClicked += miniGame.CheckCondition;
+            answerDomino.OnDominoBlinked += miniGame.CheckCondition;
         }
     }
 
@@ -16,7 +16,7 @@ public class ClickEventSubscriber : EventSubscriber
     {
         foreach (DominoHolder answerDomino in topology.GetAllAnswerDominos())
         {
-            answerDomino.OnDominoClicked -= miniGame.CheckCondition;
+            answerDomino.OnDominoBlinked -= miniGame.CheckCondition;
         }
     }
 }

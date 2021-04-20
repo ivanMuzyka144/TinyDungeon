@@ -7,9 +7,12 @@ using System;
 public class MSequenceConditionChecker : ConditionChecker
 {
     private List<Blinker> questionsBlinkers = new List<Blinker>();
+    private SequenceRecorder sequenceRecorder;
     public override void Configurate(Topology topology)
     {
-        foreach(DominoHolder dominoHolder in topology.GetAllQuestionDominos())
+        sequenceRecorder = SequenceRecorder.Instance;
+
+        foreach (DominoHolder dominoHolder in topology.GetAllQuestionDominos())
         {
             questionsBlinkers.Add(dominoHolder.GetComponent<Blinker>());
         }
@@ -21,11 +24,11 @@ public class MSequenceConditionChecker : ConditionChecker
             randomQuestionSequence.Add(questionsBlinkers[UnityEngine.Random.Range(0, questionsBlinkers.Count)]);
         }
 
-        StartBlinking(randomQuestionSequence);
+        sequenceRecorder.Configurate(randomQuestionSequence);
     }
     public override ConditionResult CheckCondition()
     {
-        return ConditionResult.NotReady;
+        return sequenceRecorder.GetResult() ;
     }
 
     public void StartBlinking(List<Blinker> randomQuestionSequence)
@@ -47,7 +50,7 @@ public class MSequenceConditionChecker : ConditionChecker
         }
         else
         {
-            randomQuestionSequence[currIndex].MakeBlink();
+            randomQuestionSequence[currIndex].MakeLastBlink();
         }
         
     }

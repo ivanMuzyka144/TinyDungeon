@@ -7,7 +7,7 @@ public class DominoHolder : MonoBehaviour
     [SerializeField] private bool hasWholeValue;
 
     public EventHandler OnDominoSet;
-    public EventHandler OnDominoClicked;
+    public EventHandler OnDominoBlinked;
 
     private Domino domino;
     private DominoPresenter dominoPresenter;
@@ -100,9 +100,9 @@ public class DominoHolder : MonoBehaviour
         OnDominoSet?.Invoke(this, EventArgs.Empty);
     }
 
-    public void OnDominoHasClicked()
+    public void OnDominoHasBlinked()
     {
-        OnDominoClicked?.Invoke(this, EventArgs.Empty);
+        OnDominoBlinked?.Invoke(this, EventArgs.Empty);
     }
 
     public Domino GetDomino()
@@ -115,7 +115,6 @@ public class DominoHolder : MonoBehaviour
 
     public void EnableBlinker()
     {
-        blinker.Activate();
         blinker.Enable();
     }
 
@@ -129,6 +128,7 @@ public class DominoHolder : MonoBehaviour
     {
         return hasWholeValue;
     }
+
 }
 
 public enum DominoType

@@ -22,7 +22,7 @@ public class Blinker : MonoBehaviour
 
     private SequenceRecorder sequenceRecorder;
 
-    public void Activate()
+    public void OnEnable()
     {
         sequenceRecorder = SequenceRecorder.Instance;
     }
@@ -36,7 +36,8 @@ public class Blinker : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse0)
                 && dominoSelector.IsSelected()
                 && !dominoSelector.IsBlocked()
-                && isBlinking == false)
+                && isBlinking == false
+                && !sequenceRecorder.IsBlinkingShowing())
             {
                 isBlinking = true;
                 MakeRecordedBlink();
@@ -50,20 +51,24 @@ public class Blinker : MonoBehaviour
         {
             isBlinking = false;
             MakeNomalMaterial();
+            sequenceRecorder.EndShowingStatus();
+            sequenceRecorder.Record(this);
+            dominoHolder.OnDominoBlinked.Invoke(this, EventArgs.Empty);
         };
-
+        sequenceRecorder.StartShowingStatus();
         MakeBlinkMaterial();
         Vector3 scale = transform.localScale;
-        transform.localScaleTransition(scale + new Vector3(1f, 1f, 1f), towardTime)
+        transform.localScaleTransition(scale + new Vector3(0.5f, 0.5f, 0.5f), towardTime)
                  .JoinDelayTransition(delayTime).localScaleTransition(scale, backTime)
                  .EventTransition(afterAnimAction, towardTime + delayTime + backTime);
-        sequenceRecorder.Record();
+        
     }
-    public void MakeBlink()
+    public void MakeLastBlink()
     {
         Action afterAnimAction = () =>
         {
             isBlinking = false;
+            sequenceRecorder.EndShowingStatus();
             MakeNomalMaterial();
         };
 
