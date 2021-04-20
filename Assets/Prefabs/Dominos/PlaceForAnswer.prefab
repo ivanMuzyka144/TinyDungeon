@@ -649,7 +649,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 807646919635278198}
   m_LocalRotation: {x: 0.028466886, y: -0, z: -0, w: 0.99959475}
-  m_LocalPosition: {x: 0, y: 0, z: -0.502}
+  m_LocalPosition: {x: 0, y: 0, z: 0.02}
   m_LocalScale: {x: 0.5717553, y: 0.28657377, z: 1.1325066}
   m_Children:
   - {fileID: 1454845525831838643}
@@ -660,7 +660,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.0241, y: 0.012}
+  m_AnchoredPosition: {x: -0.0241, y: 0.005}
   m_SizeDelta: {x: 1.7877533, y: 3.378766}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4493536733948357801
@@ -2310,9 +2310,9 @@ GameObject:
   - component: {fileID: 8003335343715328468}
   - component: {fileID: 2253357202436562504}
   - component: {fileID: 6693400361277097858}
+  - component: {fileID: 8233531379518597655}
   - component: {fileID: 1029798848292180441}
   - component: {fileID: 4404862558845774713}
-  - component: {fileID: 8233531379518597655}
   m_Layer: 0
   m_Name: PlaceForAnswer
   m_TagString: Untagged
@@ -2382,6 +2382,20 @@ MonoBehaviour:
   whole_4: {fileID: 9020231776252961855}
   whole_5: {fileID: 4980365027774838040}
   whole_6: {fileID: 1862314179165861102}
+--- !u!114 &8233531379518597655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3513143363519659628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac5fc7799d2379a4e999e266b8531ca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myHolder: {fileID: 2253357202436562504}
+  dominoPresenter: {fileID: 6693400361277097858}
 --- !u!65 &1029798848292180441
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2393,8 +2407,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.63358676, y: 0.62659883, z: 6.2999234}
-  m_Center: {x: -0.00843629, y: 0.07464093, z: -0.020780994}
+  m_Size: {x: 1.046068, y: 1.172021, z: 6.2999234}
+  m_Center: {x: -0.019448733, y: -0.007065587, z: -0.020780997}
 --- !u!54 &4404862558845774713
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2411,20 +2425,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8233531379518597655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3513143363519659628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac5fc7799d2379a4e999e266b8531ca4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dominoInZone: {fileID: 0}
-  myHolder: {fileID: 0}
 --- !u!1 &3590876673238670757
 GameObject:
   m_ObjectHideFlags: 0

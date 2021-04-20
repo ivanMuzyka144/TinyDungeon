@@ -13,7 +13,6 @@ public class MathDominoGenerator : DominoGenerator
         for (int i = 0; i < topologyData.signsCount; i++)
         {
             SignType signType = Random.value >= 0.5f ? SignType.Add : SignType.Sub;
-            Debug.Log(signType);
             signTypes.Add(signType);
         }
 

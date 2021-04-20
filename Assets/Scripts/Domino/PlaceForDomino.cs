@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class PlaceForDomino : MonoBehaviour
 {
-    public DominoHolder dominoInZone;
-    public DominoHolder myHolder;
+    [SerializeField] private DominoHolder myHolder;
+    [SerializeField] private DominoPresenter dominoPresenter;
 
-    private void Awake()
-    {
-        myHolder = GetComponent<DominoHolder>();
-    }
+    private DominoHolder dominoInZone;
 
     public bool HasDomino()
     {
@@ -34,15 +31,22 @@ public class PlaceForDomino : MonoBehaviour
         return returnValue;
     }
 
+    public void HideText()
+    {
+        dominoPresenter.HideText();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<DominoHolder>() != null)
         {
+            Debug.Log("Enter: " + gameObject.name);
+
             if(dominoInZone == null) 
             {
                 dominoInZone = other.GetComponent<DominoHolder>();
 
-                dominoInZone.SetPlaceForDominoPosition(transform.position);
+                dominoInZone.SetPlaceForDomino(this);
             }
         }
     }
@@ -51,8 +55,11 @@ public class PlaceForDomino : MonoBehaviour
         if (other.GetComponent<DominoHolder>() != null 
             && other.GetComponent<DominoHolder>() == dominoInZone)
         {
-            dominoInZone.RemovePlaceForDominoPosition();
+            Debug.Log("Exit: " + gameObject.name);
+            dominoInZone.RemovePlaceForDominoPosition(this);
             dominoInZone = null;
+
+            //dominoPresenter.ShowText();
 
         }
     }

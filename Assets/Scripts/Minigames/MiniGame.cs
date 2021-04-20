@@ -21,6 +21,12 @@ public class MiniGame : MonoBehaviour
 
     private Topology currentTopology;
 
+    private void Start()
+    {
+        //Activate();
+        //ShowMiniGame();
+        //EnableMiniGame();
+    }
     public void Activate()
     {
         difficultySimulator = DifficultySimulator.Instance;
@@ -43,6 +49,7 @@ public class MiniGame : MonoBehaviour
         TopologyData topologyData = currentTopology.GetTopologyData();
         TopologyConfiguration topologyConfig = dominoGenerator.GenerateDominos(topologyData, difficultyType);
         currentTopology.ConfugurateTopology(topologyConfig);
+
     }
     public void EnableMiniGame()
     {
@@ -53,7 +60,6 @@ public class MiniGame : MonoBehaviour
 
     public void DisableMiniGame()
     {
-        currentTopology.SetStartPositions();
         moverSetter.DestroyMover(currentTopology);
         eventSubscriber.UnsubscribeToEvent(currentTopology, this);
     }
@@ -67,11 +73,11 @@ public class MiniGame : MonoBehaviour
     {
         ConditionResult result = conditionChecker.CheckCondition();
 
-        if(result == ConditionResult.Win)
+        if (result == ConditionResult.Win)
         {
             OnGameWin();
         }
-        else if(result == ConditionResult.Lose)
+        else if (result == ConditionResult.Lose)
         {
             OnGameLose();
         }

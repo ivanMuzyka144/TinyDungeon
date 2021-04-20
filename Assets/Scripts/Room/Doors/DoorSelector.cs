@@ -27,6 +27,7 @@ public class DoorSelector : MonoBehaviour, ISelectable
     public void Disable()
     {
         isActive = false;
+        effectActivated = false;
         meshRenderer.material = defaultMaterial;
     }
 

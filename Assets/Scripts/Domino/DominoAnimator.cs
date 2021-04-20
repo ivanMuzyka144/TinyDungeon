@@ -1,7 +1,5 @@
 ﻿using Lean.Transition;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DominoAnimator : MonoBehaviour
@@ -15,12 +13,12 @@ public class DominoAnimator : MonoBehaviour
     private Vector3 finishPosition;
 
     private DominoHolder dominoHolder;
-    private DominoSelector dominoSelector;
+    private SimpleDominoSelector dominoSelector;
 
     public void Activate()
     {
         dominoHolder = GetComponent<DominoHolder>();
-        dominoSelector = GetComponent<DominoSelector>();
+        dominoSelector = GetComponent<SimpleDominoSelector>();
 
         startPosition = transform.position;
         currentBackPosition = startPosition;
@@ -42,7 +40,12 @@ public class DominoAnimator : MonoBehaviour
                  .EventTransition(afterAnimAction, backTime);
     }
 
-    public void SetPlaceForDominoPosition(Vector3 placeForDominoPosition)
+    public void MakeStepBack()
+    {
+        transform.position = transform.position - new Vector3(0, selectionHeight, 0);
+    }
+
+        public void SetPlaceForDominoPosition(Vector3 placeForDominoPosition)
     {
         currentBackPosition = placeForDominoPosition;
         finishPosition = placeForDominoPosition + new Vector3(0, selectionHeight, 0);
@@ -51,6 +54,7 @@ public class DominoAnimator : MonoBehaviour
     public void SetStartPosition()
     {
         transform.position = new Vector3(startPosition.x, transform.position.y, startPosition.z);
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }
 
     public void RemovePlaceForDominoPosition()
