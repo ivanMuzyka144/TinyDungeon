@@ -48,7 +48,10 @@ public class RoomDoorMaker : MonoBehaviour
         foreach(RoomType roomType in roomTypes)
         {
             allDoorsDictionary[roomType].gameObject.SetActive(true);
-            currentDoorsDictionary.Add(roomType, allDoorsDictionary[roomType]);
+            if (!currentDoorsDictionary.ContainsKey(roomType))
+            {
+                currentDoorsDictionary.Add(roomType, allDoorsDictionary[roomType]);
+            }
         }
     }
 

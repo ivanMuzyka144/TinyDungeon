@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MinigameTimer : MonoBehaviour
 {
-    [SerializeField] private Slider slider;
+    [SerializeField] private Image progressBar;
 
     private float startSettedTime;
     private float settedTime;
@@ -23,7 +23,7 @@ public class MinigameTimer : MonoBehaviour
         timerHasSetted = true;
         startSettedTime = time;
         settedTime = time;
-        slider.value = 1;
+        progressBar.fillAmount = 1;
     }
 
     public void InterruptTimer()
@@ -40,7 +40,7 @@ public class MinigameTimer : MonoBehaviour
             if (settedTime > 0)
             {
                 settedTime -= Time.deltaTime;
-                slider.value = CountSliderValue();
+                progressBar.fillAmount = CountSliderValue();
             }
             else
             {

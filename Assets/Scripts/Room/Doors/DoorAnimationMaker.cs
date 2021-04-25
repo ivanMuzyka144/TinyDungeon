@@ -10,9 +10,9 @@ public class DoorAnimationMaker : MonoBehaviour
     private float animTime = 0.75f;
     private float openCloseAnimTime = 0.75f;
 
-    private float animY = 1.2f;
-    private float animWidth = 1.5f;
-    private float animHeight = 1.25f;
+    private float animY = 4f;
+    private float animWidth = 4f;
+    private float animHeight = 3f;
 
     private Vector3 startPosition;
     private Vector3 startRotation;
@@ -26,7 +26,7 @@ public class DoorAnimationMaker : MonoBehaviour
 
     public void MakeAnimTopUp(Vector3 cameraRotation, Action afterAnimAction)
     {
-        Vector3 newPosition = transform.position + new Vector3(-animHeight, animY, 0);
+        Vector3 newPosition = transform.position + new Vector3(-animHeight -0.5f, animY, 0);
         Vector3 firstRotation = new Vector3(0, 0, -cameraRotation.x);
         transform.positionTransition(newPosition, animTime);
         transform.eulerAnglesTransform(firstRotation, animTime)
@@ -35,7 +35,7 @@ public class DoorAnimationMaker : MonoBehaviour
     public void MakeAnimBottomUp(Vector3 cameraRotation, Action afterAnimAction)
     {
         Vector3 newPosition = transform.position + new Vector3(animHeight, animY, 0);
-        Vector3 firstRotation = new Vector3(0, 0, -cameraRotation.x);
+        Vector3 firstRotation = new Vector3( 180,0, -cameraRotation.x);
         transform.positionTransition(newPosition, animTime);
         transform.eulerAnglesTransform(firstRotation, animTime)
             .EventTransition(afterAnimAction, animTime);
@@ -66,7 +66,7 @@ public class DoorAnimationMaker : MonoBehaviour
     }
     public void MakeAnimBottomBack(Vector3 cameraRotation, Action afterAnimAction)
     {
-        Vector3 firstRotation = new Vector3(0, 0, 360);
+        Vector3 firstRotation = new Vector3(0, 0, 0);
         transform.positionTransition(startPosition, animTime);
         transform.eulerAnglesTransform(firstRotation, animTime)
             .EventTransition(afterAnimAction, animTime);

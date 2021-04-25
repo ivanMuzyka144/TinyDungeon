@@ -40,7 +40,6 @@ public class PlaceForDomino : MonoBehaviour
     {
         if (other.GetComponent<DominoHolder>() != null)
         {
-            Debug.Log("Enter: " + gameObject.name);
 
             if(dominoInZone == null) 
             {
@@ -55,7 +54,6 @@ public class PlaceForDomino : MonoBehaviour
         if (other.GetComponent<DominoHolder>() != null 
             && other.GetComponent<DominoHolder>() == dominoInZone)
         {
-            Debug.Log("Exit: " + gameObject.name);
             dominoInZone.RemovePlaceForDominoPosition(this);
             dominoInZone = null;
 

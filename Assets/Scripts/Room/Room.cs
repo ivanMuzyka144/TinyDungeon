@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum RoomType
@@ -40,10 +41,12 @@ public class Room : MonoBehaviour
     #region DoorsPlaceholdersGeneration
     public void GenerateDoors()
     {
-        List<RoomType> generatedTypes = roomTypesGenerator.GenerateTypesForRoom();
-        roomWallMaker.GenerateDoors(generatedTypes);
-        roomDoorMaker.GenerateDoors(generatedTypes);
+        HashSet<RoomType> generatedTypes = roomTypesGenerator.GenerateTypesForRoom();
+        roomWallMaker.GenerateDoors(generatedTypes.ToList());
+        roomDoorMaker.GenerateDoors(generatedTypes.ToList());
     }
+
+    
 
     public List<RoomPlaceHolder> GeneratePlaceholders()
     {
@@ -92,6 +95,13 @@ public class Room : MonoBehaviour
             roomLocator.SetRelatedRoom(newRoom, roomType);
             roomTypesGenerator.AddConnectedType(roomType);
         }
+    }
+
+    public void SetRelativeForFinish(Room newRoom, RoomType roomType)
+    {
+        SetStartAcceptedType(roomType);
+        roomLocator.SetRelatedRoom(newRoom, roomType);
+        roomTypesGenerator.AddConnectedType(roomType);
     }
 
     public Room GetRelativeRoom(RoomType roomType)

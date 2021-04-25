@@ -79,18 +79,37 @@ public class LevelGenerator : MonoBehaviour
         foreach(Room room in roomsPositionDictionary.Values)
         {
             Vector3 topRoomPosition = room.transform.position + new Vector3(height, 0, 0);
-            Vector3 toppestRoomPosition = topRoomPosition + new Vector3(height, 0, 0);//<---?
-            if(!roomsPositionDictionary.ContainsKey(topRoomPosition) &&
-                !roomsPositionDictionary.ContainsKey(toppestRoomPosition))
+            //Vector3 toppestRoomPosition = topRoomPosition + new Vector3(height, 0, 0);
+            if(!roomsPositionDictionary.ContainsKey(topRoomPosition))// &&
+                //!roomsPositionDictionary.ContainsKey(toppestRoomPosition))
             {
                 acceptedRooms.Add(room);
             }
         }
         Room roomWithFinishDoor = acceptedRooms[Random.Range(0, acceptedRooms.Count)];
 
-        roomWithFinishDoor.SetFinishDoorCategory();
+        //Room finishRoom = CreateRoom(roomWithFinishDoor.transform.position + new Vector3(height, 0, 0));
 
-        Room finishRoom = CreateRoom(roomWithFinishDoor.transform.position + new Vector3(height, 0, 0));
+
+        Room finishRoom = Instantiate(room_PB);
+        finishRoom.transform.position = roomWithFinishDoor.transform.position + new Vector3(height, 0, 0);
+        finishRoom.Activate();
+        roomsPositionDictionary.Add(finishRoom.transform.position, finishRoom);
+
+        //SetRelativeRoomsFor(finishRoom);
+        finishRoom.SetRelativeForFinish(roomWithFinishDoor, RoomType.BottomDoor);
+        roomWithFinishDoor.SetRelativeForFinish(finishRoom, RoomType.TopDoor);
+
+
+        roomWithFinishDoor.GenerateDoors();
+        finishRoom.GenerateDoors();
+
+
+
+        //roomWithFinishDoor.SetRelativeForNewRoom(finishRoom, RoomType.BottomDoor);
+        //finishRoom.SetRelativeForOldRoom(roomWithFinishDoor, RoomType.TopDoor);
+
+        roomWithFinishDoor.SetFinishDoorCategory();
         finishRoom.SetFinishCategory();
     }
 
@@ -111,7 +130,6 @@ public class LevelGenerator : MonoBehaviour
         SetRelativeRoomsFor(room);
 
         room.GenerateDoors();
-
         roomsPositionDictionary.Add(position, room);
         return room;
     }
