@@ -6,6 +6,7 @@ public class MinigameInfo : ScriptableObject
     [SerializeField] private int id;
     [SerializeField] private MiniGameName miniGameName;
     [SerializeField] private float time;
+    [SerializeField] private Material roomMaterial;
 
     public int GetId()
     {
@@ -17,6 +18,15 @@ public class MinigameInfo : ScriptableObject
         return miniGameName;
     }
 
+    public float GetTime()
+    {
+        return time;
+    }
+
+    public Material GetMaterial()
+    {
+        return roomMaterial;
+    }
 }
 
 public enum MiniGameName

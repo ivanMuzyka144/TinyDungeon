@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Lean.Transition;
 using System;
-using UnityEngine.Rendering;
 
 public class MiniGameExecutor : MonoBehaviour
 {
-    [SerializeField] private Volume volume;
+    //[SerializeField] private Volume volume;
     [Space(10)]
     [SerializeField] private List<MiniGame> miniGames = new List<MiniGame>();
 
@@ -16,12 +15,16 @@ public class MiniGameExecutor : MonoBehaviour
     private MiniGame currentMiniGame;
 
     private UIManager uiManager;
+    private PostProcessingManager postProcessingManager;
     private GameStateManager gameStateManager;
+    private Player player;
 
     public void Activate()
     {
         uiManager = UIManager.Instance;
+        postProcessingManager = PostProcessingManager.Instance;
         gameStateManager = GameStateManager.Instance;
+        player = Player.Instance;
 
         foreach (MiniGame miniGame in miniGames)
         {
@@ -35,13 +38,14 @@ public class MiniGameExecutor : MonoBehaviour
 
         currentMiniGame.transform.position = position;
 
-        volume.profile.components[0].active = true;
+        postProcessingManager.FocusOnDomino();
 
         currentMiniGame.ShowMiniGame();
 
         Action afterAnimAction = () =>
         {
             uiManager.ShowMiraclePanel();
+            uiManager.ShowTimerPanel();
             currentMiniGame.EnableMiniGame();
         };
 
@@ -49,16 +53,21 @@ public class MiniGameExecutor : MonoBehaviour
                                  .EventTransition(afterAnimAction, 1);
     }
 
-    public void HideGame()
+    public void HideGame(MiniGameResultType result)
     {
         currentMiniGame.DisableMiniGame();
+
         uiManager.HideMiraclePanel();
+        uiManager.HideTimerPanel();
 
         Action afterAnimAction = () =>
         {
-            volume.profile.components[0].active = false;
+            postProcessingManager.FocusOnRoom();
             currentMiniGame.RenewMiniGame();
-            gameStateManager.EndCurrentState();
+            if (player.IsAlive())
+            {
+                gameStateManager.EndCurrentState();
+            }
         };
 
         currentMiniGame.transform.positionTransition(currentMiniGame.transform.position - new Vector3(0,10, 0), 1)

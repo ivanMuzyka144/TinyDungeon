@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   miniGameName: 0
-  time: 0
+  time: 12
+  roomMaterial: {fileID: 2100000, guid: 23c42589283a62f4b8c26c386c0404c2, type: 2}

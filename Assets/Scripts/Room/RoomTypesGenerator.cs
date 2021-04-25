@@ -7,7 +7,7 @@ public class RoomTypesGenerator : MonoBehaviour
 {
     private List<RoomType> startAcceptedTypes = new List<RoomType>();
     private List<RoomType> startRefusedTypes = new List<RoomType>();
-    private List<RoomType> generatedTypes = new List<RoomType>();
+    private HashSet<RoomType> generatedTypes = new HashSet<RoomType>();
     private List<RoomType> connectedTypes = new List<RoomType>();
 
     public void AddStartAcceptedType(RoomType startType) => startAcceptedTypes.Add(startType);
@@ -21,7 +21,7 @@ public class RoomTypesGenerator : MonoBehaviour
         patternHolder = GetComponent<RoomPatternHolder>();
     }
 
-    public List<RoomType> GenerateTypesForRoom()
+    public HashSet<RoomType> GenerateTypesForRoom()
     {
         bool shouldAddTopType = startAcceptedTypes.Contains(RoomType.TopDoor);
         bool shouldAddBottomType =  startAcceptedTypes.Contains(RoomType.BottomDoor);

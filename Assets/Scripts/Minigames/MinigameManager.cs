@@ -9,6 +9,7 @@ public class MinigameManager : MonoBehaviour
 
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
+    [SerializeField] private GameObject timeEndedPanel;
 
     private GameStateManager gameStateManager;
     private Player player;
@@ -36,6 +37,7 @@ public class MinigameManager : MonoBehaviour
             miniGameExecutor.Execute(currentRoom.GetMinigameInfo(), 
                                      currentRoom.transform.position, 
                                      DifficultyType.Easy);
+            minigameTimer.StartTimer(currentRoom.GetMinigameInfo().GetTime());
         }
         else
         {
@@ -46,7 +48,7 @@ public class MinigameManager : MonoBehaviour
     public void WinMiniGame()
     {
         minigameTimer.InterruptTimer();
-        miniGameExecutor.HideGame();
+        miniGameExecutor.HideGame(MiniGameResultType.Win);
 
         StartCoroutine(ShowWinPanel(1f));
     }
@@ -54,7 +56,7 @@ public class MinigameManager : MonoBehaviour
     {
         player.RemoveLife();
         minigameTimer.InterruptTimer();
-        miniGameExecutor.HideGame();
+        miniGameExecutor.HideGame(MiniGameResultType.Lose);
 
         StartCoroutine(ShowLosePanel(1f));
     }
@@ -70,7 +72,7 @@ public class MinigameManager : MonoBehaviour
 
     private void SkipWithMiracle()
     {
-        miniGameExecutor.HideGame();
+        miniGameExecutor.HideGame(MiniGameResultType.UseMiracle);
         minigameTimer.InterruptTimer();
         gameStateManager.SetMinigameResult(MiniGameResultType.UseMiracle);
         
@@ -78,14 +80,11 @@ public class MinigameManager : MonoBehaviour
 
     public void  EndTimeMinigame()
     {
-        Debug.Log("TimeEnded");
         player.RemoveLife();
+        miniGameExecutor.HideGame(MiniGameResultType.TimeOver);
         gameStateManager.SetMinigameResult(MiniGameResultType.TimeOver);
-        if (player.IsAlive())
-        {
-            gameStateManager.EndCurrentState();
-        }
-    
+        StartCoroutine(ShowTimeEndedPanel(1f));
+
     }
 
     IEnumerator ShowWinPanel(float sec)
@@ -94,7 +93,6 @@ public class MinigameManager : MonoBehaviour
         yield return new WaitForSeconds(sec);
         winPanel.SetActive(false);
         gameStateManager.SetMinigameResult(MiniGameResultType.Win);
-        //gameStateManager.EndCurrentState();
     }
 
     IEnumerator ShowLosePanel(float sec)
@@ -103,9 +101,12 @@ public class MinigameManager : MonoBehaviour
         yield return new WaitForSeconds(sec);
         losePanel.SetActive(false);
         gameStateManager.SetMinigameResult(MiniGameResultType.Lose);
-        if (player.IsAlive())
-        {
-            gameStateManager.EndCurrentState();
-        }
+    }
+    IEnumerator ShowTimeEndedPanel(float sec)
+    {
+        timeEndedPanel.SetActive(true);
+        yield return new WaitForSeconds(sec);
+        timeEndedPanel.SetActive(false);
+        gameStateManager.SetMinigameResult(MiniGameResultType.TimeOver);
     }
 }

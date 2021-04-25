@@ -47,6 +47,8 @@ public class Player : MonoBehaviour
     {
         Room nextRoom = playerMover.GetCurrentRoom().GetRelativeRoom(directionType);
 
+        Debug.Log(nextRoom);
+
         playerMover.MoveToAnotherRoom(nextRoom.transform.position, afterAnimAction);
 
         playerMover.SetCurrentRoom(nextRoom);

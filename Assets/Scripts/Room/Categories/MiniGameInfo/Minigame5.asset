@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Minigame5
   m_EditorClassIdentifier: 
   id: 5
-  name: 
-  time: 0
+  miniGameName: 0
+  time: 15
