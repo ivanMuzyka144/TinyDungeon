@@ -425,10 +425,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 761a7e3bc5d64c94cb975aae9e37e959, type: 2}
   - {fileID: 11400000, guid: 315d46caf5ad9314bb6ccab4d67e95e5, type: 2}
   - {fileID: 11400000, guid: da37419155534eb48965d439f0c22810, type: 2}
+  - {fileID: 11400000, guid: 39d5bd350c321494ca0058f9069f83c2, type: 2}
   itemsModels:
   - {fileID: 8214779567105023131}
   - {fileID: 4964097624661853699}
   - {fileID: 6377488340382244675}
+  - {fileID: 768575887046409630}
   boxBody: {fileID: 1309371240393557240}
   boxHolder: {fileID: 2000138546106279183}
   boxOpenTime: 1

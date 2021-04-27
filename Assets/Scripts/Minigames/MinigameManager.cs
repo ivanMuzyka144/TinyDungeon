@@ -49,7 +49,7 @@ public class MinigameManager : MonoBehaviour
     {
         minigameTimer.InterruptTimer();
         miniGameExecutor.HideGame(MiniGameResultType.Win);
-
+        gameStateManager.SetMinigameResult(MiniGameResultType.Win);
         StartCoroutine(ShowWinPanel(1f));
     }
     public void LoseMiniGame()
@@ -57,7 +57,7 @@ public class MinigameManager : MonoBehaviour
         player.RemoveLife();
         minigameTimer.InterruptTimer();
         miniGameExecutor.HideGame(MiniGameResultType.Lose);
-
+        gameStateManager.SetMinigameResult(MiniGameResultType.Lose);
         StartCoroutine(ShowLosePanel(1f));
     }
 
@@ -92,7 +92,6 @@ public class MinigameManager : MonoBehaviour
         winPanel.SetActive(true);
         yield return new WaitForSeconds(sec);
         winPanel.SetActive(false);
-        gameStateManager.SetMinigameResult(MiniGameResultType.Win);
     }
 
     IEnumerator ShowLosePanel(float sec)
@@ -100,13 +99,11 @@ public class MinigameManager : MonoBehaviour
         losePanel.SetActive(true);
         yield return new WaitForSeconds(sec);
         losePanel.SetActive(false);
-        gameStateManager.SetMinigameResult(MiniGameResultType.Lose);
     }
     IEnumerator ShowTimeEndedPanel(float sec)
     {
         timeEndedPanel.SetActive(true);
         yield return new WaitForSeconds(sec);
         timeEndedPanel.SetActive(false);
-        gameStateManager.SetMinigameResult(MiniGameResultType.TimeOver);
     }
 }

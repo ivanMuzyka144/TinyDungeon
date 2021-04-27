@@ -9,6 +9,7 @@ public class ItemCollection : MonoBehaviour
     [SerializeField] private Item lifeItem;
     [SerializeField] private Item miracleItem;
     [SerializeField] private Item coinItem;
+    [SerializeField] private Item keyItem;
 
     private void Awake() => Instance = this;
 

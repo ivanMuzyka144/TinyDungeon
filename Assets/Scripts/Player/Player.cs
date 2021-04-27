@@ -47,8 +47,6 @@ public class Player : MonoBehaviour
     {
         Room nextRoom = playerMover.GetCurrentRoom().GetRelativeRoom(directionType);
 
-        Debug.Log(nextRoom);
-
         playerMover.MoveToAnotherRoom(nextRoom.transform.position, afterAnimAction);
 
         playerMover.SetCurrentRoom(nextRoom);
@@ -58,6 +56,7 @@ public class Player : MonoBehaviour
     {
         GSEventArgs gsEventArgs = e as GSEventArgs;
         MiniGameResultType miniGameResultType = gsEventArgs.lastMinigameResult;
+
         if (miniGameResultType == MiniGameResultType.Win || 
             miniGameResultType == MiniGameResultType.UseMiracle)
         {
