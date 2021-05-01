@@ -70,7 +70,7 @@ public class MiniGameExecutor : MonoBehaviour
             }
         };
 
-        currentMiniGame.transform.positionTransition(currentMiniGame.transform.position - new Vector3(0,13, 0), 1)
+        currentMiniGame.transform.positionTransition(currentMiniGame.transform.position - new Vector3(0,10, 0), 1)
                                  .EventTransition(afterAnimAction, 1);
     }
    

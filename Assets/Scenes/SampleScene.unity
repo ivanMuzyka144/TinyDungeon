@@ -1458,6 +1458,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 276633526}
     m_Modifications:
+    - target: {fileID: 5702564317730402094, guid: 3da0cd13fdd82044e8530ba2b998af98,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 5702564319229319761, guid: 3da0cd13fdd82044e8530ba2b998af98,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3555,22 +3560,42 @@ PrefabInstance:
     - target: {fileID: 8586368653645017548, guid: 0298ab3379a58074cb833ecb1fdb9a89,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8586368653645017548, guid: 0298ab3379a58074cb833ecb1fdb9a89,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8586368653645017548, guid: 0298ab3379a58074cb833ecb1fdb9a89,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8586368653645017550, guid: 0298ab3379a58074cb833ecb1fdb9a89,
         type: 3}
       propertyPath: m_Name
       value: MillsMinigame
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586368653941592192, guid: 0298ab3379a58074cb833ecb1fdb9a89,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8586368654117783593, guid: 0298ab3379a58074cb833ecb1fdb9a89,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8788964201255477654, guid: 0298ab3379a58074cb833ecb1fdb9a89,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8788964202383660625, guid: 0298ab3379a58074cb833ecb1fdb9a89,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0298ab3379a58074cb833ecb1fdb9a89, type: 3}

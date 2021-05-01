@@ -17,7 +17,7 @@ public class MillsRotator : MonoBehaviour
 
     public void Enable() 
     {
-        rotationHasMade = 0;
+        //rotationHasMade = 0;
         canRotate = true; 
     }
     public void Disable() => canRotate = false;
