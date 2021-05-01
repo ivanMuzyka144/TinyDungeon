@@ -1576,6 +1576,7 @@ GameObject:
   - component: {fileID: 3453767564634009990}
   - component: {fileID: 6782254182292606890}
   - component: {fileID: 7462720252603141849}
+  - component: {fileID: 2608043416415734403}
   m_Layer: 0
   m_Name: Domino
   m_TagString: Selectable
@@ -1609,8 +1610,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0442166, y: 1.2600571, z: 1}
-  m_Center: {x: -0.01867653, y: 0.13002796, z: 0.0000000014651438}
+  m_Size: {x: 1.0442166, y: 0.99173445, z: 1}
+  m_Center: {x: -0.01867653, y: -0.004133492, z: -3.9063794e-11}
 --- !u!114 &605624964816977322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1723,6 +1724,22 @@ MonoBehaviour:
   towardTime: 0.5
   backTime: 0.5
   delayTime: 0.1
+--- !u!114 &2608043416415734403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2874182335376825742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4bdbfa69bd4d842af905e75ebb613e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationTime: 0.75
+  dominoSelector: {fileID: 0}
+  dominoHolder: {fileID: 0}
+  pairsManager: {fileID: 0}
 --- !u!1 &3218273677632312663
 GameObject:
   m_ObjectHideFlags: 0

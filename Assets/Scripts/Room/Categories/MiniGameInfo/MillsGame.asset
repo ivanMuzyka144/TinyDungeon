@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d729c1daa5eb3724c836b2b5ba6148c2, type: 3}
-  m_Name: Minigame6
+  m_Name: MillsGame
   m_EditorClassIdentifier: 
   id: 6
-  name: 
-  time: 0
+  miniGameName: 0
+  time: 25
+  roomMaterial: {fileID: 2100000, guid: ac6e4fbea165a084b8e37e57360cc858, type: 2}

@@ -16,7 +16,10 @@ public class PlayerMover : MonoBehaviour
     }
     public void SpawnPlayer(Vector3 position) => transform.position = position;
 
-    public void SetCurrentRoom(Room room) => currentRoom = room;
+    public void SetCurrentRoom(Room room) 
+    { 
+        currentRoom = room; 
+    }
 
     public Room GetCurrentRoom()
     {

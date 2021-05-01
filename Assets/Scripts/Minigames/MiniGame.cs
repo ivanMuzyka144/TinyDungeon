@@ -48,6 +48,8 @@ public class MiniGame : MonoBehaviour
         currentTopology.Activate();
         TopologyData topologyData = currentTopology.GetTopologyData();
         TopologyConfiguration topologyConfig = dominoGenerator.GenerateDominos(topologyData, difficultyType);
+
+
         currentTopology.ConfugurateTopology(topologyConfig);
 
     }

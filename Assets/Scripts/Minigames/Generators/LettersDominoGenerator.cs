@@ -72,7 +72,7 @@ public class LettersDominoGenerator : DominoGenerator
 
         string randomWord = words[Random.Range(0, words.Length)];
         randomWord = randomWord.Replace("\r","");
-        Debug.Log("My word is " + randomWord);
+
         char[] letters = randomWord.ToCharArray();
 
         return letters;

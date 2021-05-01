@@ -5,16 +5,20 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    [SerializeField] private GameObject doorLock;
+
     private Room currentRoom;
     private RoomType doorType;
 
-
     private GameStateManager gameStateManager;
+    private Player player;
 
     private DoorShower doorShower;
     private DoorAnimationMaker doorAnimationMaker;
     private DoorSelector doorSelector;
-    //mesh renedee add
+
+    private bool isLocked;
+    
     public void Activate()
     {
         gameStateManager = GameStateManager.Instance;
@@ -23,8 +27,28 @@ public class Door : MonoBehaviour
         doorAnimationMaker = GetComponent<DoorAnimationMaker>();
         doorSelector = GetComponent<DoorSelector>();
         doorAnimationMaker.Activate();
+
+        player = Player.Instance;
     }
     
+    public void LockDoor()
+    {
+        isLocked = true;
+        doorLock.SetActive(true);
+    }
+
+    public void UnlockDoor()
+    {
+        isLocked = false;
+        doorLock.SetActive(false);
+        player.RemoveKey();
+    }
+
+    public bool IsDoorLocked()
+    {
+        return isLocked;
+    }
+
     public void SetDoorInfo(Room room, RoomType type)
     {
         currentRoom = room;
@@ -114,30 +138,25 @@ public class Door : MonoBehaviour
         }
     }
 
-    //public void OnUpAnimationEnded() 
-    //{
-    //    doorSelector.Enable();
-    //}
-
     public void OnDoorSelected()
     {
-        gameStateManager.SetDoorDirection(doorType);//<----Problem
-        gameStateManager.EndCurrentState();
+        if (isLocked)
+        {
+            if (player.HasKey())
+            {
+                UnlockDoor();
+            }
+            else
+            {
+                Debug.Log("SorryItLocked");
+            }
+        }
+        else
+        {
+            gameStateManager.SetDoorDirection(doorType);//<----Problem
+            gameStateManager.EndCurrentState();
+        }
+        
     }
 
-    //public void OnBackAnimationEnded() 
-    //{
-    //    doorSelector.Disable();
-    //    gameStateManager.ChangeState();//<----Problem
-    //}
-
-    //public void OnOpenAnimationEnded()
-    //{
-    //    gameStateManager.SetState(GameStateType.PlayerMove);
-    //}
-
-    //public void OnCloseAnimationEnded()
-    //{
-    //    gameStateManager.SetState(GameStateType.PlayerMinigame);
-    //}
 }

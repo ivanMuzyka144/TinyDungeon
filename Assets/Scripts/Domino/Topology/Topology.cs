@@ -12,6 +12,7 @@ public class Topology : MonoBehaviour
     [SerializeField] private List<DominoHolder> smallPlacesDominoHolders = new List<DominoHolder>();
     [SerializeField] private List<DominoHolder> answersDominoHolders = new List<DominoHolder>();
     [SerializeField] private List<Sign> signs = new List<Sign>();
+    [SerializeField] private List<Mill> mills = new List<Mill>();
     public void Activate()
     {
         topologyChildren.SetActive(true);
@@ -26,11 +27,12 @@ public class Topology : MonoBehaviour
         return new TopologyData(questionsDominoHolders.Count, 
                                 smallPlacesDominoHolders.Count, 
                                 answersDominoHolders.Count,
-                                signs.Count);
+                                signs.Count,
+                                mills.Count);
     }
 
     public void ConfugurateTopology(TopologyConfiguration topologyConfiguration)
-    {
+    { 
         for (int i = 0; i < questionsDominoHolders.Count; i++)
         {
             questionsDominoHolders[i].SetDomino(topologyConfiguration.questionsDominos[i]);
@@ -87,6 +89,11 @@ public class Topology : MonoBehaviour
     {
         return answersDominoHolders;
     }
+
+    public List<Mill> GetAllMills()
+    {
+        return mills;
+    }
 }
 
 public class TopologyData
@@ -95,13 +102,19 @@ public class TopologyData
     public int smallPlacesCount { get; private set; }
     public int answersCount { get; private set; }
     public int signsCount { get; private set; }
+    public int millsCount { get; private set; }
 
-    public TopologyData(int questionsCount, int smallPlacesCount, int answersCount, int signsCount)
+    public TopologyData(int questionsCount, 
+                        int smallPlacesCount, 
+                        int answersCount, 
+                        int signsCount,
+                        int millsCount)
     {
         this.questionsCount = questionsCount;
         this.smallPlacesCount = smallPlacesCount;
         this.answersCount = answersCount;
         this.signsCount = signsCount;
+        this.millsCount = millsCount;
     }
 }
 

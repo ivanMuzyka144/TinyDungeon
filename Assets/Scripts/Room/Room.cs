@@ -46,11 +46,14 @@ public class Room : MonoBehaviour
         roomDoorMaker.GenerateDoors(generatedTypes.ToList());
     }
 
-    
-
     public List<RoomPlaceHolder> GeneratePlaceholders()
     {
         return roomTypesGenerator.GeneratePlaceHolders(this);
+    }
+
+    public void LockTopDoor()
+    {
+        roomDoorMaker.LockTopDoor();
     }
     #endregion
 

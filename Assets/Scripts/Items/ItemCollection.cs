@@ -22,4 +22,9 @@ public class ItemCollection : MonoBehaviour
         return miracleItem;
     }
 
+    public Item GetKeyItem()
+    {
+        return keyItem;
+    }
+
 }

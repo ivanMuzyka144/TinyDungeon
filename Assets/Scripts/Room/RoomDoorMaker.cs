@@ -75,4 +75,9 @@ public class RoomDoorMaker : MonoBehaviour
     {
         return allDoorHoldersDictionary[doorType];
     }
+
+    public void LockTopDoor()
+    {
+        topDoor.LockDoor();
+    }
 }

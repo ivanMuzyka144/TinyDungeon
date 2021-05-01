@@ -8,6 +8,7 @@ public class DominoHolder : MonoBehaviour
 
     public EventHandler OnDominoSet;
     public EventHandler OnDominoBlinked;
+    public EventHandler OnDominoRotated;
 
     private Domino domino;
     private DominoPresenter dominoPresenter;
@@ -15,6 +16,7 @@ public class DominoHolder : MonoBehaviour
     private DominoAnimator dominoAnimator;
     private DragMaker dragMaker;
     private Blinker blinker;
+    private Rotator rotator;
 
     private PlaceForDomino currentPlaceForDomino;
 
@@ -26,6 +28,7 @@ public class DominoHolder : MonoBehaviour
         dominoAnimator = GetComponent<DominoAnimator>();
         dragMaker = GetComponent<DragMaker>();
         blinker = GetComponent<Blinker>();
+        rotator = GetComponent<Rotator>();
     }
 
     public void SetDomino(Domino domino)
@@ -53,7 +56,7 @@ public class DominoHolder : MonoBehaviour
                     break;
             }
         }
-        else if( dominoType == DominoType.PlaceForDomino)
+        else if (dominoType == DominoType.PlaceForDomino)
         {
             if (hasWholeValue)
             {
@@ -70,10 +73,10 @@ public class DominoHolder : MonoBehaviour
         }
     }
 
-    public void SetPlaceForDomino(PlaceForDomino placeForDomino) 
+    public void SetPlaceForDomino(PlaceForDomino placeForDomino)
     {
         currentPlaceForDomino = placeForDomino;
-        dominoAnimator.SetPlaceForDominoPosition(placeForDomino.transform.position + new Vector3(0,0.1f,0));
+        dominoAnimator.SetPlaceForDominoPosition(placeForDomino.transform.position + new Vector3(0, 0.1f, 0));
     }
 
     public void SetStartPosition()
@@ -85,9 +88,9 @@ public class DominoHolder : MonoBehaviour
         dominoPresenter.ClearAllValues();
     }
 
-    public void RemovePlaceForDominoPosition(PlaceForDomino placeForDomino) 
+    public void RemovePlaceForDominoPosition(PlaceForDomino placeForDomino)
     {
-        if(currentPlaceForDomino == placeForDomino)
+        if (currentPlaceForDomino == placeForDomino)
         {
             currentPlaceForDomino = null;
             dominoAnimator.RemovePlaceForDominoPosition();
@@ -105,6 +108,11 @@ public class DominoHolder : MonoBehaviour
         OnDominoBlinked?.Invoke(this, EventArgs.Empty);
     }
 
+    public void OnDominoHasRotated()
+    {
+        OnDominoRotated?.Invoke(this, EventArgs.Empty);
+    }
+
     public Domino GetDomino()
     {
         return domino;
@@ -113,17 +121,19 @@ public class DominoHolder : MonoBehaviour
 
     public void EnableDragMaker() => dragMaker.Enable();
 
-    public void EnableBlinker()
-    {
-        blinker.Enable();
-    }
+    public void EnableBlinker() => blinker.Enable();
 
+    public void EnableRotator() => rotator.Enable();
+    
     public void DisableSelector() => dominoSelector.Disable();
 
     public void DisableDragMaker() => dragMaker.Disable();
 
     public void DisableBlinker() => blinker.Disable();
 
+    public void DisableRotator() => rotator.Disable();
+
+    public void MakeBackRotation() => rotator.MakeBackRotation();
     public bool HasWholeValue()
     {
         return hasWholeValue;

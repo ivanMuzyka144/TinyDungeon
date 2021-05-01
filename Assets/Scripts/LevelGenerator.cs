@@ -56,7 +56,7 @@ public class LevelGenerator : MonoBehaviour
 
     private void GenerateLevel()
     {
-        if (acceptedPlaceholdersQueue.Count > 0 && roomsPositionDictionary.Count < maxRooms)
+        if (acceptedPlaceholdersQueue.Count > 0 && roomsPositionDictionary.Count != maxRooms)
         {
             RoomPlaceHolder roomPlaceHolder = acceptedPlaceholdersQueue.Dequeue();
             Room room = CreateRoom(roomPlaceHolder.position);
@@ -66,9 +66,31 @@ public class LevelGenerator : MonoBehaviour
         }
         else
         {
-            GenerateFinishRooms();
-            
-            CheckFullness();
+            if(roomsPositionDictionary.Count != maxRooms)
+            {
+                List<Room> acceptedRooms = new List<Room>();
+
+                foreach (Room room in roomsPositionDictionary.Values)
+                {
+                    Vector3 topRoomPosition = room.transform.position + new Vector3(height, 0, 0);
+                    if (!roomsPositionDictionary.ContainsKey(topRoomPosition))
+                    {
+                        acceptedRooms.Add(room);
+                    }
+                }
+                Room roomForChanging = acceptedRooms[Random.Range(0, acceptedRooms.Count)];
+
+                roomForChanging.SetStartAcceptedType(RoomType.TopDoor);
+                roomForChanging.GenerateDoors();
+                AcceptPlaceholders(roomForChanging.GeneratePlaceholders());
+                GenerateLevel();
+            }
+            else
+            {
+                GenerateFinishRooms();
+
+                CheckFullness();
+            }
         }
     }
 
@@ -79,9 +101,7 @@ public class LevelGenerator : MonoBehaviour
         foreach(Room room in roomsPositionDictionary.Values)
         {
             Vector3 topRoomPosition = room.transform.position + new Vector3(height, 0, 0);
-            //Vector3 toppestRoomPosition = topRoomPosition + new Vector3(height, 0, 0);
-            if(!roomsPositionDictionary.ContainsKey(topRoomPosition))// &&
-                //!roomsPositionDictionary.ContainsKey(toppestRoomPosition))
+            if(!roomsPositionDictionary.ContainsKey(topRoomPosition))
             {
                 acceptedRooms.Add(room);
             }
@@ -102,6 +122,7 @@ public class LevelGenerator : MonoBehaviour
 
 
         roomWithFinishDoor.GenerateDoors();
+        roomWithFinishDoor.LockTopDoor();
         finishRoom.GenerateDoors();
 
 

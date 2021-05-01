@@ -15,6 +15,8 @@ public class DominoAnimator : MonoBehaviour
     private DominoHolder dominoHolder;
     private SimpleDominoSelector dominoSelector;
 
+    public bool canMakeRotationAnimation;
+
     public void Activate()
     {
         dominoHolder = GetComponent<DominoHolder>();
@@ -61,5 +63,26 @@ public class DominoAnimator : MonoBehaviour
     {
         currentBackPosition = startPosition;
         finishPosition = startPosition + new Vector3(0, selectionHeight, 0);
+    }
+
+    public void MakeRotation(Vector3 rotation)
+    {
+        //if (canMakeRotationAnimation)
+        //{
+            canMakeRotationAnimation = false;
+            transform.eulerAnglesTransform(rotation, 0.25f)
+                      .EventTransition(() => canMakeRotationAnimation = true, 0.25f) ;
+        //}
+        
+    }
+
+    public void MakeNormalRotation()
+    {
+        //if (canMakeRotationAnimation)
+        //{
+            canMakeRotationAnimation = false;
+            transform.eulerAnglesTransform(new Vector3(90, 0, -90), 0.25f)
+                    .EventTransition(() => canMakeRotationAnimation = true, 0.25f);
+        //}
     }
 }

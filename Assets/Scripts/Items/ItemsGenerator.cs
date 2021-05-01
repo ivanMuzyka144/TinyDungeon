@@ -9,7 +9,7 @@ public class ItemsGenerator : MonoBehaviour
     [Space(10)]
     [SerializeField] private float howMany;
 
-    public List<Item> GenerateItems()//AddKeys
+    public List<Item> GenerateItems()
     {
         List<Item> generatedItems = new List<Item>();
         for(int i = 0; i<howMany-1; i++)

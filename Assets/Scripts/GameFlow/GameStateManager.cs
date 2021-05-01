@@ -35,15 +35,18 @@ public class GameStateManager : MonoBehaviour
                                                     new [] {GameStateType.PlayerMove});
         GameStateNode movemntNode = new GameStateNode(GameStateType.PlayerMove,
                                               new [] { GameStateType.PlayerSelectDoor },
-                                               new[] { GameStateType.PlayerMinigame});
+                                               new[] { GameStateType.PlayerMinigame,
+                                                        GameStateType.Finish,});
         GameStateNode minigameNode = new GameStateNode(GameStateType.PlayerMinigame,
                                                 new[] { GameStateType.PlayerMove},
                                                 new [] {GameStateType.PlayerSelectDoor,
-                                                        GameStateType.GameOver,
-                                                        GameStateType.Finish,});
+                                                        GameStateType.GameOver,});
         GameStateNode gameOverNode = new GameStateNode(GameStateType.GameOver,
                                                new[] { GameStateType.PlayerMinigame},
                                                new[] { GameStateType.None});
+        GameStateNode finishNode = new GameStateNode(GameStateType.Finish,
+                                               new[] { GameStateType.PlayerMove },
+                                               new[] { GameStateType.None });
 
         selectionDoorNode.OnStateStarted += doorShower.ShowDoorsUpAnim;
         selectionDoorNode.OnStateEnded += doorShower.ShowDoorsBackAnim;
@@ -55,10 +58,13 @@ public class GameStateManager : MonoBehaviour
 
         gameOverNode.OnStateStarted += uiManager.ShowGameOverScreen;
 
+        finishNode.OnStateStarted += animationManager.ShowFinishAnim;
+
         gameStateDictionary.Add(GameStateType.PlayerSelectDoor, selectionDoorNode);
         gameStateDictionary.Add(GameStateType.PlayerMove, movemntNode);
         gameStateDictionary.Add(GameStateType.PlayerMinigame, minigameNode);
         gameStateDictionary.Add(GameStateType.GameOver, gameOverNode);
+        gameStateDictionary.Add(GameStateType.Finish, finishNode);
     }
 
     public void SetStartState()

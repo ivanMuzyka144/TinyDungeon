@@ -82,6 +82,9 @@ public class Player : MonoBehaviour
         startItems.Add(itemCollection.GetLifeItem());
         startItems.Add(itemCollection.GetMiracleItem());
         startItems.Add(itemCollection.GetMiracleItem());
+
+        startItems.Add(itemCollection.GetKeyItem());
+
         playerItemHolder.SetStartItems(startItems);
     }
 
@@ -107,5 +110,15 @@ public class Player : MonoBehaviour
     public void RemoveMiracle()
     {
         playerItemHolder.RemoveItem(itemCollection.GetMiracleItem());
+    }
+
+    public bool HasKey()
+    {
+        return playerItemHolder.HasItem(itemCollection.GetKeyItem());
+    }
+
+    public void RemoveKey()
+    {
+        playerItemHolder.RemoveItem(itemCollection.GetKeyItem());
     }
 }

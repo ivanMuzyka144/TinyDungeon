@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AnimationManager : MonoBehaviour
 {
     public static AnimationManager Instance { get; private set; }
     private void Awake() => Instance = this;
+    
+
 
     private DoorShower doorShower;
     private Player player;
@@ -32,7 +36,14 @@ public class AnimationManager : MonoBehaviour
 
     public void MovePlayer(RoomType directionType)
     {
-        Action afterAnimAction = () => CloseDoors(directionType);
+        Action afterAnimAction = () =>
+        {
+            CloseDoors(directionType);
+            if (player.GetCurrentRoom().GetCategory() == RoomCategoryType.FinishRoom)
+            {
+                gameStateManager.ChangeState(GameStateType.Finish);
+            }
+        };
         player.MoveToAnotherRoom(directionType, afterAnimAction);
     }
 
@@ -44,5 +55,17 @@ public class AnimationManager : MonoBehaviour
         };
         
         doorShower.ShowTwoDoorsCloseAnim(directionType, afterAnimAction);
+    }
+
+    public void ShowFinishAnim(object sender, EventArgs e)
+    {
+        Debug.Log("YOU WIN!!!");
+        StartCoroutine(StartNewLevel(2));
+    }
+
+    IEnumerator StartNewLevel(float secs)
+    {
+        yield return new WaitForSeconds(secs);
+        SceneManager.LoadScene("SampleScene");
     }
 }

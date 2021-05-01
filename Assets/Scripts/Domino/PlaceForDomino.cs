@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Lean.Transition;
 
 public class PlaceForDomino : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlaceForDomino : MonoBehaviour
     [SerializeField] private DominoPresenter dominoPresenter;
 
     private DominoHolder dominoInZone;
+    private Vector3 startDominoRotation;
 
     public bool HasDomino()
     {
@@ -17,16 +19,18 @@ public class PlaceForDomino : MonoBehaviour
     public bool IsDominoCorrect()
     {
         Domino myDomino = myHolder.GetDomino();
-        Domino inZoneDomino = dominoInZone.GetDomino();
         bool returnValue = false;
-
-        if (myHolder.HasWholeValue())
+        if(dominoInZone != null)
         {
-            returnValue = inZoneDomino.EquealToWholeDomino(myDomino);
-        }
-        else
-        {
-            returnValue = inZoneDomino.EquealToNormalDomino(myDomino);
+            Domino inZoneDomino = dominoInZone.GetDomino();
+            if (myHolder.HasWholeValue())
+            {
+                returnValue = inZoneDomino.EquealToWholeDomino(myDomino);
+            }
+            else
+            {
+                returnValue = inZoneDomino.EquealToNormalDomino(myDomino);
+            }
         }
         return returnValue;
     }
@@ -46,7 +50,22 @@ public class PlaceForDomino : MonoBehaviour
                 dominoInZone = other.GetComponent<DominoHolder>();
 
                 dominoInZone.SetPlaceForDomino(this);
+
+                dominoInZone.transform.rotationTransition(transform.rotation, 0.25f);
+                dominoInZone.GetComponent<DominoAnimator>().MakeRotation(transform.eulerAngles);
             }
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.GetComponent<DominoHolder>() != null
+            && other.GetComponent<DominoHolder>() == dominoInZone
+            && other.transform.rotation != transform.rotation)
+        {
+            //dominoInZone.GetComponent<DominoAnimator>().Mw
+            //    transform.rotationTransition(transform.rotation, 0.25f);
+
         }
     }
     private void OnTriggerExit(Collider other)
@@ -55,9 +74,8 @@ public class PlaceForDomino : MonoBehaviour
             && other.GetComponent<DominoHolder>() == dominoInZone)
         {
             dominoInZone.RemovePlaceForDominoPosition(this);
+            dominoInZone.GetComponent<DominoAnimator>().MakeNormalRotation();
             dominoInZone = null;
-
-            //dominoPresenter.ShowText();
 
         }
     }
