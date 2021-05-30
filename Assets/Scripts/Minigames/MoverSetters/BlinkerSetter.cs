@@ -12,6 +12,7 @@ public class BlinkerSetter : MoverSetter
             answerDomino.EnableBlinker();
         }
     }
+
     public override void DestroyMover(Topology topology)
     {
         foreach (DominoHolder answerDomino in topology.GetAllAnswerDominos())
@@ -19,5 +20,13 @@ public class BlinkerSetter : MoverSetter
             answerDomino.DisableSelector();
             answerDomino.DisableBlinker();
         }
+        foreach (DominoHolder placeForDomino in topology.GetSmallPlacesDominos())
+        {
+            placeForDomino.DisableSelector();
+        }
+    }
+
+    public override void ClearPlacesForDomino(Topology topology)
+    {
     }
 }

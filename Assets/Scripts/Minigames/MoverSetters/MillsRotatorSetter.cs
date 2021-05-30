@@ -12,6 +12,8 @@ public class MillsRotatorSetter : MoverSetter
             mill.EnableRotator();
         }
     }
+
+
     public override void DestroyMover(Topology topology)
     {
         foreach (Mill mill in topology.GetAllMills())
@@ -21,5 +23,8 @@ public class MillsRotatorSetter : MoverSetter
         }
     }
 
+    public override void ClearPlacesForDomino(Topology topology)
+    {
 
+    }
 }

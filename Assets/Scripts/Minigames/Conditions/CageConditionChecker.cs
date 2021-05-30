@@ -8,12 +8,15 @@ public class CageConditionChecker : ConditionChecker
 
     private List<DominoHolder> mypPlacesForDomino = new List<DominoHolder>();
 
+    private PlatformManager platformManager;
+    private DoubleSelectionSet currentDoubleSelectionSet;
     public void AddNumbersForHidding(int numb)
     {
         numbersForHidding.Add(numb);
     }
     public override void Configurate(Topology topology)
     {
+        platformManager = PlatformManager.Instance;
         List<DominoHolder> questionDominos = topology.GetAllQuestionDominos();
         List<DominoHolder> placesForDomino = topology.GetSmallPlacesDominos();
 
@@ -41,8 +44,20 @@ public class CageConditionChecker : ConditionChecker
         }
         numbersForHidding.Clear();
 
+        if(platformManager.GetCurrentPlatform() == PlatformType.Console)
+        {
+            UpdateSelectionSet();
+        }
     }
 
+    public void SetSelectionSet(DoubleSelectionSet doubleSelectionSet)
+    {
+        currentDoubleSelectionSet = doubleSelectionSet;
+    }
+    private void UpdateSelectionSet()
+    {
+        currentDoubleSelectionSet.SetActiveElements(mypPlacesForDomino);
+    }
     public override ConditionResult CheckCondition()
     {
         ConditionResult returnResult = ConditionResult.NotReady;
@@ -58,6 +73,11 @@ public class CageConditionChecker : ConditionChecker
         }
 
         return returnResult;
+    }
+
+    public List<DominoHolder> GetPlacesForDomino()
+    {
+        return mypPlacesForDomino;
     }
 
 }

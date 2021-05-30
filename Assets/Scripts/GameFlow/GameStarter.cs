@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Lean.Transition;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,17 +12,20 @@ public class GameStarter : MonoBehaviour
     private Player player;
     private GameStateManager gameStateManager;
     private MinigameManager minigameSimulator;
+    private StatisticsManager statisticsManager;
 
     private void Awake() => Instance = this;
 
     private void Start()
     {
+        Time.timeScale = 1;
+
         levelGenerator = LevelGenerator.Instance;
         roomCollection = RoomCollection.Instance;
         player = Player.Instance;
         gameStateManager = GameStateManager.Instance;
         minigameSimulator = MinigameManager.Instance;
-
+        statisticsManager = StatisticsManager.Instance;
 
         List<Room> rooms = levelGenerator.MakeLevel();
 
@@ -39,6 +43,8 @@ public class GameStarter : MonoBehaviour
         gameStateManager.Activate();
 
         minigameSimulator.Activate();
+
+        statisticsManager.Activate();
 
         StartCoroutine(StartDoorsAnimation(1));
     }

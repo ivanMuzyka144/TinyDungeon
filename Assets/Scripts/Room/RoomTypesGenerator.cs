@@ -24,9 +24,9 @@ public class RoomTypesGenerator : MonoBehaviour
     public HashSet<RoomType> GenerateTypesForRoom()
     {
         bool shouldAddTopType = startAcceptedTypes.Contains(RoomType.TopDoor);
+        bool shouldAddRightType = startAcceptedTypes.Contains(RoomType.RightDoor);
         bool shouldAddBottomType =  startAcceptedTypes.Contains(RoomType.BottomDoor);
         bool shouldAddLeftType = startAcceptedTypes.Contains(RoomType.LeftDoor);
-        bool shouldAddRightType = startAcceptedTypes.Contains(RoomType.RightDoor);
 
         RoomPattern roomPattern= new RoomPattern(shouldAddTopType, shouldAddBottomType, 
                                         shouldAddLeftType, shouldAddRightType);
@@ -35,12 +35,12 @@ public class RoomTypesGenerator : MonoBehaviour
 
         if (newRoomPattern.top)
             generatedTypes.Add(RoomType.TopDoor);
+        if (newRoomPattern.right)
+            generatedTypes.Add(RoomType.RightDoor);
         if (newRoomPattern.bottom)
             generatedTypes.Add(RoomType.BottomDoor);
         if (newRoomPattern.left)
             generatedTypes.Add(RoomType.LeftDoor);
-        if (newRoomPattern.right)
-            generatedTypes.Add(RoomType.RightDoor);
 
         return generatedTypes;
     }

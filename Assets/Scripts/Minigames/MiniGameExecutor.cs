@@ -6,9 +6,9 @@ using System;
 
 public class MiniGameExecutor : MonoBehaviour
 {
-    //[SerializeField] private Volume volume;
     [Space(10)]
     [SerializeField] private List<MiniGame> miniGames = new List<MiniGame>();
+    [SerializeField] private List<MiniGame> vrMiniGames = new List<MiniGame>();
 
     private Dictionary<MinigameInfo, MiniGame> miniGamesDictionary = new Dictionary<MinigameInfo, MiniGame>();
 
@@ -18,6 +18,8 @@ public class MiniGameExecutor : MonoBehaviour
     private PostProcessingManager postProcessingManager;
     private GameStateManager gameStateManager;
     private Player player;
+    private PlatformManager platformManager;
+    private PlatformType currentPlatform;
 
     public void Activate()
     {
@@ -26,11 +28,26 @@ public class MiniGameExecutor : MonoBehaviour
         gameStateManager = GameStateManager.Instance;
         player = Player.Instance;
 
-        foreach (MiniGame miniGame in miniGames)
+        platformManager = PlatformManager.Instance;
+        currentPlatform = platformManager.GetCurrentPlatform();
+
+        if(currentPlatform == PlatformType.VR)
         {
-            miniGamesDictionary.Add(miniGame.GetMinigameInfo(), miniGame);
-            miniGame.Activate();
+            foreach (MiniGame miniGame in vrMiniGames)
+            {
+                miniGamesDictionary.Add(miniGame.GetMinigameInfo(), miniGame);
+                miniGame.Activate();
+            }
         }
+        else
+        {
+            foreach (MiniGame miniGame in miniGames)
+            {
+                miniGamesDictionary.Add(miniGame.GetMinigameInfo(), miniGame);
+                miniGame.Activate();
+            }
+        }
+        
     }
     public void Execute(MinigameInfo minigameInfo, Vector3 position, DifficultyType difficultyType)
     {
@@ -38,7 +55,6 @@ public class MiniGameExecutor : MonoBehaviour
 
         currentMiniGame.transform.position = position;
 
-        postProcessingManager.FocusOnDomino();
 
         currentMiniGame.ShowMiniGame();
 
@@ -49,8 +65,17 @@ public class MiniGameExecutor : MonoBehaviour
             currentMiniGame.EnableMiniGame();
         };
 
-        currentMiniGame.transform.positionTransition(position + new Vector3(0, 7, 0), 1)
+        if (currentPlatform == PlatformType.VR)
+        {
+            currentMiniGame.transform.positionTransition(position + new Vector3(0, 4, 0), 1)
                                  .EventTransition(afterAnimAction, 1);
+        }
+        else
+        {
+            currentMiniGame.transform.positionTransition(position + new Vector3(0, 7, 0), 1)
+                                 .EventTransition(afterAnimAction, 1);
+            postProcessingManager.FocusOnDomino();
+        }
     }
 
     public void HideGame(MiniGameResultType result)
@@ -63,6 +88,7 @@ public class MiniGameExecutor : MonoBehaviour
         Action afterAnimAction = () =>
         {
             postProcessingManager.FocusOnRoom();
+            currentMiniGame.ClearPlacesForDomino();
             currentMiniGame.RenewMiniGame();
             if (player.IsAlive())
             {
@@ -73,5 +99,14 @@ public class MiniGameExecutor : MonoBehaviour
         currentMiniGame.transform.positionTransition(currentMiniGame.transform.position - new Vector3(0,10, 0), 1)
                                  .EventTransition(afterAnimAction, 1);
     }
-   
+
+    public SelectionSet GenerateSelectionSet()
+    {
+        return currentMiniGame.GenerateSelectionSet();
+    }
+
+    public MinigameInfo GetCurrentMinigame()
+    {
+        return currentMiniGame.GetMinigameInfo();
+    }
 }

@@ -139,6 +139,28 @@ public class DominoHolder : MonoBehaviour
         return hasWholeValue;
     }
 
+    public ISelectable GetSelector()
+    {
+        return dominoSelector;
+    }
+
+    public void MakeAutomaticDrag(PlaceForDomino placeForDomino, Action afterAnimAction)
+    {
+        dragMaker.MakeAutomaticDrag(placeForDomino, afterAnimAction);
+    }
+
+    public bool HasPlaceForDomino()
+    {
+        return currentPlaceForDomino != null;
+    }
+    public PlaceForDomino GetPlaceForDomino()
+    {
+        return currentPlaceForDomino;
+    }
+    public ISelectable GetPlaceForDominoSelector()
+    {
+        return currentPlaceForDomino.GetComponent<DominoHolder>().GetSelector();
+    }
 }
 
 public enum DominoType

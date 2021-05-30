@@ -7,12 +7,19 @@ public class Player : MonoBehaviour
 {
     public static Player Instance { get; private set; }
 
+    [SerializeField] private FirstPersonMovement firstPersonMovement;
+    [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private Collider collider;
+
+
     private bool isAlive;
 
     private PlayerMover playerMover;
     private PlayerItemHolder playerItemHolder;
     private ItemCollection itemCollection;
     private GameStateManager gameStateManager;
+    private PlatformManager platformManager;
+    private PlatformType currentPlatform;
 
     private void Awake()
     {
@@ -25,14 +32,35 @@ public class Player : MonoBehaviour
 
         itemCollection = ItemCollection.Instance;
         gameStateManager = GameStateManager.Instance;
+        platformManager = PlatformManager.Instance;
 
         playerMover = GetComponent<PlayerMover>();
         playerItemHolder = GetComponent<PlayerItemHolder>();
 
+        currentPlatform = platformManager.GetCurrentPlatform();
+
         playerMover.Activate();
         playerItemHolder.Activate();
+    }
 
-        SetStartItems();
+    public void DisablePlayerPhysics()
+    {
+        if(currentPlatform == PlatformType.VR)
+        {
+            firstPersonMovement.enabled = false;
+            collider.enabled = false;
+            rigidbody.isKinematic = true;
+        }
+    }
+
+    public void EnablePlayerPhysics()
+    {
+        if (currentPlatform == PlatformType.VR)
+        {
+            firstPersonMovement.enabled = true;
+            collider.enabled = true;
+            rigidbody.isKinematic = false;
+        }
     }
 
     public void SpawnPlayer(Vector3 startPosition) => playerMover.SpawnPlayer(startPosition);
@@ -45,9 +73,36 @@ public class Player : MonoBehaviour
 
     public void MoveToAnotherRoom(RoomType directionType, Action afterAnimAction)
     {
+        DisablePlayerPhysics();
+
         Room nextRoom = playerMover.GetCurrentRoom().GetRelativeRoom(directionType);
 
-        playerMover.MoveToAnotherRoom(nextRoom.transform.position, afterAnimAction);
+        Vector3 offset = Vector3.zero;
+
+        if(currentPlatform == PlatformType.VR)
+        {
+            switch (directionType)
+            {
+                case RoomType.TopDoor:
+                    offset = new Vector3(-3,0,0);
+                    break;
+                case RoomType.BottomDoor:
+                    offset = new Vector3(3, 0, 0);
+                    break;
+                case RoomType.RightDoor:
+                    offset = new Vector3(0, 0, 5);
+                    break;
+                case RoomType.LeftDoor:
+                    offset = new Vector3(0, 0, -5);
+                    break;
+            }
+        }
+
+        Vector3 nextPosition = nextRoom.transform.position + offset;
+        nextPosition.y = transform.position.y;
+
+
+        playerMover.MoveToAnotherRoom(nextPosition, afterAnimAction);
 
         playerMover.SetCurrentRoom(nextRoom);
     }
@@ -65,6 +120,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            //gameStateManager.EndCurrentState();
             gameStateManager.ChangeState(GameStateType.PlayerSelectDoor);
         }
     }
@@ -74,16 +130,24 @@ public class Player : MonoBehaviour
         return playerItemHolder.HasItem(itemCollection.GetMiracleItem());
     }
 
-    private void SetStartItems()
+    public void SetStartItems(int lifeCount, int coinsCount, int miraclesCount)
     {
         List<Item> startItems = new List<Item>();
-        startItems.Add(itemCollection.GetLifeItem());
-        startItems.Add(itemCollection.GetLifeItem());
-        startItems.Add(itemCollection.GetLifeItem());
-        startItems.Add(itemCollection.GetMiracleItem());
-        startItems.Add(itemCollection.GetMiracleItem());
 
-        startItems.Add(itemCollection.GetKeyItem());
+        for (int i = 0; i < lifeCount; i++)
+        {
+            startItems.Add(itemCollection.GetLifeItem());
+        }
+        for (int i = 0; i < coinsCount; i++)
+        {
+            startItems.Add(itemCollection.GetCoinItem());
+        }
+        for (int i = 0; i < miraclesCount; i++)
+        {
+            startItems.Add(itemCollection.GetMiracleItem());
+        }
+
+        startItems.Add(itemCollection.GetKeyItem());//<---------------------
 
         playerItemHolder.SetStartItems(startItems);
     }
@@ -120,5 +184,18 @@ public class Player : MonoBehaviour
     public void RemoveKey()
     {
         playerItemHolder.RemoveItem(itemCollection.GetKeyItem());
+    }
+
+    public int GetLifeCount()
+    {
+        return playerItemHolder.GetLifeCount();
+    }
+    public int GetCoinCount()
+    {
+        return playerItemHolder.GetCoinCount();
+    }
+    public int GetMiracleCount()
+    {
+        return playerItemHolder.GetMiracleCount();
     }
 }

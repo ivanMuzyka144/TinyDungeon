@@ -54,7 +54,6 @@ public class Topology : MonoBehaviour
         }
 
     }
-    
     public void SetStartPositions()
     {
         for (int i = 0; i < questionsDominoHolders.Count; i++)
@@ -93,6 +92,36 @@ public class Topology : MonoBehaviour
     public List<Mill> GetAllMills()
     {
         return mills;
+    }
+
+    public SelectionSet GenerateSelectionSet(MinigameInfo minigameInfo)
+    {
+        SelectionSet selectionSet;
+
+        if (minigameInfo.UsePlaceForDomino())
+        {
+            selectionSet = new DoubleSelectionSet();
+        }
+        else
+        {
+            selectionSet = new SingleSelectionSet();
+        }
+
+        foreach (DominoHolder dominoHolder in answersDominoHolders)
+        {
+            selectionSet.AddSelectionObject(dominoHolder.GetSelector(), true);
+        }
+        foreach (Mill mill in mills)
+        {
+            selectionSet.AddSelectionObject(mill.GetSelector(), true);
+        }
+        foreach (DominoHolder placeForDomino in smallPlacesDominoHolders)
+        {
+            selectionSet.AddSelectionObject(placeForDomino.GetSelector(), false);
+        }
+
+
+        return selectionSet;
     }
 }
 

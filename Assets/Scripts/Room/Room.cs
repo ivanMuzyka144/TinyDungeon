@@ -22,6 +22,8 @@ public class Room : MonoBehaviour
     private RoomItemHolder roomItemHolder;
     private MGPresenter mgPresenter;
 
+    private bool isActiveForPlaying;
+
     public void Activate()
     {
         roomTypesGenerator = GetComponent<RoomTypesGenerator>();
@@ -36,8 +38,18 @@ public class Room : MonoBehaviour
         roomDoorMaker.Activate(this);
         roomCategorySetter.Activate();
         roomItemHolder.Activate();
+
+        isActiveForPlaying = true;
     }
 
+    public bool IsActiveForPlaying()
+    {
+        return isActiveForPlaying;
+    }
+    public void DeactivatePlaying()
+    {
+        isActiveForPlaying = false;
+    }
     #region DoorsPlaceholdersGeneration
     public void GenerateDoors()
     {

@@ -2311,6 +2311,8 @@ GameObject:
   - component: {fileID: 2253357202436562504}
   - component: {fileID: 6693400361277097858}
   - component: {fileID: 8233531379518597655}
+  - component: {fileID: 3136726654711713998}
+  - component: {fileID: 7783096854602219103}
   - component: {fileID: 1029798848292180441}
   - component: {fileID: 4404862558845774713}
   m_Layer: 0
@@ -2396,6 +2398,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myHolder: {fileID: 2253357202436562504}
   dominoPresenter: {fileID: 6693400361277097858}
+--- !u!114 &3136726654711713998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3513143363519659628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0feaad35c19718e49a05dbf06cb44e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 5776803406114830334}
+  defaultMaterial: {fileID: 2100000, guid: b11ef49cb6dcfe840b2b396ab1a8b63d, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: d385899a6e41fce4ea215e3565c5b386, type: 2}
+  blockSec: 0.5
+--- !u!114 &7783096854602219103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3513143363519659628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e40274d90e41554dac8b9a90ea6f168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectionHeight: 1
+  selectionHeightTime: 0.3
+  backTime: 0.3
+  canMakeRotationAnimation: 0
 --- !u!65 &1029798848292180441
 BoxCollider:
   m_ObjectHideFlags: 0

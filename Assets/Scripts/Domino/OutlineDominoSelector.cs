@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class OutlineDominoSelector : DominoSelector
     [SerializeField] private Material selectedMaterial;
     [Space(10)]
     [SerializeField] private float blockSec;
+
+    
 
     private DominoAnimator dominoAnimator;
 
@@ -97,5 +100,10 @@ public class OutlineDominoSelector : DominoSelector
     public override bool IsBlocked()
     {
         return isBlocked;
+    }
+
+    public override void MakeSelectionAction()
+    {
+        OnSelectionActionCalled?.Invoke(this, EventArgs.Empty);
     }
 }

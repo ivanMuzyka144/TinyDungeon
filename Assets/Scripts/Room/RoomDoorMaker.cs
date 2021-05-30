@@ -23,14 +23,15 @@ public class RoomDoorMaker : MonoBehaviour
     public void Activate(Room currentRoom)
     {
         topDoor.SetDoorInfo(currentRoom, RoomType.TopDoor);
+        rightDoor.SetDoorInfo(currentRoom, RoomType.RightDoor);
         bottomDoor.SetDoorInfo(currentRoom, RoomType.BottomDoor);
         leftDoor.SetDoorInfo(currentRoom, RoomType.LeftDoor);
-        rightDoor.SetDoorInfo(currentRoom, RoomType.RightDoor);
+        
 
         allDoorsDictionary.Add(RoomType.TopDoor, topDoor);
+        allDoorsDictionary.Add(RoomType.RightDoor, rightDoor);
         allDoorsDictionary.Add(RoomType.BottomDoor, bottomDoor);
         allDoorsDictionary.Add(RoomType.LeftDoor, leftDoor);
-        allDoorsDictionary.Add(RoomType.RightDoor, rightDoor);
 
         topDoor.Activate();
         bottomDoor.Activate();
@@ -38,9 +39,9 @@ public class RoomDoorMaker : MonoBehaviour
         rightDoor.Activate();
 
         allDoorHoldersDictionary.Add(RoomType.TopDoor, topDoorHolder);
+        allDoorHoldersDictionary.Add(RoomType.RightDoor, rightDoorHolder);
         allDoorHoldersDictionary.Add(RoomType.BottomDoor, bottomDoorHolder);
         allDoorHoldersDictionary.Add(RoomType.LeftDoor, leftDoorHolder);
-        allDoorHoldersDictionary.Add(RoomType.RightDoor, rightDoorHolder);
     }
 
     public void GenerateDoors(List<RoomType> roomTypes)

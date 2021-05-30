@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MiniGame : MonoBehaviour
@@ -8,9 +6,6 @@ public class MiniGame : MonoBehaviour
     [SerializeField] private MinigameInfo minigameInfo;
     [Space(10)]
     [SerializeField] private TopologyCollection topologyCollection;
-    [Space(10)]
-    [SerializeField] private GameObject winPanel;
-    [SerializeField] private GameObject losePanel;
 
     private MinigameManager minigameManager;
     private DifficultySimulator difficultySimulator;
@@ -59,11 +54,15 @@ public class MiniGame : MonoBehaviour
         eventSubscriber.SubscribeToEvent(currentTopology, this);
         conditionChecker.Configurate(currentTopology);
     }
-
     public void DisableMiniGame()
     {
         moverSetter.DestroyMover(currentTopology);
         eventSubscriber.UnsubscribeToEvent(currentTopology, this);
+    }
+
+    public void ClearPlacesForDomino()
+    {
+        moverSetter.ClearPlacesForDomino(currentTopology);
     }
     
     public void RenewMiniGame()
@@ -98,6 +97,15 @@ public class MiniGame : MonoBehaviour
     public MinigameInfo GetMinigameInfo()
     {
         return minigameInfo;
+    }
+
+    public SelectionSet GenerateSelectionSet()
+    {
+        DifficultyType difficultyType = difficultySimulator.GetDifficultyType();
+
+        currentTopology = topologyCollection.GetTopology(difficultyType);
+
+        return currentTopology.GenerateSelectionSet(minigameInfo);
     }
 }
 

@@ -17,18 +17,40 @@ public class DominoAnimator : MonoBehaviour
 
     public bool canMakeRotationAnimation;
 
+    private PlatformManager platformManager;
+    private PlatformType currentPlatform;
+
     public void Activate()
     {
         dominoHolder = GetComponent<DominoHolder>();
         dominoSelector = GetComponent<SimpleDominoSelector>();
 
-        startPosition = transform.position;
-        currentBackPosition = startPosition;
-        finishPosition = transform.position + new Vector3(0, selectionHeight, 0);
+        platformManager = PlatformManager.Instance;
+        currentPlatform = platformManager.GetCurrentPlatform();
+
+        if(currentPlatform == PlatformType.VR)
+        {
+            startPosition = transform.localPosition;
+            currentBackPosition = startPosition;
+            finishPosition = transform.localPosition + new Vector3(0,0,-selectionHeight);
+        }
+        else
+        {
+            startPosition = transform.position;
+            currentBackPosition = startPosition;
+            finishPosition = transform.position + new Vector3(0, selectionHeight, 0);
+        }
     }
     public void MakeTowardAnim()
     {
-        transform.positionTransition(finishPosition, selectionHeightTime);
+        if (currentPlatform == PlatformType.VR)
+        {
+            transform.localPositionTransition(finishPosition, selectionHeightTime);
+        }
+        else
+        {
+            transform.positionTransition(finishPosition, selectionHeightTime);
+        }
     }
     public void MakeBackAnim()
     {
@@ -37,32 +59,72 @@ public class DominoAnimator : MonoBehaviour
             dominoHolder.OnDominoHasSet();
             dominoSelector.Unblock();
         };
-
-        transform.positionTransition(currentBackPosition, backTime)
+        if (currentPlatform == PlatformType.VR)
+        {
+            transform.localPositionTransition(currentBackPosition, backTime)
                  .EventTransition(afterAnimAction, backTime);
+        }
+        else
+        {
+            transform.positionTransition(currentBackPosition, backTime)
+                 .EventTransition(afterAnimAction, backTime);
+        }
     }
 
-    public void MakeStepBack()
-    {
-        transform.position = transform.position - new Vector3(0, selectionHeight, 0);
-    }
+    //public void MakeStepBack()
+    //{
+    //    if (currentPlatform == PlatformType.VR)
+    //    {
+    //        transform.localPosition = transform.localPosition - new Vector3(0, 0, -selectionHeight);
+    //    }
+    //    else
+    //    {
+    //        transform.position = transform.position - new Vector3(0, selectionHeight, 0);
+    //    }
+    //}
 
-        public void SetPlaceForDominoPosition(Vector3 placeForDominoPosition)
+    public void SetPlaceForDominoPosition(Vector3 placeForDominoPosition)
     {
         currentBackPosition = placeForDominoPosition;
-        finishPosition = placeForDominoPosition + new Vector3(0, selectionHeight, 0);
+        
+
+        if (currentPlatform == PlatformType.VR)
+        {
+            finishPosition = placeForDominoPosition + new Vector3(0, 0, -selectionHeight);
+        }
+        else
+        {
+            finishPosition = placeForDominoPosition + new Vector3(0, selectionHeight, 0);
+        }
     }
 
     public void SetStartPosition()
     {
-        transform.position = new Vector3(startPosition.x, transform.position.y, startPosition.z);
-        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+        if (currentPlatform == PlatformType.VR)
+        {
+            //transform.position = new Vector3(startPosition.x, transform.position.y, startPosition.z);
+            transform.localPosition = startPosition;
+        }
+        else
+        {
+            transform.position = new Vector3(startPosition.x, transform.position.y, startPosition.z);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+        }
+
     }
 
     public void RemovePlaceForDominoPosition()
     {
         currentBackPosition = startPosition;
-        finishPosition = startPosition + new Vector3(0, selectionHeight, 0);
+        
+        if (currentPlatform == PlatformType.VR)
+        {
+            finishPosition = startPosition + new Vector3(0, 0, -selectionHeight);
+        }
+        else
+        {
+            finishPosition = startPosition + new Vector3(0, selectionHeight, 0);
+        }
     }
 
     public void MakeRotation(Vector3 rotation)

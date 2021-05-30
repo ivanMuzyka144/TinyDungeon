@@ -11,6 +11,8 @@ public class GameStateManager : MonoBehaviour
     private Player player;
     private MinigameManager minigameSimulator;
     private UIManager uiManager;
+    private GamepadSelectionManager gamepadSelectionManager;
+    private PlatformManager platformManager;
 
     private GameStateNode currentNode;
     private RoomType selectedDoorDirection;
@@ -18,6 +20,7 @@ public class GameStateManager : MonoBehaviour
 
     private Dictionary<GameStateType, GameStateNode> gameStateDictionary = new Dictionary<GameStateType, GameStateNode>();
 
+    private PlatformType currentPlatform;
     private void Awake() => Instance = this;
 
     public void Activate()
@@ -27,6 +30,8 @@ public class GameStateManager : MonoBehaviour
         player = Player.Instance;
         minigameSimulator = MinigameManager.Instance;
         uiManager = UIManager.Instance;
+        gamepadSelectionManager = GamepadSelectionManager.Instance;
+        platformManager = PlatformManager.Instance;
 
         animationManager.Activate();
 
@@ -48,13 +53,31 @@ public class GameStateManager : MonoBehaviour
                                                new[] { GameStateType.PlayerMove },
                                                new[] { GameStateType.None });
 
+        currentPlatform = platformManager.GetCurrentPlatform();
+
         selectionDoorNode.OnStateStarted += doorShower.ShowDoorsUpAnim;
         selectionDoorNode.OnStateEnded += doorShower.ShowDoorsBackAnim;
 
-        movemntNode.OnStateStarted += animationManager.MakeMovementSequence;
+        if (currentPlatform == PlatformType.Console)
+        {
+            gamepadSelectionManager.Activate();
+            selectionDoorNode.OnStateStarted += gamepadSelectionManager.SetDoorSelecting;
+            selectionDoorNode.OnStateEnded += gamepadSelectionManager.RemoveDoorSelecting;
+        }
 
+
+        movemntNode.OnStateStarted += animationManager.MakeMovementSequence;
+        
+       
         minigameNode.OnStateStarted += minigameSimulator.StartMinigame;
+        if (currentPlatform == PlatformType.Console)
+        {
+            minigameNode.OnStateStarted += gamepadSelectionManager.SetMinigameSelecting;
+            minigameNode.OnStateEnded += gamepadSelectionManager.RemoveMinigameSelecting;
+        }
         minigameNode.OnStateEnded += player.CollectItem;
+
+
 
         gameOverNode.OnStateStarted += uiManager.ShowGameOverScreen;
 
@@ -104,6 +127,11 @@ public class GameStateManager : MonoBehaviour
     public void SetMinigameResult(MiniGameResultType miniGameResultType)
     {
         lastMinigameResult = miniGameResultType;
+    }
+
+    public void SetCurrentPlatform(PlatformType platformType)
+    {
+        currentPlatform = platformType;
     }
 }
 

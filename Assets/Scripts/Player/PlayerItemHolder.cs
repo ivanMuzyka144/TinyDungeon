@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerItemHolder : MonoBehaviour
 {
     private GameStateManager gameStateManager;
     private UIItemPresenter uiItemPresenter;
+    private ItemCollection itemCollection;
 
     private List<Item> collectedItems = new List<Item>();
     public void Activate()
     {
         gameStateManager = GameStateManager.Instance;
         uiItemPresenter = UIItemPresenter.Instance;
+        itemCollection = ItemCollection.Instance;
     }
 
     public void SetStartItems(List<Item> startItems)
@@ -49,5 +52,18 @@ public class PlayerItemHolder : MonoBehaviour
     {
         collectedItems.Remove(item);
         uiItemPresenter.UpdatePresenter(collectedItems);
+    }
+
+    public int GetLifeCount()
+    {
+        return collectedItems.Where(n => n == itemCollection.GetLifeItem()).ToList().Count;
+    }
+    public int GetCoinCount()
+    {
+        return collectedItems.Where(n => n == itemCollection.GetCoinItem()).ToList().Count;
+    }
+    public int GetMiracleCount()
+    {
+        return collectedItems.Where(n => n == itemCollection.GetMiracleItem()).ToList().Count;
     }
 }

@@ -11,8 +11,16 @@ public class Rotator : MonoBehaviour
     private bool canRotate;
     private bool isRotating;
     private bool isBlocked;
-    public void Enable() => canRotate = true;
-    public void Disable() => canRotate = false;
+    public void Enable() 
+    { 
+        canRotate = true;
+        dominoSelector.OnSelectionActionCalled += TryToMakeRotation;
+    }
+    public void Disable() 
+    { 
+        canRotate = false;
+        dominoSelector.OnSelectionActionCalled -= TryToMakeRotation;
+    }
 
     private void Update()
     {
@@ -20,6 +28,22 @@ public class Rotator : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0)
                 && dominoSelector.IsSelected()
+                && !dominoSelector.IsBlocked()
+                && isRotating == false
+                && !pairsManager.IsRecording()
+                && !isBlocked)
+            {
+                isRotating = true;
+                MakeNormalRotation();
+            }
+        }
+    }
+    
+    public void TryToMakeRotation(object sender, EventArgs e)
+    {
+        if (canRotate)
+        {
+            if  (dominoSelector.IsSelected()
                 && !dominoSelector.IsBlocked()
                 && isRotating == false
                 && !pairsManager.IsRecording()

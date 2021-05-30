@@ -7,7 +7,10 @@ public class MinigameInfo : ScriptableObject
     [SerializeField] private MiniGameName miniGameName;
     [SerializeField] private float time;
     [SerializeField] private Material roomMaterial;
-
+    [Space(10)]
+    [SerializeField] private bool useAnswerDomino;
+    [SerializeField] private bool usePlaceForDomino;
+    [SerializeField] private bool useMills;
     public int GetId()
     {
         return id;
@@ -27,6 +30,20 @@ public class MinigameInfo : ScriptableObject
     {
         return roomMaterial;
     }
+
+    public bool UseAnswerDomino()
+    {
+        return useAnswerDomino;
+    }
+    public bool UsePlaceForDomino()
+    {
+        return usePlaceForDomino;
+    }
+    public bool UseMills()
+    {
+        return useMills;
+    }
+
 }
 
 public enum MiniGameName

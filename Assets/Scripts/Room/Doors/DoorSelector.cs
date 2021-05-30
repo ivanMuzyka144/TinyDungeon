@@ -11,15 +11,23 @@ public class DoorSelector : MonoBehaviour, ISelectable
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Door door;
 
+    private GameStateManager gameStateManager;
+
     private bool isActive;
-    private bool effectActivated;
+    private bool isSelected;
 
     private Vector3 startPosition;
     private Vector3 finishPosition;
 
+    public void Activate()
+    {
+        gameStateManager = GameStateManager.Instance;
+    }
+
     public void Enable()
     { 
         isActive = true;
+
         startPosition = transform.position;
         finishPosition = transform.position + new Vector3(0, selectionHeight, 0);
     }
@@ -27,15 +35,15 @@ public class DoorSelector : MonoBehaviour, ISelectable
     public void Disable()
     {
         isActive = false;
-        effectActivated = false;
+        isSelected = false;
         meshRenderer.material = defaultMaterial;
     }
 
     public void OnSelected()
     {
-        if (isActive && !effectActivated)
+        if (isActive && !isSelected)
         {
-            effectActivated = true;
+            isSelected = true;
             meshRenderer.material = selectedMaterial;
             transform.positionTransition(finishPosition, selectionHeightTime);
         }
@@ -45,7 +53,7 @@ public class DoorSelector : MonoBehaviour, ISelectable
     {
         if (isActive)
         {
-            effectActivated = false;
+            isSelected = false;
             meshRenderer.material = defaultMaterial;
             transform.positionTransition(startPosition, selectionHeightTime);
         }
@@ -61,10 +69,26 @@ public class DoorSelector : MonoBehaviour, ISelectable
 
     public void OnMouseDown()
     {
+        MakeSelectionAction();
+    }
+
+    
+
+    public bool IsSelected()
+    {
+        return isSelected;
+    }
+
+    public void MakeSelectionAction()
+    {
         if (isActive)
         {
             door.OnDoorSelected();
         }
     }
 
+    public GameObject GetObject()
+    {
+        return gameObject;
+    }
 }

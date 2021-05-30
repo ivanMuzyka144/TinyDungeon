@@ -15,6 +15,7 @@ public class MinigameManager : MonoBehaviour
     private Player player;
     private MinigameTimer minigameTimer;
     private MiniGameExecutor miniGameExecutor;
+    private StatisticsManager statisticsManager;
 
     private void Awake() => Instance = this;
 
@@ -22,6 +23,7 @@ public class MinigameManager : MonoBehaviour
     {
         gameStateManager = GameStateManager.Instance;
         player = Player.Instance;
+        statisticsManager = StatisticsManager.Instance;
         minigameTimer = GetComponent<MinigameTimer>();
         miniGameExecutor = GetComponent<MiniGameExecutor>();
         minigameTimer.Activate();
@@ -32,7 +34,8 @@ public class MinigameManager : MonoBehaviour
     {
         Room currentRoom = player.GetCurrentRoom();
         RoomCategoryType roomCategoryType = currentRoom.GetCategory();
-        if(roomCategoryType == RoomCategoryType.MinigameRoom)
+        if(roomCategoryType == RoomCategoryType.MinigameRoom
+            && currentRoom.IsActiveForPlaying())
         {
             miniGameExecutor.Execute(currentRoom.GetMinigameInfo(), 
                                      currentRoom.transform.position, 
@@ -41,12 +44,15 @@ public class MinigameManager : MonoBehaviour
         }
         else
         {
-            gameStateManager.ChangeState(GameStateType.PlayerSelectDoor);
+            gameStateManager.EndCurrentState();
+            //gameStateManager.ChangeState(GameStateType.PlayerSelectDoor);
         }
     }
 
     public void WinMiniGame()
     {
+        Room currentRoom = player.GetCurrentRoom();
+        currentRoom.DeactivatePlaying();
         minigameTimer.InterruptTimer();
         miniGameExecutor.HideGame(MiniGameResultType.Win);
         gameStateManager.SetMinigameResult(MiniGameResultType.Win);
@@ -65,6 +71,8 @@ public class MinigameManager : MonoBehaviour
     {
         if (player.HasMiracle())
         {
+            Room currentRoom = player.GetCurrentRoom();
+            currentRoom.DeactivatePlaying();
             player.RemoveMiracle();
             SkipWithMiracle();
         }
@@ -87,10 +95,31 @@ public class MinigameManager : MonoBehaviour
 
     }
 
+    public SelectionSet GenerateSelectionSet()
+    {
+        SelectionSet setToReturn = null;
+
+        Room currentRoom = player.GetCurrentRoom();
+        RoomCategoryType roomCategoryType = currentRoom.GetCategory();
+        if (roomCategoryType == RoomCategoryType.MinigameRoom
+            && currentRoom.IsActiveForPlaying())
+        {
+            setToReturn = miniGameExecutor.GenerateSelectionSet();
+        }
+        
+        return setToReturn;
+    }
+
+    public MinigameInfo GetCurrentMinigame()
+    {
+        return miniGameExecutor.GetCurrentMinigame();
+    }
+
     IEnumerator ShowWinPanel(float sec)
     {
         winPanel.SetActive(true);
         yield return new WaitForSeconds(sec);
+        statisticsManager.OnRoomCompleted();
         winPanel.SetActive(false);
     }
 

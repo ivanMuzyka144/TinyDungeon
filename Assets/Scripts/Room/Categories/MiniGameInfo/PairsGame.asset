@@ -16,3 +16,6 @@ MonoBehaviour:
   miniGameName: 0
   time: 20
   roomMaterial: {fileID: 2100000, guid: 23c42589283a62f4b8c26c386c0404c2, type: 2}
+  useAnswerDomino: 1
+  usePlaceForDomino: 0
+  useMills: 0

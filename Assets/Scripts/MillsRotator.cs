@@ -17,10 +17,13 @@ public class MillsRotator : MonoBehaviour
 
     public void Enable() 
     {
-        //rotationHasMade = 0;
+        dominoSelector.OnSelectionActionCalled += TryToMakeRotation;
         canRotate = true; 
     }
-    public void Disable() => canRotate = false;
+    public void Disable() 
+    { 
+        canRotate = false; 
+    }
 
     private void Update()
     {
@@ -28,6 +31,22 @@ public class MillsRotator : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0)
                 && dominoSelector.IsSelected()
+                && !dominoSelector.IsBlocked()
+                && isRotating == false
+                && !millsRotationRegulator.IsRotating())
+            {
+                isRotating = true;
+                millsRotationRegulator.Block();
+                MakeNormalRotation();
+            }
+        }
+    }
+
+    public void TryToMakeRotation(object sender, EventArgs e)
+    {
+        if (canRotate)
+        {
+            if (dominoSelector.IsSelected()
                 && !dominoSelector.IsBlocked()
                 && isRotating == false
                 && !millsRotationRegulator.IsRotating())

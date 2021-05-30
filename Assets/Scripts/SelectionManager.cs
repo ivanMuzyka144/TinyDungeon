@@ -6,26 +6,32 @@ public class SelectionManager : MonoBehaviour
 {
     public ISelectable selectedObj { get; private set; }
 
+    private bool isPaused;
     void Update()
     {
-        ISelectable newSelected = MakeRaycast();
-        if(newSelected != selectedObj)
+        if (!isPaused)
         {
-            if(selectedObj!= null)
+
+
+            ISelectable newSelected = MakeRaycast();
+            if (newSelected != selectedObj)
             {
-                selectedObj.OnDeselected();
+                if (selectedObj != null)
+                {
+                    selectedObj.OnDeselected();
+                }
+                if (newSelected != null)
+                {
+                    newSelected.OnSelected();// if its not active it can be firstly selected
+                }
+                selectedObj = newSelected;
             }
-            if(newSelected!= null)
+            else
             {
-                newSelected.OnSelected();// if its not active it can be firstly selected
-            }
-            selectedObj = newSelected;
-        }
-        else
-        {
-            if (selectedObj != null)
-            {
-                selectedObj.OnStillSelected();
+                if (selectedObj != null)
+                {
+                    selectedObj.OnStillSelected();
+                }
             }
         }
     }
@@ -43,4 +49,8 @@ public class SelectionManager : MonoBehaviour
         }
         return newSelectableObj;
     }
+
+    public void Pause() => isPaused = true;
+
+    public void Unpause() => isPaused = false;
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Lean.Transition;
 
 public class PlaceForDomino : MonoBehaviour
@@ -8,8 +6,17 @@ public class PlaceForDomino : MonoBehaviour
     [SerializeField] private DominoHolder myHolder;
     [SerializeField] private DominoPresenter dominoPresenter;
 
+    private PlatformManager platformManager;
+    private PlatformType currentPlatform;
+
     private DominoHolder dominoInZone;
     private Vector3 startDominoRotation;
+
+    private void Start()
+    {
+        platformManager = PlatformManager.Instance;
+        currentPlatform = platformManager.GetCurrentPlatform();
+    }
 
     public bool HasDomino()
     {
@@ -42,41 +49,42 @@ public class PlaceForDomino : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<DominoHolder>() != null)
+        if (other.GetComponent<DominoHolder>() != null 
+            && currentPlatform != PlatformType.Console)
         {
-
             if(dominoInZone == null) 
             {
-                dominoInZone = other.GetComponent<DominoHolder>();
-
-                dominoInZone.SetPlaceForDomino(this);
-
-                dominoInZone.transform.rotationTransition(transform.rotation, 0.25f);
-                dominoInZone.GetComponent<DominoAnimator>().MakeRotation(transform.eulerAngles);
+                AddDomino(other.GetComponent<DominoHolder>());
             }
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.GetComponent<DominoHolder>() != null
-            && other.GetComponent<DominoHolder>() == dominoInZone
-            && other.transform.rotation != transform.rotation)
-        {
-            //dominoInZone.GetComponent<DominoAnimator>().Mw
-            //    transform.rotationTransition(transform.rotation, 0.25f);
-
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<DominoHolder>() != null 
-            && other.GetComponent<DominoHolder>() == dominoInZone)
+            && other.GetComponent<DominoHolder>() == dominoInZone
+            && currentPlatform != PlatformType.Console)
+        {
+            RemoveDomino();
+        }
+    }
+
+    public void AddDomino(DominoHolder otherDomino)
+    {
+        dominoInZone = otherDomino.GetComponent<DominoHolder>();
+        dominoInZone.SetPlaceForDomino(this);
+        dominoInZone.transform.rotationTransition(transform.rotation, 0.25f);
+        dominoInZone.GetComponent<DominoAnimator>().MakeRotation(transform.eulerAngles);
+    }
+
+    public void RemoveDomino()
+    {
+        if (dominoInZone != null)
         {
             dominoInZone.RemovePlaceForDominoPosition(this);
             dominoInZone.GetComponent<DominoAnimator>().MakeNormalRotation();
             dominoInZone = null;
-
         }
+        
     }
+    
 }

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Mill : MonoBehaviour
 {
-    [SerializeField] private DominoSelector dominoSelector;
+    [SerializeField] private DominoSelector millsSelector;
     [SerializeField] private MillsRotator millsRotator;
     [SerializeField] private List<DominoHolder> dominoHolders = new List<DominoHolder>();
 
     public EventHandler OnMillRotated;
-    public void EnableSelector() => dominoSelector.Enable();
+    public void EnableSelector() => millsSelector.Enable();
     public void EnableRotator() => millsRotator.Enable();
-    public void DisableSelector() => dominoSelector.Disable();
+    public void DisableSelector() => millsSelector.Disable();
     public void DisableRotator() => millsRotator.Disable();
 
     public void OnMillHasRotated()
@@ -33,4 +33,8 @@ public class Mill : MonoBehaviour
         return dominoHolders[realNumb];
     }
 
+    public ISelectable GetSelector()
+    {
+        return millsSelector;
+    }
 }

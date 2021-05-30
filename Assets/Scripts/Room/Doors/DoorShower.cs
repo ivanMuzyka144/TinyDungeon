@@ -28,6 +28,7 @@ public class DoorShower : MonoBehaviour
         {
             door.ShowDoorUpAnim(cameraTransform.localEulerAngles);
         }
+
     }
 
     public void ShowDoorsBackAnim(object sender, EventArgs e)
@@ -59,7 +60,10 @@ public class DoorShower : MonoBehaviour
 
     public void ShowTwoDoorsCloseAnim(RoomType direction, Action afterAnimAction)
     {
-        Action emptyAction = () => { };
+        Action emptyAction = () => 
+        {
+            player.EnablePlayerPhysics();
+        };
         
         Room currentRoom = player.GetCurrentRoom();
         Room wantedRoom = currentRoom.GetRelativeRoom(Room.ReverseType(direction));
@@ -73,5 +77,19 @@ public class DoorShower : MonoBehaviour
 
         currentDoor.ShowDoorCloseAnim(currentDoorHolder, afterAnimAction);
         nextDoor.ShowDoorCloseAnim(nextDoorHolder, emptyAction);
+    }
+
+    public SelectionSet GenerateSelectionSet()
+    {
+        SingleSelectionSet selectionSet = new SingleSelectionSet();
+
+        currentRoom = player.GetCurrentRoom();
+        List<Door> currentDoors = currentRoom.GetDoors();
+        foreach (Door door in currentDoors)
+        {
+            selectionSet.AddWithType(door.GetDoorType(), door.GetSelector());
+        }
+
+        return selectionSet;
     }
 }

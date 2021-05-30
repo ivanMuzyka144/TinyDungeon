@@ -11,6 +11,11 @@ public class DragMoverSetter : MoverSetter
             answerDomino.EnableSelector();
             answerDomino.EnableDragMaker();
         }
+
+        foreach (DominoHolder placeForAnswer in topology.GetSmallPlacesDominos())
+        {
+            placeForAnswer.EnableSelector();
+        }
     }
 
     public override void DestroyMover(Topology topology)
@@ -20,6 +25,19 @@ public class DragMoverSetter : MoverSetter
             answerDomino.DisableSelector();
             answerDomino.DisableDragMaker();
         }
+
+        foreach (DominoHolder placeForAnswer in topology.GetSmallPlacesDominos())
+        {
+            placeForAnswer.DisableSelector();
+        }
     }
 
+    public override void ClearPlacesForDomino(Topology topology)
+    {
+        foreach (DominoHolder placeForAnswer in topology.GetSmallPlacesDominos())
+        {
+            placeForAnswer.DisableSelector();
+            placeForAnswer.GetComponent<PlaceForDomino>().RemoveDomino();
+        }
+    }
 }

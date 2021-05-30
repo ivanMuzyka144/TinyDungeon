@@ -26,8 +26,16 @@ public class Blinker : MonoBehaviour
     {
         sequenceRecorder = SequenceRecorder.Instance;
     }
-    public void Enable() => canBlink = true;
-    public void Disable() => canBlink = false;
+    public void Enable()
+    {
+        dominoSelector.OnSelectionActionCalled += TryToBlink;
+        canBlink = true;
+    }
+    public void Disable() 
+    { 
+        canBlink = false; 
+    }
+
 
     private void Update()
     {
@@ -44,6 +52,22 @@ public class Blinker : MonoBehaviour
             }
         }
     }
+
+    public void TryToBlink(object sender, EventArgs e)
+    {
+        if (canBlink)
+        {
+            if (dominoSelector.IsSelected()
+                && !dominoSelector.IsBlocked()
+                && isBlinking == false
+                && !sequenceRecorder.IsBlinkingShowing())
+            {
+                isBlinking = true;
+                MakeRecordedBlink();
+            }
+        }
+    }
+
 
     public void MakeRecordedBlink()
     {

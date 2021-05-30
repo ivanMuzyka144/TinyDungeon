@@ -18,16 +18,16 @@ public class CategoryPalette : MonoBehaviour
 
     public MinigameInfo GenerateColorFor(List<MinigameInfo> relatedColors)
     {
-        //List<MinigameInfo> possibleColors = 
+        //List<MinigameInfo> possibleColors =
         //    allMinigameInfo.Except(relatedColors).ToList<MinigameInfo>();
 
         //List<MinigameInfo> finalColors = new List<MinigameInfo>();
 
         //int minimalValue = countOfMinigamesDictionary.Values.Min();
 
-        //foreach(MinigameInfo minigameInfo in possibleColors)
+        //foreach (MinigameInfo minigameInfo in possibleColors)
         //{
-        //    if(countOfMinigamesDictionary[minigameInfo] == minimalValue)
+        //    if (countOfMinigamesDictionary[minigameInfo] == minimalValue)
         //    {
         //        finalColors.Add(minigameInfo);
         //    }

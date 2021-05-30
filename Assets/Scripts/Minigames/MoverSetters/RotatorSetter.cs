@@ -16,9 +16,17 @@ public class RotatorSetter : MoverSetter
     {
         foreach (DominoHolder answerDomino in topology.GetAllAnswerDominos())
         {
-            answerDomino.DisableSelector();
             answerDomino.DisableRotator();
+            answerDomino.DisableSelector();
+        }
+        foreach (DominoHolder placeForDomino in topology.GetSmallPlacesDominos())
+        {
+            placeForDomino.DisableSelector();
         }
     }
 
+    public override void ClearPlacesForDomino(Topology topology)
+    {
+
+    }
 }

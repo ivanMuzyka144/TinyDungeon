@@ -27,6 +27,7 @@ public class Door : MonoBehaviour
         doorAnimationMaker = GetComponent<DoorAnimationMaker>();
         doorSelector = GetComponent<DoorSelector>();
         doorAnimationMaker.Activate();
+        doorSelector.Activate();
 
         player = Player.Instance;
     }
@@ -159,4 +160,13 @@ public class Door : MonoBehaviour
         
     }
 
+    public ISelectable GetSelector()
+    {
+        return doorSelector;
+    }
+
+    public RoomType GetDoorType()
+    {
+        return doorType;
+    }
 }

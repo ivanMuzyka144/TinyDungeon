@@ -13,12 +13,14 @@ public class AnimationManager : MonoBehaviour
     private DoorShower doorShower;
     private Player player;
     private GameStateManager gameStateManager;
+    private StatisticsManager statisticsManager;
 
     public void Activate()
     {
         doorShower = DoorShower.Instance;
         player = Player.Instance;
         gameStateManager = GameStateManager.Instance;
+        statisticsManager = StatisticsManager.Instance;
     }
 
     public void MakeMovementSequence(object sender, EventArgs e)
@@ -59,7 +61,7 @@ public class AnimationManager : MonoBehaviour
 
     public void ShowFinishAnim(object sender, EventArgs e)
     {
-        Debug.Log("YOU WIN!!!");
+        statisticsManager.OnLevelCompleted();
         StartCoroutine(StartNewLevel(2));
     }
 

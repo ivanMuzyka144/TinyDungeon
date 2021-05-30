@@ -8732,6 +8732,7 @@ MonoBehaviour:
   - {fileID: 5849191036812773948}
   - {fileID: 5849191035489712168}
   signs: []
+  mills: []
 --- !u!1 &6434268325777667287
 GameObject:
   m_ObjectHideFlags: 0
@@ -8794,6 +8795,7 @@ MonoBehaviour:
   - {fileID: 5849191036738637190}
   - {fileID: 5849191035961617482}
   signs: []
+  mills: []
 --- !u!1 &6434268325876633052
 GameObject:
   m_ObjectHideFlags: 0
@@ -8854,6 +8856,7 @@ MonoBehaviour:
   - {fileID: 5849191035287542560}
   - {fileID: 5849191036987754636}
   signs: []
+  mills: []
 --- !u!1 &6434268326195105420
 GameObject:
   m_ObjectHideFlags: 0
@@ -11444,8 +11447,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minigameInfo: {fileID: 11400000, guid: 01bd9c65d4e86a84d8f5b74c4436f212, type: 2}
   topologyCollection: {fileID: 8146824456324224690}
-  winPanel: {fileID: 0}
-  losePanel: {fileID: 0}
 --- !u!114 &8332607376471291726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11602,6 +11603,7 @@ MonoBehaviour:
   - {fileID: 8748463414019553351}
   - {fileID: 8748463414544426797}
   signs: []
+  mills: []
 --- !u!1 &8146824456324224693
 GameObject:
   m_ObjectHideFlags: 0
@@ -13525,6 +13527,7 @@ MonoBehaviour:
   selectionHeight: 1
   selectionHeightTime: 0.3
   backTime: 0.3
+  canMakeRotationAnimation: 0
 --- !u!114 &528175480523745741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13557,9 +13560,9 @@ MonoBehaviour:
   meshRenderer: {fileID: 2180406571542131323}
   defaultColor: {r: 0.8745099, g: 0.9058824, b: 0.9490197, a: 0}
   blinkColor: {r: 0.3820755, g: 1, b: 0.786259, a: 0}
-  towardTime: 0.3
-  backTime: 0.3
-  delayTime: 0.1
+  towardTime: 0.2
+  backTime: 0.2
+  delayTime: 0.05
 --- !u!114 &6434268326442923397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13689,6 +13692,7 @@ MonoBehaviour:
   selectionHeight: 1
   selectionHeightTime: 0.3
   backTime: 0.3
+  canMakeRotationAnimation: 0
 --- !u!114 &528175480200542268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13721,9 +13725,9 @@ MonoBehaviour:
   meshRenderer: {fileID: 2180406571252507530}
   defaultColor: {r: 0.8745099, g: 0.9058824, b: 0.9490197, a: 0}
   blinkColor: {r: 0.3820755, g: 1, b: 0.786259, a: 0}
-  towardTime: 0.3
-  backTime: 0.3
-  delayTime: 0.1
+  towardTime: 0.2
+  backTime: 0.2
+  delayTime: 0.05
 --- !u!114 &6434268326290277492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13853,6 +13857,7 @@ MonoBehaviour:
   selectionHeight: 1
   selectionHeightTime: 0.3
   backTime: 0.3
+  canMakeRotationAnimation: 0
 --- !u!114 &528175481555520040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13884,9 +13889,9 @@ MonoBehaviour:
   meshRenderer: {fileID: 2180406570426454430}
   defaultColor: {r: 0.8745099, g: 0.9058824, b: 0.9490197, a: 0}
   blinkColor: {r: 0.3820755, g: 1, b: 0.786259, a: 0}
-  towardTime: 0.3
-  backTime: 0.3
-  delayTime: 0.1
+  towardTime: 0.2
+  backTime: 0.2
+  delayTime: 0.05
 --- !u!114 &6434268324784137521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15013,12 +15018,17 @@ PrefabInstance:
     - target: {fileID: 7462720252603141849, guid: 4a77463be828b8b488919d20ef2ac2a2,
         type: 3}
       propertyPath: towardTime
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7462720252603141849, guid: 4a77463be828b8b488919d20ef2ac2a2,
         type: 3}
       propertyPath: backTime
-      value: 0.3
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462720252603141849, guid: 4a77463be828b8b488919d20ef2ac2a2,
+        type: 3}
+      propertyPath: delayTime
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8661437804413289014, guid: 4a77463be828b8b488919d20ef2ac2a2,
         type: 3}
@@ -15980,12 +15990,17 @@ PrefabInstance:
     - target: {fileID: 7462720252603141849, guid: 4a77463be828b8b488919d20ef2ac2a2,
         type: 3}
       propertyPath: towardTime
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7462720252603141849, guid: 4a77463be828b8b488919d20ef2ac2a2,
         type: 3}
       propertyPath: backTime
-      value: 0.3
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462720252603141849, guid: 4a77463be828b8b488919d20ef2ac2a2,
+        type: 3}
+      propertyPath: delayTime
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8661437804413289014, guid: 4a77463be828b8b488919d20ef2ac2a2,
         type: 3}
@@ -16574,12 +16589,17 @@ PrefabInstance:
     - target: {fileID: 7462720252603141849, guid: 4a77463be828b8b488919d20ef2ac2a2,
         type: 3}
       propertyPath: towardTime
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7462720252603141849, guid: 4a77463be828b8b488919d20ef2ac2a2,
         type: 3}
       propertyPath: backTime
-      value: 0.3
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462720252603141849, guid: 4a77463be828b8b488919d20ef2ac2a2,
+        type: 3}
+      propertyPath: delayTime
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8661437804413289014, guid: 4a77463be828b8b488919d20ef2ac2a2,
         type: 3}

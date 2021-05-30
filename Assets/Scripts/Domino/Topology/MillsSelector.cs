@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -86,7 +87,6 @@ public class MillsSelector : DominoSelector
     }
     public void Unblock()
     {
-        //isBlocked = false;
         returnActionHasCalled = false;
     }
 
@@ -107,5 +107,10 @@ public class MillsSelector : DominoSelector
     public override bool IsBlocked()
     {
         return isBlocked;
+    }
+
+    public override void MakeSelectionAction()
+    {
+        OnSelectionActionCalled?.Invoke(this, EventArgs.Empty);
     }
 }
