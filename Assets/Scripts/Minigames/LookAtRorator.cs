@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LookAtRorator : MonoBehaviour
 {
+    [SerializeField] private Transform playerTransform;
     private PlatformManager platformManager;
     private PlatformType currentPlatform;
 
@@ -21,7 +22,7 @@ public class LookAtRorator : MonoBehaviour
     {
         if(currentPlatform == PlatformType.VR)
         {
-            Vector3 playerPostion = player.transform.position;
+            Vector3 playerPostion = playerTransform.position;
 
             var lookPos = playerPostion - transform.position;
 
