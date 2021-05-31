@@ -32,7 +32,7 @@ public class MaterialChanger : MonoBehaviour
         Transform rightModel = rightConroller.transform.Find("Model");
         canvasObject.transform.parent = rightModel.Find("body");
         canvasObject.transform.localPosition = Vector3.zero;
-
+        canvasObject.transform.localEulerAngles = Vector3.zero;
 
         modelTransform.Find("body").GetComponent<MeshRenderer>().material = newMaterial;
         modelTransform.Find("button").GetComponent<MeshRenderer>().material = newMaterial;
