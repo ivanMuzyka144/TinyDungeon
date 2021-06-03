@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   miniGameName: 0
-  time: 2
+  time: 20
   roomMaterial: {fileID: 2100000, guid: 99aa56019a2e13e45aeb5f9ae3bbc54e, type: 2}
   useAnswerDomino: 1
   usePlaceForDomino: 1

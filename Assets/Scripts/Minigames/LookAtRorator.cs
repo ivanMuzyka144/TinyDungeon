@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LookAtRorator : MonoBehaviour
+public class LookAtPlayerRotator : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
     private PlatformManager platformManager;
