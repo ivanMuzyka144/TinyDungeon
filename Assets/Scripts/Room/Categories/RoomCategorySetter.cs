@@ -19,6 +19,7 @@ public class RoomCategorySetter : MonoBehaviour
     public void SetStartRoomCategory()
     {
         currentType = RoomCategoryType.StartRoom;
+        roomPainter.ColorMainRooms();
         //currentCategory = categoryCollection.GetStartRoomCategory();
         //currentCategory.ActivateCategory();
     }
@@ -26,6 +27,7 @@ public class RoomCategorySetter : MonoBehaviour
     public void SetFinishDoorRoomCategory()
     {
         currentType = RoomCategoryType.FinishDoorRoom;
+        roomPainter.ColorMainRooms();
         //currentCategory = categoryCollection.GetFinishDoorRoomCategory();
         //currentCategory.ActivateCategory();
     }
@@ -33,15 +35,17 @@ public class RoomCategorySetter : MonoBehaviour
     public void SetFinishRoomCategory()
     {
         currentType = RoomCategoryType.FinishRoom;
+        roomPainter.ColorMainRooms();
         //currentCategory = categoryCollection.GetFinishRoomCategory();
         //currentCategory.ActivateCategory();
     }
 
-    public void SetMinigameRoomCategory(MinigameInfo minigameInfo)
+    public void SetMinigameRoomCategory(MinigameInfo miInfo)
     {
+
         currentType = RoomCategoryType.MinigameRoom;
-        currentMiniGameInfo = minigameInfo;
-        roomPainter.ColorObjects(minigameInfo);
+        currentMiniGameInfo = miInfo;
+        roomPainter.ColorObjects(miInfo);
         //currentCategory = categoryCollection.GetMinigameRoomCategory(minigameInfo);
         //currentCategory.ActivateCategory();
     }

@@ -33,9 +33,10 @@ public class Box : MonoBehaviour
     {
         GameObject itemModel = itemsDictionary[item];
         itemModel.SetActive(true);
-        Action secondAction = () => RotateItem(itemModel, afterAnimAction);
+        Action secondAction = () => { };
 
         OpenBox(secondAction);
+        RotateItem(itemModel, afterAnimAction);
     }
 
     public void OpenBox(Action secondAction)

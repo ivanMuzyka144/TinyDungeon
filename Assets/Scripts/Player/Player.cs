@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField] private FirstPersonMovement firstPersonMovement;
     [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private Collider collider;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Transform animationModel;
 
 
     private bool isAlive;
@@ -105,6 +107,45 @@ public class Player : MonoBehaviour
         playerMover.MoveToAnotherRoom(nextPosition, afterAnimAction);
 
         playerMover.SetCurrentRoom(nextRoom);
+    }
+
+    public void SetIdleAnimation()
+    {
+        //animationModel.localEulerAngles = new Vector3(0, 270, 0);
+        animator.SetBool("isRunning", false);
+    }
+
+    public void SetMoveAnimation( RoomType direction)
+    {
+        switch (direction)
+        {
+            case RoomType.TopDoor:
+                animationModel.localEulerAngles = new Vector3(0, 90, 0);
+                break;
+            case RoomType.RightDoor:
+                animationModel.localEulerAngles = new Vector3(0, 180, 0);
+                break;
+            case RoomType.BottomDoor:
+                animationModel.localEulerAngles = new Vector3(0, 270, 0);
+                break;
+            case RoomType.LeftDoor:
+                animationModel.localEulerAngles = new Vector3(0, 0, 0);
+                break;
+        }
+
+        animator.SetBool("isRunning", true);
+    }
+
+    public void SetVictoryAnimation()
+    {
+        //animationModel.localEulerAngles = new Vector3(0, 270, 0);
+        animator.SetTrigger("Victory");
+    }
+
+    public void SetLoseAnimation()
+    {
+        //animationModel.localEulerAngles = new Vector3(0, 270, 0);
+        animator.SetTrigger("Defeat");
     }
 
     public void CollectItem(object sender, EventArgs e)

@@ -11,7 +11,7 @@ public class CategoryPalette : MonoBehaviour
     private void Awake()
     {
         foreach(MinigameInfo minigameInfo in allMinigameInfo)
-        {
+        { 
             countOfMinigamesDictionary.Add(minigameInfo, 0);
         }
     }
@@ -34,8 +34,9 @@ public class CategoryPalette : MonoBehaviour
         //}
 
         //return finalColors[Random.Range(0, finalColors.Count)];
-
-        return allMinigameInfo[Random.Range(0, allMinigameInfo.Count)];
+        MinigameInfo ttt = allMinigameInfo[Random.Range(0, allMinigameInfo.Count)];
+        Debug.Log("COLOR" + ttt);
+        return ttt;
     }
     
 }

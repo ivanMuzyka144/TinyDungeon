@@ -35,10 +35,6 @@ public class DragMaker : MonoBehaviour
     {
         if(currentType == PlatformType.VR)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                Debug.Log(dominoSelector.IsSelected());
-            }
             if (canDrag && currentType != PlatformType.Console)
             {
                 if (Input.GetKeyDown(KeyCode.Mouse0)
@@ -64,10 +60,6 @@ public class DragMaker : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                Debug.Log(dominoSelector.IsSelected());
-            }
             if (canDrag && currentType != PlatformType.Console)
             {
                 if (Input.GetKeyDown(KeyCode.Mouse0)

@@ -32,7 +32,7 @@ public class AnimationManager : MonoBehaviour
     public void OpenTwoDoors(RoomType directionType)
     {
         Action afterAnimAction = () => MovePlayer(directionType);
-        
+        Debug.Log("ff1");
         doorShower.ShowTwoDoorsOpenAnim(directionType, afterAnimAction);
     }
 
@@ -40,12 +40,15 @@ public class AnimationManager : MonoBehaviour
     {
         Action afterAnimAction = () =>
         {
+            player.SetIdleAnimation();
             CloseDoors(directionType);
             if (player.GetCurrentRoom().GetCategory() == RoomCategoryType.FinishRoom)
             {
+                player.SetVictoryAnimation();
                 gameStateManager.ChangeState(GameStateType.Finish);
             }
         };
+        player.SetMoveAnimation(directionType);
         player.MoveToAnotherRoom(directionType, afterAnimAction);
     }
 
@@ -62,7 +65,7 @@ public class AnimationManager : MonoBehaviour
     public void ShowFinishAnim(object sender, EventArgs e)
     {
         statisticsManager.OnLevelCompleted();
-        StartCoroutine(StartNewLevel(2));
+        StartCoroutine(StartNewLevel(4));
     }
 
     IEnumerator StartNewLevel(float secs)
