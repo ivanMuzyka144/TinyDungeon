@@ -32,10 +32,11 @@ public class StatisticsInitiator : MonoBehaviour
             PlayerPrefs.SetInt("bestLevel", 0);
             PlayerPrefs.SetInt("currentRooms", 0);
             PlayerPrefs.SetInt("bestRooms", 0);
-
-            PlayerPrefs.SetInt("shouldPlaySound", 1);
+            
             PlayerPrefs.SetInt("shouldPlayMusic", 1);
-            PlayerPrefs.SetInt("shouldMakeVibration", 1);
+            PlayerPrefs.SetInt("shouldPlaySound", 1);
+            PlayerPrefs.SetFloat("musicVolume", 0);
+            PlayerPrefs.SetFloat("soundVolume", 0);
 
             Debug.Log("StatisticInitiator was overwrited");
         }
