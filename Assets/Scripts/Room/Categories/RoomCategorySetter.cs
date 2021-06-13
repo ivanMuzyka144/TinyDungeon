@@ -20,6 +20,7 @@ public class RoomCategorySetter : MonoBehaviour
     {
         currentType = RoomCategoryType.StartRoom;
         roomPainter.ColorMainRooms();
+        roomPainter.ActivateStartTorches();
         //currentCategory = categoryCollection.GetStartRoomCategory();
         //currentCategory.ActivateCategory();
     }
@@ -28,6 +29,7 @@ public class RoomCategorySetter : MonoBehaviour
     {
         currentType = RoomCategoryType.FinishDoorRoom;
         roomPainter.ColorMainRooms();
+        roomPainter.ActivateStartTorches();
         //currentCategory = categoryCollection.GetFinishDoorRoomCategory();
         //currentCategory.ActivateCategory();
     }
@@ -36,6 +38,7 @@ public class RoomCategorySetter : MonoBehaviour
     {
         currentType = RoomCategoryType.FinishRoom;
         roomPainter.ColorMainRooms();
+        roomPainter.ActivateStartTorches();
         //currentCategory = categoryCollection.GetFinishRoomCategory();
         //currentCategory.ActivateCategory();
     }
@@ -49,8 +52,12 @@ public class RoomCategorySetter : MonoBehaviour
         //currentCategory = categoryCollection.GetMinigameRoomCategory(minigameInfo);
         //currentCategory.ActivateCategory();
     }
+    public void ActivateRoomTorches(MinigameInfo miInfo)
+    {
+        roomPainter.ActivateTorches(miInfo);
+    }
 
-    public RoomCategoryType GetRoomCategory()
+        public RoomCategoryType GetRoomCategory()
     {
         //RoomCategoryType returnType = RoomCategoryType.None;
         //if(currentCategory != null)

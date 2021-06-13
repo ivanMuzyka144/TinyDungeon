@@ -52,6 +52,7 @@ public class MinigameManager : MonoBehaviour
     public void WinMiniGame()
     {
         Room currentRoom = player.GetCurrentRoom();
+        currentRoom.ActivateRoomTorches(GetCurrentMinigame());
         currentRoom.DeactivatePlaying();
         minigameTimer.InterruptTimer();
         miniGameExecutor.HideGame(MiniGameResultType.Win);
@@ -72,6 +73,7 @@ public class MinigameManager : MonoBehaviour
         if (player.HasMiracle())
         {
             Room currentRoom = player.GetCurrentRoom();
+            currentRoom.ActivateRoomTorches(GetCurrentMinigame());
             currentRoom.DeactivatePlaying();
             player.RemoveMiracle();
             SkipWithMiracle();

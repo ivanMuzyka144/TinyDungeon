@@ -67,6 +67,11 @@ public class Room : MonoBehaviour
     {
         roomDoorMaker.LockTopDoor();
     }
+
+    public void ActivateRoomTorches(MinigameInfo miInfo)
+    {
+        roomCategorySetter.ActivateRoomTorches(miInfo);
+    }
     #endregion
 
     #region GetSetStartTypes
