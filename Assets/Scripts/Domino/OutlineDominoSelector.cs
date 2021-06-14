@@ -76,6 +76,7 @@ public class OutlineDominoSelector : DominoSelector
     public override void Block()
     {
         isBlocked = true;
+        meshRenderer.material = defaultMaterial;
     }
     public void Unblock()
     {

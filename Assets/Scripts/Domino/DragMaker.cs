@@ -11,6 +11,9 @@ public class DragMaker : MonoBehaviour
     [SerializeField] private float dragVelocity;
     [Space(10)]
     [SerializeField] private LookAtPlayerRotator lookAtPlayerRotator;
+    [Space(10)]
+    [SerializeField] private List<BoxCollider> placesForDomino = new List<BoxCollider>();
+    private Vector3 startLocalPosition;
 
     private PlatformManager platformManager;
     private PlatformType currentType;
@@ -27,6 +30,8 @@ public class DragMaker : MonoBehaviour
         currentType = platformManager.GetCurrentPlatform();
 
         vrContoller = VRController.Instance;
+
+        startLocalPosition = transform.localPosition;
     }
     public void Disable() 
     { 
@@ -109,6 +114,7 @@ public class DragMaker : MonoBehaviour
     public void OnVRDrag()
     {
         lookAtPlayerRotator.StopRotator();
+        EnablePlacesForDominoForSelecting();
         dominoSelector.Block(); 
         dominoSelector.OnDeselected();
         Vector3 handPoint = vrContoller.GetHandPoint();
@@ -116,5 +122,43 @@ public class DragMaker : MonoBehaviour
         gameObject.transform.localEulerAnglesTransform(new Vector3(30, 0, 0), 0.2f);
         gameObject.transform.localScaleTransition(gameObject.transform.localScale * 0.5f, 0.2f);
         dragApplied = true;
+    }
+
+    public void OnVRReleased()
+    {
+        lookAtPlayerRotator.ContiniuRotator();
+        DisablePlacesForDominoForSelecting();
+        dominoSelector.BlockForSec();
+        dominoSelector.OnDeselected();
+        gameObject.transform.localPositionTransition(startLocalPosition, 0.2f);
+        gameObject.transform.localEulerAnglesTransform(new Vector3(0, 0, 0), 0.2f);
+        gameObject.transform.localScaleTransition(gameObject.transform.localScale * 2f, 0.2f);
+        dragApplied = true;
+    }
+    public void OnVRWithPlaceForDomino(PlaceForDomino placeForDomino)
+    {
+        lookAtPlayerRotator.ContiniuRotator();
+        DisablePlacesForDominoForSelecting();
+        dominoSelector.BlockForSec();
+        dominoSelector.OnDeselected();
+        gameObject.transform.localPositionTransition(placeForDomino.transform.localPosition, 0.2f);
+        gameObject.transform.localEulerAnglesTransform(new Vector3(0, 0, 0), 0.2f);
+        gameObject.transform.localScaleTransition(gameObject.transform.localScale * 2f, 0.2f);
+        dragApplied = true;
+    }
+
+    public void EnablePlacesForDominoForSelecting()
+    {
+        foreach(BoxCollider collider in placesForDomino)
+        {
+            collider.isTrigger = false;
+        }
+    }
+    public void DisablePlacesForDominoForSelecting()
+    {
+        foreach (BoxCollider collider in placesForDomino)
+        {
+            collider.isTrigger = true;
+        }
     }
 }

@@ -15,6 +15,7 @@ public class VRController : MonoBehaviour
 
     public ISelectable selectedObj { get; private set; }
 
+    public DragMaker draggedDomino;
 
     private void Awake()
     {
@@ -56,7 +57,8 @@ public class VRController : MonoBehaviour
 
             if (selectedObj.GetObject().GetComponent<DragMaker>())
             {
-                selectedObj.GetObject().GetComponent<DragMaker>().OnVRDrag();
+                draggedDomino = selectedObj.GetObject().GetComponent<DragMaker>();
+                draggedDomino.OnVRDrag();
             }
         }
         laser.color = Color.red;
@@ -67,6 +69,20 @@ public class VRController : MonoBehaviour
     {
         laser.color = Color.yellow;
         laser.clickColor = Color.yellow;
+
+        if (draggedDomino != null)
+        {
+            if(selectedObj != null && selectedObj.GetObject().GetComponent<PlaceForDomino>() != null)
+            {
+                draggedDomino.OnVRWithPlaceForDomino(selectedObj.GetObject().GetComponent<PlaceForDomino>());
+                draggedDomino = null;
+            }
+            else
+            {
+                draggedDomino.OnVRReleased();
+                draggedDomino = null;
+            }
+        }
     }
 
     public Vector3 GetHandPoint()
