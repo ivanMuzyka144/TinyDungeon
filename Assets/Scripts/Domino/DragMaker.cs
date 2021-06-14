@@ -141,7 +141,12 @@ public class DragMaker : MonoBehaviour
         DisablePlacesForDominoForSelecting();
         dominoSelector.BlockForSec();
         dominoSelector.OnDeselected();
-        gameObject.transform.localPositionTransition(placeForDomino.transform.localPosition, 0.2f);
+        gameObject.transform.localPositionTransition(placeForDomino.transform.localPosition, 0.2f)
+            .EventTransition(() => 
+            { 
+                placeForDomino.AddDomino(gameObject.GetComponent<DominoHolder>());
+                gameObject.GetComponent<DominoHolder>().OnDominoHasSet();
+            }, 0.2f);
         gameObject.transform.localEulerAnglesTransform(new Vector3(0, 0, 0), 0.2f);
         gameObject.transform.localScaleTransition(gameObject.transform.localScale * 2f, 0.2f);
         dragApplied = true;

@@ -47,6 +47,6 @@ public class LookAtPlayerRotator : MonoBehaviour
 
     public void ContiniuRotator()
     {
-        stopped = true;
+        stopped = false;
     }
 }

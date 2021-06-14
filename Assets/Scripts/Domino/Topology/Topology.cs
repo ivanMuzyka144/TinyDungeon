@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Lean.Transition;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,10 +72,19 @@ public class Topology : MonoBehaviour
             answersDominoHolders[i].DisableSelector();
             answersDominoHolders[i].SetStartPosition();
             answersDominoHolders[i].HideAllValueModels();
+            answersDominoHolders[i].transform.eulerAngles = Vector3.zero;
         }
         for (int i = 0; i < signs.Count; i++)
         {
             signs[i].SetSign(SignType.None);
+        }
+    }
+
+    public void SetZeroRotation()
+    {
+        for (int i = 0; i < answersDominoHolders.Count; i++)
+        {
+            answersDominoHolders[i].transform.localEulerAnglesTransform(Vector3.zero,1);
         }
     }
     public List<DominoHolder> GetAllQuestionDominos()

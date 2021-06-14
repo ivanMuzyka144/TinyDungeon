@@ -63,6 +63,12 @@ public class MiniGame : MonoBehaviour
     public void ClearPlacesForDomino()
     {
         moverSetter.ClearPlacesForDomino(currentTopology);
+        currentTopology.SetZeroRotation();
+    }
+
+    public void SetZeroRotation()
+    {
+        currentTopology.SetZeroRotation();
     }
     
     public void RenewMiniGame()
