@@ -20,8 +20,8 @@ public class DoorAnimationMaker : MonoBehaviour
     private PlatformManager platformManager;
     private PlatformType currentPlatform;
 
-    private float animVrY = 7f;
-    private float animVrWidth = 4f;
+    private float animVrY = 8f;
+    private float animVrWidth = 3f;
     private float animVrHeight = 1f;
     public void Activate()
     {
@@ -60,14 +60,14 @@ public class DoorAnimationMaker : MonoBehaviour
         if (currentPlatform == PlatformType.VR)
         {
             Vector3 newPosition = transform.position + new Vector3(2, animVrY, 0);
-            Vector3 firstRotation = new Vector3(0, 0, -30);
+            Vector3 firstRotation = new Vector3(0, 180, 30);
             transform.positionTransition(newPosition, animTime);
             transform.eulerAnglesTransform(firstRotation, animTime)
                 .EventTransition(afterAnimAction, animTime);
         }
         else
         {
-            Vector3 newPosition = transform.position + new Vector3(animHeight, animY, 0.45f);
+            Vector3 newPosition = transform.position + new Vector3(animHeight- 0.5f, animY, 0.45f);
             Vector3 firstRotation = new Vector3(0, 0, -cameraRotation.x);
             Vector3 newScale = new Vector3(0.6f, 0.6f, 0.6f);
             transform.positionTransition(newPosition, animTime);
@@ -80,7 +80,7 @@ public class DoorAnimationMaker : MonoBehaviour
     {
         if (currentPlatform == PlatformType.VR)
         {
-            Vector3 newPosition = transform.position + new Vector3(0, animVrY, 0);
+            Vector3 newPosition = transform.position + new Vector3(0, animVrY, -3);
             Vector3 firstRotation = new Vector3(0, 90, -30);
             transform.positionTransition(newPosition, animTime);
             transform.eulerAnglesTransform(firstRotation, animTime)
@@ -101,7 +101,7 @@ public class DoorAnimationMaker : MonoBehaviour
     {
         if (currentPlatform == PlatformType.VR)
         {
-            Vector3 newPosition = transform.position + new Vector3(0, animVrY, 0);
+            Vector3 newPosition = transform.position + new Vector3(0, animVrY, 3);
             Vector3 firstRotation = new Vector3(0, 90, 30);
             transform.positionTransition(newPosition, animTime);
             transform.eulerAnglesTransform(firstRotation, animTime)
@@ -144,7 +144,7 @@ public class DoorAnimationMaker : MonoBehaviour
         if (currentPlatform == PlatformType.VR)
         {
             Vector3 newPosition = startPosition;
-            Vector3 firstRotation = new Vector3(0, 0, 0);
+            Vector3 firstRotation = new Vector3(0, 180, 0);
             transform.positionTransition(newPosition, animTime);
             transform.eulerAnglesTransform(firstRotation, animTime)
                 .EventTransition(afterAnimAction, animTime);
@@ -165,7 +165,7 @@ public class DoorAnimationMaker : MonoBehaviour
         if (currentPlatform == PlatformType.VR)
         {
             Vector3 newPosition = startPosition;
-            Vector3 firstRotation = transform.eulerAngles + new Vector3(0, 0, 30);
+            Vector3 firstRotation = transform.eulerAngles +  new Vector3(0, 0, 30);
             transform.positionTransition(newPosition, animTime);
             transform.eulerAnglesTransform(firstRotation, animTime)
                 .EventTransition(afterAnimAction, animTime);
