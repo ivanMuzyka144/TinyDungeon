@@ -9,10 +9,12 @@ public class DragMaker : MonoBehaviour
     [SerializeField] private DominoSelector dominoSelector;
     [Space(10)]
     [SerializeField] private float dragVelocity;
+    [Space(10)]
+    [SerializeField] private LookAtPlayerRotator lookAtPlayerRotator;
 
     private PlatformManager platformManager;
     private PlatformType currentType;
-    private VRSelectionManager vrSelectionManager;
+    private VRController vrContoller;
 
     private bool canDrag;
     private bool isDragged;
@@ -24,7 +26,7 @@ public class DragMaker : MonoBehaviour
         platformManager = PlatformManager.Instance;
         currentType = platformManager.GetCurrentPlatform();
 
-        vrSelectionManager = VRSelectionManager.Instance;
+        vrContoller = VRController.Instance;
     }
     public void Disable() 
     { 
@@ -35,28 +37,28 @@ public class DragMaker : MonoBehaviour
     {
         if(currentType == PlatformType.VR)
         {
-            if (canDrag && currentType != PlatformType.Console)
-            {
-                if (Input.GetKeyDown(KeyCode.Mouse0)
-                    && dominoSelector.IsSelected()
-                    && !dominoSelector.IsBlocked()
-                    && isDragged == false)
-                {
-                    isDragged = true;
-                    dragApplied = false;
-                    dominoSelector.Block();
-                }
-                else if (Input.GetKeyUp(KeyCode.Mouse0) && isDragged == true)
-                {
-                    dominoSelector.MakeReturnAction();
-                    isDragged = false;
-                }
+            //if (canDrag && currentType != PlatformType.Console)
+            //{
+            //    if (Input.GetKeyDown(KeyCode.Mouse0)
+            //        && dominoSelector.IsSelected()
+            //        && !dominoSelector.IsBlocked()
+            //        && isDragged == false)
+            //    {
+            //        isDragged = true;
+            //        dragApplied = false;
+            //        dominoSelector.Block();
+            //    }
+            //    else if (Input.GetKeyUp(KeyCode.Mouse0) && isDragged == true)
+            //    {
+            //        dominoSelector.MakeReturnAction();
+            //        isDragged = false;
+            //    }
 
-                if (isDragged)
-                {
-                    OnVRDrag();
-                }
-            }
+            //    if (isDragged)
+            //    {
+            //        OnVRDrag();
+            //    }
+            //}
         }
         else
         {
@@ -104,15 +106,15 @@ public class DragMaker : MonoBehaviour
         //                                                    point, dragVelocity * Time.deltaTime);
     }
 
-    private void OnVRDrag()
+    public void OnVRDrag()
     {
-        if (!dragApplied)
-        {
-            Vector3 handPoint = vrSelectionManager.GetHandPoint();
-            gameObject.transform.positionTransition(handPoint, 0.2f);
-
-            dragApplied = true;
-        }
-        
+        lookAtPlayerRotator.StopRotator();
+        dominoSelector.Block(); 
+        dominoSelector.OnDeselected();
+        Vector3 handPoint = vrContoller.GetHandPoint();
+        gameObject.transform.positionTransition(handPoint, 0.2f);
+        gameObject.transform.localEulerAnglesTransform(new Vector3(30, 0, 0), 0.2f);
+        gameObject.transform.localScaleTransition(gameObject.transform.localScale * 0.5f, 0.2f);
+        dragApplied = true;
     }
 }

@@ -10,6 +10,8 @@ public class LookAtPlayerRotator : MonoBehaviour
 
     private Player player;
 
+    private bool stopped;
+
     void Start()
     {
         platformManager = PlatformManager.Instance;
@@ -20,7 +22,7 @@ public class LookAtPlayerRotator : MonoBehaviour
     
     void LateUpdate()
     {
-        if(currentPlatform == PlatformType.VR)
+        if(currentPlatform == PlatformType.VR && !stopped)
         {
             Vector3 playerPostion = playerTransform.position;
 
@@ -36,5 +38,15 @@ public class LookAtPlayerRotator : MonoBehaviour
             }
             
         }
+    }
+
+    public void StopRotator()
+    {
+        stopped = true;
+    }
+
+    public void ContiniuRotator()
+    {
+        stopped = true;
     }
 }

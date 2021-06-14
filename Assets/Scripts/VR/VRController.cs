@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +7,19 @@ using Valve.VR.Extras;
 
 public class VRController : MonoBehaviour
 {
+    public static VRController Instance { get; private set; }
 
     [SerializeField] private SteamVR_LaserPointer laser;
+    [SerializeField] Transform rightPoint;
+
 
     public ISelectable selectedObj { get; private set; }
 
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     private void Start()
     {
         //SteamVR_Actions.default_GrabPinch.AddOnStateDownListener(LeftTriggerPressed, SteamVR_Input_Sources.LeftHand);
@@ -41,9 +50,14 @@ public class VRController : MonoBehaviour
     }
     private void RightTriggerPressed(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource)
     {
-        if(selectedObj != null)
+        if (selectedObj != null)
         {
             selectedObj.MakeSelectionAction();
+
+            if (selectedObj.GetObject().GetComponent<DragMaker>())
+            {
+                selectedObj.GetObject().GetComponent<DragMaker>().OnVRDrag();
+            }
         }
         laser.color = Color.red;
         laser.clickColor = Color.red;
@@ -53,5 +67,10 @@ public class VRController : MonoBehaviour
     {
         laser.color = Color.yellow;
         laser.clickColor = Color.yellow;
+    }
+
+    public Vector3 GetHandPoint()
+    {
+        return rightPoint.position;
     }
 }

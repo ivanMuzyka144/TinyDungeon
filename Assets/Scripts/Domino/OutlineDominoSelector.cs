@@ -35,7 +35,7 @@ public class OutlineDominoSelector : DominoSelector
         isActivated = false;
         isSelected = false;
         meshRenderer.material = defaultMaterial;
-        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+        //transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }
 
 

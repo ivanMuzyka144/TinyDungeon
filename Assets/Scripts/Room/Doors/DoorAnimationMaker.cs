@@ -186,7 +186,7 @@ public class DoorAnimationMaker : MonoBehaviour
         if (currentPlatform == PlatformType.VR)
         {
             Vector3 newPosition = startPosition;
-            Vector3 firstRotation = transform.eulerAngles + new Vector3(0, 0, 0);
+            Vector3 firstRotation = transform.eulerAngles + new Vector3(0, 0, -30);
             transform.positionTransition(newPosition, animTime);
             transform.eulerAnglesTransform(firstRotation, animTime)
                 .EventTransition(afterAnimAction, animTime);
