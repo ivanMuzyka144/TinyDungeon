@@ -112,40 +112,46 @@ public class Player : MonoBehaviour
     public void SetIdleAnimation()
     {
         //animationModel.localEulerAngles = new Vector3(0, 270, 0);
+        if(currentPlatform != PlatformType.VR)
         animator.SetBool("isRunning", false);
     }
 
     public void SetMoveAnimation( RoomType direction)
     {
-        switch (direction)
+        if (currentPlatform != PlatformType.VR)
         {
-            case RoomType.TopDoor:
-                animationModel.localEulerAngles = new Vector3(0, 90, 0);
-                break;
-            case RoomType.RightDoor:
-                animationModel.localEulerAngles = new Vector3(0, 180, 0);
-                break;
-            case RoomType.BottomDoor:
-                animationModel.localEulerAngles = new Vector3(0, 270, 0);
-                break;
-            case RoomType.LeftDoor:
-                animationModel.localEulerAngles = new Vector3(0, 0, 0);
-                break;
-        }
+            switch (direction)
+            {
+                case RoomType.TopDoor:
+                    animationModel.localEulerAngles = new Vector3(0, 90, 0);
+                    break;
+                case RoomType.RightDoor:
+                    animationModel.localEulerAngles = new Vector3(0, 180, 0);
+                    break;
+                case RoomType.BottomDoor:
+                    animationModel.localEulerAngles = new Vector3(0, 270, 0);
+                    break;
+                case RoomType.LeftDoor:
+                    animationModel.localEulerAngles = new Vector3(0, 0, 0);
+                    break;
+            }
 
-        animator.SetBool("isRunning", true);
+            animator.SetBool("isRunning", true);
+        }
     }
 
     public void SetVictoryAnimation()
     {
         //animationModel.localEulerAngles = new Vector3(0, 270, 0);
-        animator.SetTrigger("Victory");
+        if (currentPlatform != PlatformType.VR)
+            animator.SetTrigger("Victory");
     }
 
     public void SetLoseAnimation()
     {
         //animationModel.localEulerAngles = new Vector3(0, 270, 0);
-        animator.SetTrigger("Defeat");
+        if (currentPlatform != PlatformType.VR)
+            animator.SetTrigger("Defeat");
     }
 
     public void CollectItem(object sender, EventArgs e)
@@ -239,4 +245,5 @@ public class Player : MonoBehaviour
     {
         return playerItemHolder.GetMiracleCount();
     }
+
 }
