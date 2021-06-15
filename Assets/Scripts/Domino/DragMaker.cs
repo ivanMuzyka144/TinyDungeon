@@ -10,6 +10,8 @@ public class DragMaker : MonoBehaviour
     [Space(10)]
     [SerializeField] private float dragVelocity;
     [Space(10)]
+    [SerializeField] private GameAudioManager gameAudioManager;
+    [Space(10)]
     [SerializeField] private LookAtPlayerRotator lookAtPlayerRotator;
     [Space(10)]
     [SerializeField] private List<BoxCollider> placesForDomino = new List<BoxCollider>();
@@ -75,11 +77,13 @@ public class DragMaker : MonoBehaviour
                     && isDragged == false)
                 {
                     isDragged = true;
+                    gameAudioManager.PlayDragSound();
                     dominoSelector.Block();
                 }
                 else if (Input.GetKeyUp(KeyCode.Mouse0) && isDragged == true)
                 {
                     dominoSelector.MakeReturnAction();
+                    gameAudioManager.PlayDropSound();
                     isDragged = false;
                 }
 

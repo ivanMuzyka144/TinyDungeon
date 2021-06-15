@@ -8,6 +8,8 @@ public class DoorShower : MonoBehaviour
 
     [SerializeField] private Transform cameraTransform;
 
+    [SerializeField] private GameAudioManager gameAudioManager;
+
 
     private Player player;
 
@@ -24,7 +26,8 @@ public class DoorShower : MonoBehaviour
     {
         currentRoom = player.GetCurrentRoom();
         List<Door> currentDoors = currentRoom.GetDoors();
-        foreach(Door door in currentDoors)
+        gameAudioManager.PlayZoomInSound();
+        foreach (Door door in currentDoors)
         {
             door.ShowDoorUpAnim(cameraTransform.localEulerAngles);
         }
@@ -35,6 +38,7 @@ public class DoorShower : MonoBehaviour
     {
         currentRoom = player.GetCurrentRoom();
         List<Door> currentDoors = currentRoom.GetDoors();
+        gameAudioManager.PlayZoomOutSound();
         foreach (Door door in currentDoors)
         {
             door.ShowDoorBackAnim(cameraTransform.localEulerAngles);
@@ -47,6 +51,8 @@ public class DoorShower : MonoBehaviour
 
         Room currentRoom = player.GetCurrentRoom();
         Room wantedRoom = currentRoom.GetRelativeRoom(direction);
+
+        gameAudioManager.PlayDoorOpensSound();
 
         Door currentDoor = currentRoom.GetDoor(direction);
         Door nextDoor = wantedRoom.GetDoor(Room.ReverseType(direction));
@@ -67,7 +73,7 @@ public class DoorShower : MonoBehaviour
         
         Room currentRoom = player.GetCurrentRoom();
         Room wantedRoom = currentRoom.GetRelativeRoom(Room.ReverseType(direction));
-
+        gameAudioManager.PlayDoorCloseSound();
         Door currentDoor = currentRoom.GetDoor(Room.ReverseType(direction));
         Door nextDoor = wantedRoom.GetDoor(direction);
 

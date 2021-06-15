@@ -12,7 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Collider collider;
     [SerializeField] private Animator animator;
     [SerializeField] private Transform animationModel;
-
+    [Space(10)]
+    [SerializeField] private GameAudioManager gameAudioManager;
 
     private bool isAlive;
 
@@ -105,7 +106,7 @@ public class Player : MonoBehaviour
 
 
         playerMover.MoveToAnotherRoom(nextPosition, afterAnimAction);
-
+        gameAudioManager.PlayRunningSound();
         playerMover.SetCurrentRoom(nextRoom);
     }
 

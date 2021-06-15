@@ -12,6 +12,11 @@ public class GameAudioManager : MonoBehaviour
     [SerializeField] private AudioClip blink3;
     [SerializeField] private AudioClip dragSound;
     [SerializeField] private AudioClip dropSound;
+    [SerializeField] private AudioClip runningSound;
+    [SerializeField] private AudioClip zoomInSound;
+    [SerializeField] private AudioClip zoomOutSound;
+    [SerializeField] private AudioClip doorOpens;
+    [SerializeField] private AudioClip doorClose;
     [Space(10)]
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private AudioSource soundAudioSource;
@@ -44,5 +49,39 @@ public class GameAudioManager : MonoBehaviour
         {
             soundAudioSource.PlayOneShot(blink3);
         }
+    }
+
+    public void PlayDragSound()
+    {
+        soundAudioSource.PlayOneShot(dragSound);
+    }
+
+    public void PlayDropSound()
+    {
+        soundAudioSource.PlayOneShot(dropSound);
+    }
+
+    public void PlayRunningSound()
+    {
+        soundAudioSource.PlayOneShot(runningSound);
+    }
+
+    public void PlayZoomInSound()
+    {
+        soundAudioSource.PlayOneShot(zoomInSound);
+    }
+
+    public void PlayZoomOutSound()
+    {
+        soundAudioSource.PlayOneShot(zoomOutSound);
+    }
+
+    public void PlayDoorOpensSound()
+    {
+        soundAudioSource.PlayOneShot(doorOpens);
+    }
+    public void PlayDoorCloseSound()
+    {
+        soundAudioSource.PlayOneShot(doorClose);
     }
 }

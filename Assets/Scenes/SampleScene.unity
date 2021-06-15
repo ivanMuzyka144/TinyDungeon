@@ -2139,6 +2139,66 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 276633526}
     m_Modifications:
+    - target: {fileID: 4529482629591827256, guid: eb41de268aa79254cb99bf3d1d6fe221,
+        type: 3}
+      propertyPath: number
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529482629591827256, guid: eb41de268aa79254cb99bf3d1d6fe221,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 4529482629980048219, guid: eb41de268aa79254cb99bf3d1d6fe221,
+        type: 3}
+      propertyPath: number
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529482629980048219, guid: eb41de268aa79254cb99bf3d1d6fe221,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 4529482630269485642, guid: eb41de268aa79254cb99bf3d1d6fe221,
+        type: 3}
+      propertyPath: number
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529482630269485642, guid: eb41de268aa79254cb99bf3d1d6fe221,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 4529482630578337527, guid: eb41de268aa79254cb99bf3d1d6fe221,
+        type: 3}
+      propertyPath: number
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529482630578337527, guid: eb41de268aa79254cb99bf3d1d6fe221,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 4529482631095724222, guid: eb41de268aa79254cb99bf3d1d6fe221,
+        type: 3}
+      propertyPath: number
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529482631095724222, guid: eb41de268aa79254cb99bf3d1d6fe221,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 4529482631336687951, guid: eb41de268aa79254cb99bf3d1d6fe221,
+        type: 3}
+      propertyPath: number
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529482631336687951, guid: eb41de268aa79254cb99bf3d1d6fe221,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
     - target: {fileID: 8146824455037117388, guid: eb41de268aa79254cb99bf3d1d6fe221,
         type: 3}
       propertyPath: m_RootOrder
@@ -3181,6 +3241,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 276633526}
     m_Modifications:
+    - target: {fileID: 1242144906368274337, guid: 3da0cd13fdd82044e8530ba2b998af98,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 1242144907443629852, guid: 3da0cd13fdd82044e8530ba2b998af98,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 1242144907554062185, guid: 3da0cd13fdd82044e8530ba2b998af98,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
     - target: {fileID: 5702564317730402094, guid: 3da0cd13fdd82044e8530ba2b998af98,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -6460,6 +6535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 963194228}
+  gameAudioManager: {fileID: 1298257725}
 --- !u!4 &1024139366
 Transform:
   m_ObjectHideFlags: 0
@@ -7623,7 +7699,12 @@ MonoBehaviour:
   blink2: {fileID: 8300000, guid: af3fd3876c76ca14998bbd76b010ff43, type: 3}
   blink3: {fileID: 8300000, guid: c3734b5cceea2e94fa681cf1af8db0ee, type: 3}
   dragSound: {fileID: 8300000, guid: 870eda3bbfa0e6d4f9bdf3dfc5860afc, type: 3}
-  dropSound: {fileID: 0}
+  dropSound: {fileID: 8300000, guid: 253f4d031663411459ee6dd4918060cd, type: 3}
+  runningSound: {fileID: 8300000, guid: 74fda02eed26cd94997b20847220bd29, type: 3}
+  zoomInSound: {fileID: 8300000, guid: 53096707261a71f4c9d8f53ea4b51c58, type: 3}
+  zoomOutSound: {fileID: 8300000, guid: e2615eb825b10ed4bb821ace35e83d24, type: 3}
+  doorOpens: {fileID: 8300000, guid: 8a3293531aebd7d4eabf5c730969e497, type: 3}
+  doorClose: {fileID: 8300000, guid: 0d1bc6395ff5e6542a37003335e9e526, type: 3}
   musicAudioSource: {fileID: 445189864}
   soundAudioSource: {fileID: 1993468612}
 --- !u!4 &1298257726
@@ -10656,6 +10737,7 @@ MonoBehaviour:
   collider: {fileID: 0}
   animator: {fileID: 1140448172}
   animationModel: {fileID: 346386526}
+  gameAudioManager: {fileID: 1298257725}
 --- !u!4 &1799871922
 Transform:
   m_ObjectHideFlags: 0
@@ -11285,26 +11367,51 @@ PrefabInstance:
       propertyPath: dragVelocity
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8528447018365232644, guid: 8f2ce2aa40449a6438d8ca32f869def1,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
     - target: {fileID: 8528447018437444477, guid: 8f2ce2aa40449a6438d8ca32f869def1,
+        type: 3}
+      propertyPath: dragVelocity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8528447018437444477, guid: 8f2ce2aa40449a6438d8ca32f869def1,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 8528447018881726830, guid: 8f2ce2aa40449a6438d8ca32f869def1,
         type: 3}
       propertyPath: dragVelocity
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8528447018881726830, guid: 8f2ce2aa40449a6438d8ca32f869def1,
         type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 8528447019041108448, guid: 8f2ce2aa40449a6438d8ca32f869def1,
+        type: 3}
       propertyPath: dragVelocity
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8528447019041108448, guid: 8f2ce2aa40449a6438d8ca32f869def1,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 8528447019629852090, guid: 8f2ce2aa40449a6438d8ca32f869def1,
         type: 3}
       propertyPath: dragVelocity
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8528447019629852090, guid: 8f2ce2aa40449a6438d8ca32f869def1,
         type: 3}
-      propertyPath: dragVelocity
-      value: 5
-      objectReference: {fileID: 0}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f2ce2aa40449a6438d8ca32f869def1, type: 3}
 --- !u!1 &1872297387
@@ -12072,6 +12179,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 276633526}
     m_Modifications:
+    - target: {fileID: 2962134027075421308, guid: d06d004c99e8e1147b4f05a9652683c6,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 2962134027960906971, guid: d06d004c99e8e1147b4f05a9652683c6,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 2962134028610333730, guid: d06d004c99e8e1147b4f05a9652683c6,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
+    - target: {fileID: 2962134028713775858, guid: d06d004c99e8e1147b4f05a9652683c6,
+        type: 3}
+      propertyPath: gameAudioManager
+      value: 
+      objectReference: {fileID: 1298257725}
     - target: {fileID: 8576249015920109381, guid: d06d004c99e8e1147b4f05a9652683c6,
         type: 3}
       propertyPath: m_RootOrder
