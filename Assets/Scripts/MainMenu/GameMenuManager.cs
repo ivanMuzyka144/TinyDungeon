@@ -36,6 +36,7 @@ public class GameMenuManager : MonoBehaviour
     {
         //LeanTransition leanTrasition = GameObject.Find("LeanTransition").GetComponent<LeanTransition>();
         //leanTrasition.DefaultTiming = LeanTiming.Update;
+        gameAudioManager.PlayButtonClickMusic();
         Time.timeScale = 0;
         selectionManager.Pause();
     }

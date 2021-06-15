@@ -30,4 +30,19 @@ public class GameAudioManager : MonoBehaviour
         soundAudioSource.PlayOneShot(softClick);
     }
 
+    public void PlayBlinkSound(int number)
+    {
+        if(number == 1)
+        {
+            soundAudioSource.PlayOneShot(blink1);
+        }
+        if (number == 2)
+        {
+            soundAudioSource.PlayOneShot(blink2);
+        }
+        if (number == 3)
+        {
+            soundAudioSource.PlayOneShot(blink3);
+        }
+    }
 }

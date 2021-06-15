@@ -16,6 +16,9 @@ public class Blinker : MonoBehaviour
     [SerializeField] private float towardTime;
     [SerializeField] private float backTime;
     [SerializeField] private float delayTime;
+    [Space(10)]
+    [SerializeField] private int number;
+    [SerializeField] private GameAudioManager gameAudioManager;
 
     private bool canBlink;
     private bool isBlinking;
@@ -79,7 +82,9 @@ public class Blinker : MonoBehaviour
             sequenceRecorder.Record(this);
             dominoHolder.OnDominoBlinked.Invoke(this, EventArgs.Empty);
         };
-        Debug.Log(this);
+
+        gameAudioManager.PlayBlinkSound(number);
+
         sequenceRecorder.StartShowingStatus();
         MakeBlinkMaterial();
         Vector3 scale = transform.localScale;
@@ -96,7 +101,7 @@ public class Blinker : MonoBehaviour
             sequenceRecorder.EndShowingStatus();
             MakeNomalMaterial();
         };
-
+        gameAudioManager.PlayBlinkSound(number);
         MakeBlinkMaterial();
         Vector3 scale = transform.localScale;
         transform.localScaleTransition(scale + new Vector3(1f, 1f, 1f), towardTime)
@@ -107,6 +112,7 @@ public class Blinker : MonoBehaviour
     public void MakeBlink(Action afterAnimAction)
     {
         MakeBlinkMaterial();
+        gameAudioManager.PlayBlinkSound(number);
         Vector3 scale = transform.localScale;
         transform.localScaleTransition(scale + new Vector3(1f, 1f, 1f), towardTime)
                  .JoinDelayTransition(delayTime).localScaleTransition(scale, backTime)
