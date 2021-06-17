@@ -210,6 +210,7 @@ public class Player : MonoBehaviour
         else
         {
             isAlive = false;
+            gameAudioManager.PlayGameOverSound();
             gameStateManager.ChangeState(GameStateType.GameOver);
         }
     }

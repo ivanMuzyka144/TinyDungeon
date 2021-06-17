@@ -7,6 +7,8 @@ public class Rotator : MonoBehaviour
     [SerializeField] private DominoSelector dominoSelector;
     [SerializeField] private DominoHolder dominoHolder;
     [SerializeField] private PairsManager pairsManager;
+    [Space(10)]
+    [SerializeField] private GameAudioManager gameAudioManager;
 
     private bool canRotate;
     private bool isRotating;
@@ -34,6 +36,7 @@ public class Rotator : MonoBehaviour
                 && !isBlocked)
             {
                 isRotating = true;
+                gameAudioManager.PlayDragSound();
                 MakeNormalRotation();
             }
         }
@@ -50,6 +53,7 @@ public class Rotator : MonoBehaviour
                 && !isBlocked)
             {
                 isRotating = true;
+                gameAudioManager.PlayDragSound();
                 MakeNormalRotation();
             }
         }

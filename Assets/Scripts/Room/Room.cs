@@ -14,6 +14,8 @@ public class Room : MonoBehaviour
 {
     [SerializeField] private CategoryCollection categoryCollection;
 
+    [SerializeField] private GameObject confettiParticles;
+
     private RoomTypesGenerator roomTypesGenerator;
     private RoomWallsMaker roomWallMaker;
     private RoomDoorMaker roomDoorMaker;
@@ -40,6 +42,11 @@ public class Room : MonoBehaviour
         roomItemHolder.Activate();
 
         isActiveForPlaying = true;
+    }
+
+    public void PlayConfetti()
+    {
+        confettiParticles.SetActive(true);
     }
 
     public bool IsActiveForPlaying()

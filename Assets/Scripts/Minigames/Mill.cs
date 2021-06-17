@@ -7,7 +7,7 @@ public class Mill : MonoBehaviour
     [SerializeField] private DominoSelector millsSelector;
     [SerializeField] private MillsRotator millsRotator;
     [SerializeField] private List<DominoHolder> dominoHolders = new List<DominoHolder>();
-
+    
     public EventHandler OnMillRotated;
     public void EnableSelector() => millsSelector.Enable();
     public void EnableRotator() => millsRotator.Enable();

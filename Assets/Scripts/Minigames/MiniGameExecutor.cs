@@ -72,7 +72,7 @@ public class MiniGameExecutor : MonoBehaviour
         }
         else
         {
-            currentMiniGame.transform.positionTransition(position + new Vector3(0, 5, 0), 1)
+            currentMiniGame.transform.positionTransition(position + new Vector3(0, 7, 0), 1)
                                  .EventTransition(afterAnimAction, 1);
             postProcessingManager.FocusOnDomino();
         }

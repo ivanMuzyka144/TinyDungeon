@@ -10,6 +10,8 @@ public class MinigameManager : MonoBehaviour
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
     [SerializeField] private GameObject timeEndedPanel;
+    [Space(10)]
+    [SerializeField] private GameAudioManager gameAudioManager;
 
     private GameStateManager gameStateManager;
     private Player player;
@@ -51,6 +53,7 @@ public class MinigameManager : MonoBehaviour
 
     public void WinMiniGame()
     {
+        gameAudioManager.PlayWinSound();
         Room currentRoom = player.GetCurrentRoom();
         currentRoom.ActivateRoomTorches(GetCurrentMinigame());
         currentRoom.DeactivatePlaying();
@@ -61,6 +64,7 @@ public class MinigameManager : MonoBehaviour
     }
     public void LoseMiniGame()
     {
+        gameAudioManager.PlayLooseSound();
         player.RemoveLife();
         minigameTimer.InterruptTimer();
         miniGameExecutor.HideGame(MiniGameResultType.Lose);
@@ -82,6 +86,7 @@ public class MinigameManager : MonoBehaviour
 
     private void SkipWithMiracle()
     {
+        gameAudioManager.PlayMiracleSound();
         miniGameExecutor.HideGame(MiniGameResultType.UseMiracle);
         minigameTimer.InterruptTimer();
         gameStateManager.SetMinigameResult(MiniGameResultType.UseMiracle);
@@ -90,6 +95,7 @@ public class MinigameManager : MonoBehaviour
 
     public void  EndTimeMinigame()
     {
+        gameAudioManager.PlayLooseSound();
         player.RemoveLife();
         miniGameExecutor.HideGame(MiniGameResultType.TimeOver);
         gameStateManager.SetMinigameResult(MiniGameResultType.TimeOver);

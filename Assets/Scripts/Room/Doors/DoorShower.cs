@@ -36,6 +36,7 @@ public class DoorShower : MonoBehaviour
 
     public void ShowDoorsBackAnim(object sender, EventArgs e)
     {
+        gameAudioManager.PlayWoodSound();
         currentRoom = player.GetCurrentRoom();
         List<Door> currentDoors = currentRoom.GetDoors();
         gameAudioManager.PlayZoomOutSound();

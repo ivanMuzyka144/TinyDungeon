@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerItemHolder : MonoBehaviour
 {
+    [SerializeField] private GameAudioManager gameAudioManager;
+
     private GameStateManager gameStateManager;
     private UIItemPresenter uiItemPresenter;
     private ItemCollection itemCollection;
@@ -28,6 +30,7 @@ public class PlayerItemHolder : MonoBehaviour
     {
         if (room.HasItem())
         {
+            gameAudioManager.PlayItemSound();
             Action afterAnimAction = () =>
                                          {
                                              uiItemPresenter.UpdatePresenter(collectedItems);

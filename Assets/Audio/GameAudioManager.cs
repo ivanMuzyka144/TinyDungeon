@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameAudioManager : MonoBehaviour
 {
+    public static GameAudioManager Instance { get; private set; }
+
     [SerializeField] private AudioClip gameMusic;
     [SerializeField] private AudioClip buttonClickSound;
     [SerializeField] private AudioClip softClick;
@@ -17,9 +19,24 @@ public class GameAudioManager : MonoBehaviour
     [SerializeField] private AudioClip zoomOutSound;
     [SerializeField] private AudioClip doorOpens;
     [SerializeField] private AudioClip doorClose;
+    [SerializeField] private AudioClip wood;
+    [SerializeField] private AudioClip loose;
+    [SerializeField] private AudioClip win;
+    [SerializeField] private AudioClip miracle;
+    [SerializeField] private AudioClip item;
+    [SerializeField] private AudioClip gameOverVoice;
+    [SerializeField] private AudioClip gameOverMelody;
+    [SerializeField] private AudioClip chain;
+    [SerializeField] private AudioClip unlock;
+    [SerializeField] private AudioClip yoohoo;
+    [SerializeField] private AudioClip winMelody;
+    [SerializeField] private AudioClip confettiPop;
     [Space(10)]
     [SerializeField] private AudioSource musicAudioSource;
     [SerializeField] private AudioSource soundAudioSource;
+
+    private void Awake() => Instance = this;
+
     private void Start()
     {
         musicAudioSource.PlayOneShot(gameMusic);
@@ -51,37 +68,43 @@ public class GameAudioManager : MonoBehaviour
         }
     }
 
-    public void PlayDragSound()
+    public void PlayDragSound() => soundAudioSource.PlayOneShot(dragSound);
+    public void PlayDropSound() => soundAudioSource.PlayOneShot(dropSound);
+    public void PlayRunningSound() => soundAudioSource.PlayOneShot(runningSound);
+    public void PlayZoomInSound() => soundAudioSource.PlayOneShot(zoomInSound);
+    public void PlayZoomOutSound() => soundAudioSource.PlayOneShot(zoomOutSound);
+    public void PlayDoorOpensSound() =>soundAudioSource.PlayOneShot(doorOpens);
+    public void PlayDoorCloseSound() => soundAudioSource.PlayOneShot(doorClose);
+    public void PlayWoodSound() => soundAudioSource.PlayOneShot(wood);
+    public void PlayLooseSound() => soundAudioSource.PlayOneShot(loose);
+    public void PlayWinSound() => soundAudioSource.PlayOneShot(win);
+    public void PlayMiracleSound() => soundAudioSource.PlayOneShot(miracle);
+    public void PlayItemSound() => soundAudioSource.PlayOneShot(item);
+    public void PlayGameOverSound() 
     {
-        soundAudioSource.PlayOneShot(dragSound);
+        soundAudioSource.PlayOneShot(gameOverVoice);
     }
 
-    public void PlayDropSound()
+    public void PlayChainSound() => soundAudioSource.PlayOneShot(chain);
+    public void PlayUnlockSound() => soundAudioSource.PlayOneShot(unlock);
+    public void PlayGameWinSound()
     {
-        soundAudioSource.PlayOneShot(dropSound);
+        StartCoroutine(PlayOneMoreTime());
+        soundAudioSource.PlayOneShot(confettiPop);
     }
 
-    public void PlayRunningSound()
+    IEnumerator PlayOneMoreTime()
     {
-        soundAudioSource.PlayOneShot(runningSound);
+        yield return new WaitForSeconds(0.7f);
+        soundAudioSource.PlayOneShot(yoohoo);
+        soundAudioSource.PlayOneShot(winMelody);
+        soundAudioSource.PlayOneShot(confettiPop);
+        StartCoroutine(PlayTwoMoreTime());
     }
 
-    public void PlayZoomInSound()
+    IEnumerator PlayTwoMoreTime()
     {
-        soundAudioSource.PlayOneShot(zoomInSound);
-    }
-
-    public void PlayZoomOutSound()
-    {
-        soundAudioSource.PlayOneShot(zoomOutSound);
-    }
-
-    public void PlayDoorOpensSound()
-    {
-        soundAudioSource.PlayOneShot(doorOpens);
-    }
-    public void PlayDoorCloseSound()
-    {
-        soundAudioSource.PlayOneShot(doorClose);
+        yield return new WaitForSeconds(0.3f);
+        //soundAudioSource.PlayOneShot(confettiPop);
     }
 }

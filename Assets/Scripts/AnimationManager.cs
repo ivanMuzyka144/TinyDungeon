@@ -14,6 +14,7 @@ public class AnimationManager : MonoBehaviour
     private Player player;
     private GameStateManager gameStateManager;
     private StatisticsManager statisticsManager;
+    private GameAudioManager gameAudioManager;
 
     public void Activate()
     {
@@ -21,6 +22,7 @@ public class AnimationManager : MonoBehaviour
         player = Player.Instance;
         gameStateManager = GameStateManager.Instance;
         statisticsManager = StatisticsManager.Instance;
+        gameAudioManager = GameAudioManager.Instance;
     }
 
     public void MakeMovementSequence(object sender, EventArgs e)
@@ -45,6 +47,8 @@ public class AnimationManager : MonoBehaviour
             if (player.GetCurrentRoom().GetCategory() == RoomCategoryType.FinishRoom)
             {
                 player.SetVictoryAnimation();
+                player.GetCurrentRoom().PlayConfetti();
+                gameAudioManager.PlayGameWinSound();
                 gameStateManager.ChangeState(GameStateType.Finish);
             }
         };

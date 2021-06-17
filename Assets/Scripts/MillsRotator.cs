@@ -8,6 +8,8 @@ public class MillsRotator : MonoBehaviour
     [SerializeField] private DominoSelector dominoSelector;
     [SerializeField] private Mill mill;
     [SerializeField] private MillsRotationRegulator millsRotationRegulator;
+    [Space(10)]
+    [SerializeField] private GameAudioManager gameAudioManager;
 
     private bool canRotate;
     private bool isRotating;
@@ -60,6 +62,7 @@ public class MillsRotator : MonoBehaviour
 
     private void MakeNormalRotation()
     {
+        gameAudioManager.PlayDragSound();
         Action afterAnimAction = () =>
         {
             isRotating = false;

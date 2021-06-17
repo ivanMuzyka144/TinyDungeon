@@ -17,13 +17,15 @@ public class Door : MonoBehaviour
     private DoorAnimationMaker doorAnimationMaker;
     private DoorSelector doorSelector;
 
+    private GameAudioManager gameAudioManager;
+
     private bool isLocked;
     
     public void Activate()
     {
         gameStateManager = GameStateManager.Instance;
         doorShower = DoorShower.Instance;
-        
+        gameAudioManager = GameAudioManager.Instance;
         doorAnimationMaker = GetComponent<DoorAnimationMaker>();
         doorSelector = GetComponent<DoorSelector>();
         doorAnimationMaker.Activate();
@@ -146,10 +148,11 @@ public class Door : MonoBehaviour
             if (player.HasKey())
             {
                 UnlockDoor();
+                gameAudioManager.PlayUnlockSound();
             }
             else
             {
-                Debug.Log("SorryItLocked");
+                gameAudioManager.PlayChainSound();
             }
         }
         else
