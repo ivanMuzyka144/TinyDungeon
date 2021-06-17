@@ -11,6 +11,8 @@ public class MinigameManager : MonoBehaviour
     [SerializeField] private GameObject losePanel;
     [SerializeField] private GameObject timeEndedPanel;
     [Space(10)]
+    [SerializeField] private MiracleParticle miracleParticle;
+    [Space(10)]
     [SerializeField] private GameAudioManager gameAudioManager;
 
     private GameStateManager gameStateManager;
@@ -76,6 +78,7 @@ public class MinigameManager : MonoBehaviour
     {
         if (player.HasMiracle())
         {
+            miracleParticle.PlayParticle();
             Room currentRoom = player.GetCurrentRoom();
             currentRoom.ActivateRoomTorches(GetCurrentMinigame());
             currentRoom.DeactivatePlaying();
