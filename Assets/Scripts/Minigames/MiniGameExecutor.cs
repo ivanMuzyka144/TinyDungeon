@@ -9,6 +9,8 @@ public class MiniGameExecutor : MonoBehaviour
     [Space(10)]
     [SerializeField] private List<MiniGame> miniGames = new List<MiniGame>();
     [SerializeField] private List<MiniGame> vrMiniGames = new List<MiniGame>();
+    [Space(10)]
+    [SerializeField] private MinigameInfo cageMinigame;
 
     private Dictionary<MinigameInfo, MiniGame> miniGamesDictionary = new Dictionary<MinigameInfo, MiniGame>();
 
@@ -57,12 +59,23 @@ public class MiniGameExecutor : MonoBehaviour
 
 
         currentMiniGame.ShowMiniGame();
+        if (minigameInfo == cageMinigame)
+        {
+            currentMiniGame.ShowOrHideElement();
+        }
 
         Action afterAnimAction = () =>
         {
             uiManager.ShowMiraclePanel();
             uiManager.ShowTimerPanel();
-            currentMiniGame.EnableMiniGame();
+            if(minigameInfo == cageMinigame)
+            {
+                currentMiniGame.EnableMiniGame(false);
+            }
+            else
+            {
+                currentMiniGame.EnableMiniGame(true);
+            }
         };
 
         if (currentPlatform == PlatformType.VR)

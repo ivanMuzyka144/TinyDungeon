@@ -17925,6 +17925,7 @@ MonoBehaviour:
   - {fileID: 503003309}
   - {fileID: 403277073}
   vrMiniGames: []
+  cageMinigame: {fileID: 11400000, guid: e10a0916321aace4181f5eaf4e991e0e, type: 2}
 --- !u!1001 &1959307676
 PrefabInstance:
   m_ObjectHideFlags: 0

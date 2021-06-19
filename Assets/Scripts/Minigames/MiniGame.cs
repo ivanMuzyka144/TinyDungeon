@@ -46,13 +46,21 @@ public class MiniGame : MonoBehaviour
 
 
         currentTopology.ConfugurateTopology(topologyConfig);
-
+        Debug.Log("KEEEEEk");
     }
-    public void EnableMiniGame()
+
+    public void ShowOrHideElement()
+    {
+        conditionChecker.Configurate(currentTopology);
+    }
+    public void EnableMiniGame(bool shouldConfigurate)
     {
         moverSetter.SetMover(currentTopology);
         eventSubscriber.SubscribeToEvent(currentTopology, this);
-        conditionChecker.Configurate(currentTopology);
+        if (shouldConfigurate)
+        {
+            conditionChecker.Configurate(currentTopology);
+        }
     }
     public void DisableMiniGame()
     {
