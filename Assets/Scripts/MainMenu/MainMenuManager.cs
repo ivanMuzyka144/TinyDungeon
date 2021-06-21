@@ -19,9 +19,15 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Dropdown languageDropdown;
     [Space(10)]
     [SerializeField] private AudioMixer audioMixer;
+    [Space(10)]
+    [SerializeField] private VrCanvasContoller vrCanvasContoller;
+
+    private PlatformManager platformManager;
 
     private void Start()
     {
+        platformManager = PlatformManager.Instance;
+
         audioMixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat("musicVolume"));
         audioMixer.SetFloat("SoundVolume", PlayerPrefs.GetFloat("soundVolume"));
         if (PlayerPrefs.GetInt("shouldPlayMusic") == 0)
@@ -37,7 +43,19 @@ public class MainMenuManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("currentLevel",1);
         PlayerPrefs.SetInt("currentRooms", 0);
-        SceneManager.LoadScene("SampleScene");
+
+
+        if(platformManager.GetCurrentPlatform() != PlatformType.VR)
+        {
+            vrCanvasContoller.selectedObj = null;
+            vrCanvasContoller.Unsubscribe();
+            Destroy(vrCanvasContoller.gameObject);
+            SceneManager.LoadScene("VRGameScene");
+        }
+        else
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
         mainMenuAudioManager.PlayButtonClickMusic();
     }
     public void OnOptionsClicked()

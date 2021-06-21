@@ -6,7 +6,7 @@ using Valve.VR.Extras;
 
 public class VrCanvasContoller : MonoBehaviour
 {
-    public ISelectable selectedObj { get; private set; }
+    public ISelectable selectedObj { get;  set; }
 
     [SerializeField] private SteamVR_LaserPointer laser;
     private void Start()
@@ -29,6 +29,19 @@ public class VrCanvasContoller : MonoBehaviour
 
     }
 
+    public void Unsubscribe()
+    {
+        SteamVR_Actions.default_GrabPinch.RemoveOnStateDownListener(RightTriggerPressed, SteamVR_Input_Sources.RightHand);
+        SteamVR_Actions.default_GrabPinch.RemoveOnStateDownListener(RightTriggerReleased, SteamVR_Input_Sources.RightHand);
+        //SteamVR_Actions.default_Teleport.AddOnStateDownListener(TeleportPressed, SteamVR_Input_Sources.RightHand);
+        laser.PointerIn -= PointerIn;
+        laser.PointerOut -= PointerOut;
+    }
+
+    private void OnDestroy()
+    {
+        Unsubscribe();
+    }
     public void PointerOut(object sender, PointerEventArgs e)
     {
         if (e.target.transform.GetComponent<ISelectable>() != null)

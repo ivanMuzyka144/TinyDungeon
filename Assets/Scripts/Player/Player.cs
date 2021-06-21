@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -185,7 +186,7 @@ public class Player : MonoBehaviour
 
         for (int i = 0; i < lifeCount; i++)
         {
-            startItems.Add(itemCollection.GetLifeItem());
+            //startItems.Add(itemCollection.GetLifeItem());
         }
         for (int i = 0; i < coinsCount; i++)
         {
@@ -211,8 +212,15 @@ public class Player : MonoBehaviour
         else
         {
             isAlive = false;
-            gameAudioManager.PlayGameOverSound();
-            gameStateManager.ChangeState(GameStateType.GameOver);
+            if (currentPlatform != PlatformType.VR)
+            {
+                gameAudioManager.PlayGameOverSound();
+                gameStateManager.ChangeState(GameStateType.GameOver);
+            }
+            else
+            {
+                SceneManager.LoadScene("GameOverVRScene");
+            }
         }
     }
 

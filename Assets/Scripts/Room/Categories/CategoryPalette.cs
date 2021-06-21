@@ -35,7 +35,7 @@ public class CategoryPalette : MonoBehaviour
 
         //return finalColors[Random.Range(0, finalColors.Count)];
         MinigameInfo ttt = allMinigameInfo[Random.Range(0, allMinigameInfo.Count)];
-        Debug.Log("COLOR" + ttt);
+
         return ttt;
     }
     
