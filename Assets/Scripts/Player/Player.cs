@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
         playerItemHolder = GetComponent<PlayerItemHolder>();
 
         currentPlatform = platformManager.GetCurrentPlatform();
-
+        gameAudioManager = GameAudioManager.Instance;
         playerMover.Activate();
         playerItemHolder.Activate();
     }
@@ -104,8 +104,9 @@ public class Player : MonoBehaviour
         Vector3 nextPosition = nextRoom.transform.position + offset;
         nextPosition.y = transform.position.y;
 
-
+        Debug.Log("wqwq"+ playerMover);
         playerMover.MoveToAnotherRoom(nextPosition, afterAnimAction);
+        
         gameAudioManager.PlayRunningSound();
         playerMover.SetCurrentRoom(nextRoom);
     }
@@ -136,8 +137,8 @@ public class Player : MonoBehaviour
                     animationModel.localEulerAngles = new Vector3(0, 0, 0);
                     break;
             }
-
-            animator.SetBool("isRunning", true);
+            if (currentPlatform != PlatformType.VR)
+                animator.SetBool("isRunning", true);
         }
     }
 

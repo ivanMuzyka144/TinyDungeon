@@ -21,6 +21,7 @@ public class MinigameManager : MonoBehaviour
     private MiniGameExecutor miniGameExecutor;
     private StatisticsManager statisticsManager;
 
+
     private void Awake() => Instance = this;
 
     public void Activate()
@@ -76,10 +77,22 @@ public class MinigameManager : MonoBehaviour
 
     public void UseMiracleForMiniGame()
     {
-        if (player.HasMiracle())
+        if (player.HasMiracle() && GetCurrentMinigame() != null)
         {
             miracleParticle.PlayParticle();
             Room currentRoom = player.GetCurrentRoom();
+            currentRoom.ActivateRoomTorches(GetCurrentMinigame());
+            currentRoom.DeactivatePlaying();
+            player.RemoveMiracle();
+            SkipWithMiracle();
+        }
+    }
+    public void UseMiracleForMiniGame(bool shouldShowPosition)
+    {
+        if (player.HasMiracle() && GetCurrentMinigame() != null)
+        {
+            Room currentRoom = player.GetCurrentRoom();
+            miracleParticle.PlayParticle(currentRoom.transform.position);
             currentRoom.ActivateRoomTorches(GetCurrentMinigame());
             currentRoom.DeactivatePlaying();
             player.RemoveMiracle();

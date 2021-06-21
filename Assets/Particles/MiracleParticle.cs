@@ -15,6 +15,14 @@ public class MiracleParticle : MonoBehaviour
         StartCoroutine(StopMiracleCoroutine());
     }
 
+    public void PlayParticle(Vector3 position)
+    {
+        transform.position = position;
+        EmissionModule em = particleSystem.emission;
+        em.rate = 100;
+        StartCoroutine(StopMiracleCoroutine());
+    }
+
     IEnumerator StopMiracleCoroutine()
     {
         yield return new WaitForSeconds(1);

@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.tinydungeoun3.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\XRLab\\Desktop\\TinyDungeon\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "C:\\Users\\XRLAB\\Documents\\GitHub\\TinyDungeon\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "TinyDungeoun3 [Testing]"

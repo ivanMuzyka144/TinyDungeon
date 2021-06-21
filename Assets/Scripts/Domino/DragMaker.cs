@@ -121,6 +121,7 @@ public class DragMaker : MonoBehaviour
         EnablePlacesForDominoForSelecting();
         dominoSelector.Block(); 
         dominoSelector.OnDeselected();
+        gameAudioManager.PlayDragSound();
         Vector3 handPoint = vrContoller.GetHandPoint();
         gameObject.transform.positionTransition(handPoint, 0.2f);
         gameObject.transform.localEulerAnglesTransform(new Vector3(30, 0, 0), 0.2f);
@@ -134,6 +135,7 @@ public class DragMaker : MonoBehaviour
         DisablePlacesForDominoForSelecting();
         dominoSelector.BlockForSec();
         dominoSelector.OnDeselected();
+        gameAudioManager.PlayDropSound();
         gameObject.transform.localPositionTransition(startLocalPosition, 0.2f);
         gameObject.transform.localEulerAnglesTransform(new Vector3(0, 0, 0), 0.2f);
         gameObject.transform.localScaleTransition(gameObject.transform.localScale * 2f, 0.2f);
